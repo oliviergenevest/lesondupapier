@@ -1,0 +1,16 @@
+---
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { OlivBlockFragment } from './fragments';
+
+interface Props {
+  block: FragmentOf<typeof OlivBlockFragment>;
+}
+
+const { block } = Astro.props;
+
+// Read unmasked block from fragment
+const unmaskedBlock = readFragment(OlivBlockFragment, block);
+---
+  
+  {/* Display block slug field */}
+  <p>{unmaskedBlock.slug}</p>

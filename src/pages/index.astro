@@ -25,6 +25,9 @@ import { ImageBlockFragment } from '~/components/blocks/ImageBlock/fragments';
 import { ImageGalleryBlock } from '~/components/blocks/ImageGalleryBlock';
 import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock/fragments';
 
+import { OlivBlock } from '~/components/blocks/OlivBlock';
+import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
+
 /**
  * The GraphQL query that will be executed for this route to generate the page
  * content and metadata.
@@ -56,6 +59,9 @@ const query = graphql(
             ... on VideoBlockRecord {
               ...VideoBlockFragment
             }
+            ... on OlivBlockRecord {
+              ...OlivBlockFragment
+            }
           }
           links {
             ... on RecordInterface {
@@ -73,6 +79,7 @@ const query = graphql(
     TagFragment,
     ImageBlockFragment,
     ImageGalleryBlockFragment,
+    OlivBlockFragment,
     VideoBlockFragment,
     PageLinkFragment,
     PageInlineFragment,
@@ -93,6 +100,7 @@ if (!page) {
 <Layout additionalSeo={page._seoMetaTags}>
   <h1>{page.title}</h1>
 
+
   {
     /*
      * Structured Text is a JSON format similar to HTML, but with the advantage
@@ -111,6 +119,7 @@ if (!page) {
       ImageBlockRecord: ImageBlock,
       ImageGalleryBlockRecord: ImageGalleryBlock,
       VideoBlockRecord: VideoBlock,
+      OlivBlockRecord: OlivBlock,
     }}
     linkToRecordComponents={/*
      * If the structured text includes a link to another DatoCMS record,
