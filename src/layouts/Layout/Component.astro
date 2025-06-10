@@ -5,6 +5,9 @@ import { graphql } from '~/lib/datocms/graphql';
 import { DraftModeToggler } from '~/components/DraftModeToggler';
 import { Seo, type TitleMetaLinkTag } from '@datocms/astro';
 import { isDraftModeEnabled } from '~/lib/draftMode';
+import  Footer  from '~/components/Footer/Footer.astro';
+import { BaseLayout } from '../BaseLayout';
+//import  Navigation  from '~/components/Navigation/Navigation.astro';
 
 type Props = {
   additionalSeo?: TitleMetaLinkTag[];
@@ -28,7 +31,17 @@ const query = graphql(
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 ---
+<BaseLayout seo={[...result._site.faviconMetaTags, ...additionalSeo]}>
+ 
+ <DraftModeToggler /> <!-- <Navbar data={navbarData} />-->
+  <div transition:animate="fade">
+    <slot />
+  </div>
+  <Footer />
 
+
+</BaseLayout>
+<!--
 <!doctype html>
 <html lang="fr">
   <head>
@@ -52,5 +65,7 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
     <main>
       <slot />
     </main>
+    <Footer />
   </body>
 </html>
+ -->

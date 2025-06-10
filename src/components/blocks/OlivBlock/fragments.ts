@@ -13,9 +13,10 @@ import { graphql } from '~/lib/datocms/graphql';
  * Learn more: https://gql-tada.0no.co/guides/fragment-colocation
  */
 
-export const OlivBlockFragment = graphql( 
-  /* GraphQL */ `
+export const OlivBlockFragment = graphql(/* GraphQL */ `
   fragment OlivBlockFragment on OlivBlockRecord {
     slug
+    content
+    
   }
 `);

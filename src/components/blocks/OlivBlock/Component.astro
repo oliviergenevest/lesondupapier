@@ -7,12 +7,13 @@ interface Props {
 }
 
 const { block } = Astro.props;
-console.log(block);
+//console.log(block);
 
 // Read unmasked block from fragment
 const unmaskedBlock = readFragment(OlivBlockFragment, block);
-
 ---
 
 {/* Display block slug field */}
 <p>{unmaskedBlock.slug}</p>
+<div set:html={unmaskedBlock.content} />
+

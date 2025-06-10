@@ -1,0 +1,28 @@
+---
+import { Seo, type TitleMetaLinkTag } from '@datocms/astro';
+import './global.css';
+
+type Props = {
+  seo: TitleMetaLinkTag[];
+};
+
+const { seo } = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <style id="css-layers" is:inline>
+      @layer reset, prose;
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <Seo data={[ ...seo]} />
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
