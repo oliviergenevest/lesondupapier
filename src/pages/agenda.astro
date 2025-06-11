@@ -1,0 +1,88 @@
+---
+import { graphql } from '~/lib/datocms/graphql';
+import {Layout} from '../layouts/Layout';
+import { TagFragment } from '~/lib/datocms/commonFragments';
+import { executeQuery } from '~/lib/datocms/executeQuery';
+import { StructuredText } from '@datocms/astro';
+
+import { HeadingWithAnchorLink } from '~/components/HeadingWithAnchorLink';
+
+import { isDraftModeEnabled } from '~/lib/draftMode';
+import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
+
+import { PageInline } from '~/components/inlineRecord/PageInline';
+import { PageInlineFragment } from '~/components/inlineRecord/PageInline/fragments';
+
+import { PageLink } from '~/components/linkToRecord/PageLink';
+import { PageLinkFragment } from '~/components/linkToRecord/PageLink/fragments';
+
+import { VideoBlock } from '~/components/blocks/VideoBlock';
+import { VideoBlockFragment } from '~/components/blocks/VideoBlock/fragments';
+
+import { ImageBlock } from '~/components/blocks/ImageBlock';
+import { ImageBlockFragment } from '~/components/blocks/ImageBlock/fragments';
+
+import { ImageGalleryBlock } from '~/components/blocks/ImageGalleryBlock';
+import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock/fragments';
+
+import { OlivBlock } from '~/components/blocks/OlivBlock';
+import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
+
+
+import { Wrapper } from '~/components/Wrapper';
+import { Title } from '~/components/Title'; 
+
+/**
+ * The GraphQL query that will be executed for this route to generate the page
+ * content and metadata.
+ *
+ * Thanks to gql.tada, the result will be fully typed!
+ */
+const query = graphql(
+  /* GraphQL */ `
+    query AgendaPageQuery {
+      pageAgenda {
+        _seoMetaTags {
+          ...TagFragment
+        }
+        title
+        _firstPublishedAt
+        
+      }
+    }
+  `,
+  [
+    TagFragment,
+    
+  ],
+);
+
+const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
+const { pageAgenda } = await executeQuery(query, { includeDrafts: draftModeEnabled });
+
+if (!pageAgenda) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  });
+}
+---
+
+<Layout additionalSeo={pageAgenda._seoMetaTags}>
+   <Wrapper class="wrapper ">
+  <Title class="title h1">{pageAgenda.title}</Title>
+  ICI LE COMPOSANT AGENDA sur date future limité à 10 items.
+  
+</Wrapper>
+  <footer>Published at {pageAgenda._firstPublishedAt}</footer>
+
+  <DraftModeQueryListener query={query} />
+ 
+</Layout>
+
+
+<style>
+  body {
+     background-color:var(--color-green);
+  }
+</style>

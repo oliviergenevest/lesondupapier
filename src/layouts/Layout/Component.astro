@@ -7,8 +7,8 @@ import { Seo, type TitleMetaLinkTag } from '@datocms/astro';
 import { isDraftModeEnabled } from '~/lib/draftMode';
 import  Footer  from '~/components/Footer/Footer.astro';
 import { BaseLayout } from '../BaseLayout';
-//import  Navigation  from '~/components/Navigation/Navigation.astro';
-
+import  {Navigation}  from '~/components/Navigation'
+import {Wrapper} from '~/components/Wrapper'
 type Props = {
   additionalSeo?: TitleMetaLinkTag[];
 };
@@ -32,15 +32,26 @@ const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 ---
 <BaseLayout seo={[...result._site.faviconMetaTags, ...additionalSeo]}>
- 
- <DraftModeToggler /> <!-- <Navbar data={navbarData} />-->
-  <div transition:animate="fade">
-    <slot />
-  </div>
-  <Footer />
+<div class="subheader">SUBHEADER</div>
+  <div class="header">
 
+    <div>LOGO</div> 
+    <Navigation/> 
+
+ 
+
+</div>
+    
+    <DraftModeToggler /> <!-- <Navbar data={navbarData} />-->
+    <div transition:animate="fade">
+      <slot />
+    </div>
+    <Footer />
 
 </BaseLayout>
+
+
+
 <!--
 <!doctype html>
 <html lang="fr">

@@ -80,6 +80,34 @@ type AgendaRecord implements RecordInterface {
   startDate: Date!
 }
 
+"""Block of type Bloc Image + texte (bloc_image_texte)"""
+type BlocImageTexteRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  image: FileField
+  text(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+}
+
 """Specifies how to filter Boolean fields"""
 input BooleanFilter {
   """Search for records with an exact match"""
@@ -2899,6 +2927,32 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
+"""Record of type 📝 Page Agenda (page_agenda)"""
+type PageAgendaRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  seoAnalysis: JsonField
+  seoSettingsSocial: SeoField
+  title: String!
+}
+
 union PageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | OlivBlockRecord | VideoBlockRecord
 
 type PageModelStructuredTextField {
@@ -3254,6 +3308,17 @@ type Query {
     fallbackLocales: [SiteLocale!]
   ): PageRecord
 
+  """Returns the single instance record"""
+  pageAgenda(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): PageAgendaRecord
+
   """Returns a specific record"""
   spectacle(
     """The locale to use to fetch the field's content"""
@@ -3371,6 +3436,21 @@ enum SiteLocale {
   fre
 }
 
+"""Specifies how to filter Slug fields"""
+input SlugFilter {
+  """Search for records with an exact match"""
+  eq: String
+
+  """Exclude records with an exact match"""
+  neq: String
+
+  """Filter records that have one of the specified slugs"""
+  in: [String]
+
+  """Filter records that do have one of the specified slugs"""
+  notIn: [String]
+}
+
 input SpectacleModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
@@ -3381,6 +3461,8 @@ input SpectacleModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  slug: SlugFilter
+  title: StringFilter
   OR: [SpectacleModelFilter]
   AND: [SpectacleModelFilter]
 }
@@ -3404,6 +3486,8 @@ enum SpectacleModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  title_ASC
+  title_DESC
 }
 
 """Record of type Spectacle (spectacle)"""
@@ -3427,6 +3511,8 @@ type SpectacleRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  slug: String
+  title: String
 }
 
 """Specifies how to filter by status"""

@@ -23,10 +23,22 @@
     margin: 0;
     color: var(--base-body-color);
     font-family: var(--font-sans);
-    font-size: rfs(18px);
+    font-size: 18px;
     text-rendering: optimizeLegibility;
     background: var(--color-cream);
     overflow-y: auto;
+  }
+
+  .header{
+    background: var(--color-cream);
+
+  }
+ 
+  .subheader{
+    background: var(--color-yellow);
+    text-align:right;
+    padding-left: var(--page-margin);
+    padding-right: var(--page-margin);
   }
 
   img,

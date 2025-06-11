@@ -27,6 +27,8 @@ import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock
 
 import { OlivBlock } from '~/components/blocks/OlivBlock';
 import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
+import { Wrapper } from '~/components/Wrapper';
+import { Title } from '~/components/Title'; 
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -98,7 +100,10 @@ if (!page) {
 ---
 
 <Layout additionalSeo={page._seoMetaTags}>
-  <h1>{page.title}</h1>
+   <Wrapper class="wrapper ">
+  <Title class="title h1">{page.title}</Title>
+  <Title class="title h1 with-lines">Les ateliers partagés</Title>
+  <Title class="title h2 ">Les ateliers partagés</Title>
 
   {
     /*
@@ -141,8 +146,10 @@ if (!page) {
      */ {
       heading: HeadingWithAnchorLink,
     }}
-  />
+  /> 
+</Wrapper>
   <footer>Published at {page._firstPublishedAt}</footer>
 
   <DraftModeQueryListener query={query} />
+ 
 </Layout>
