@@ -60,7 +60,6 @@ const query = graphql(
   [TagFragment, ResponsiveImageFragment],
 );
 
-
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 const { pageAgenda } = await executeQuery(query, { includeDrafts: draftModeEnabled });
 
@@ -70,7 +69,6 @@ if (!pageAgenda) {
     statusText: 'Not found',
   });
 }
-
 ---
 
 <Layout additionalSeo={pageAgenda._seoMetaTags} backgroundColor="var(--color-yellow)">
@@ -78,7 +76,7 @@ if (!pageAgenda) {
     <Title class="title h1 with-lines">{pageAgenda.title}</Title>
     ICI LE COMPOSANT AGENDA sur date future limité à 10 items.
 
-    <ResponsiveImage data={pageAgenda.image.responsiveImage}/>
+    <ResponsiveImage data={pageAgenda.image.responsiveImage} />
     <footer>Published at {pageAgenda._firstPublishedAt}</footer>
   </Wrapper>
   <DraftModeQueryListener query={query} />

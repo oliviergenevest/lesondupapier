@@ -80,34 +80,6 @@ type AgendaRecord implements RecordInterface {
   startDate: Date!
 }
 
-"""Block of type Bloc Image + texte (bloc_image_texte)"""
-type BlocImageTexteRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  id: ItemId!
-  image: FileField
-  text(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
-}
-
 """Specifies how to filter Boolean fields"""
 input BooleanFilter {
   """Search for records with an exact match"""
@@ -507,42 +479,16 @@ type GlobalSeoField {
   twitterAccount: String
 }
 
-input HomepageModelFilter {
-  _createdAt: CreatedAtFilter
-  id: ItemIdFilter
-  _firstPublishedAt: PublishedAtFilter
-  _publicationScheduledAt: PublishedAtFilter
-  _unpublishingScheduledAt: PublishedAtFilter
-  _publishedAt: PublishedAtFilter
-  _status: StatusFilter
-  _updatedAt: UpdatedAtFilter
-  _isValid: BooleanFilter
-  OR: [HomepageModelFilter]
-  AND: [HomepageModelFilter]
+union HomepageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | OlivBlockRecord | VideoBlockRecord
+
+type HomepageModelStructuredTextField {
+  blocks: [HomepageModelStructuredTextBlocksField!]!
+  inlineBlocks: [String!]!
+  links: [PageRecord!]!
+  value: JsonField!
 }
 
-enum HomepageModelOrderBy {
-  _createdAt_ASC
-  _createdAt_DESC
-  id_ASC
-  id_DESC
-  _firstPublishedAt_ASC
-  _firstPublishedAt_DESC
-  _publicationScheduledAt_ASC
-  _publicationScheduledAt_DESC
-  _unpublishingScheduledAt_ASC
-  _unpublishingScheduledAt_DESC
-  _publishedAt_ASC
-  _publishedAt_DESC
-  _status_ASC
-  _status_DESC
-  _updatedAt_ASC
-  _updatedAt_DESC
-  _isValid_ASC
-  _isValid_DESC
-}
-
-"""Record of type Homepage (homepage)"""
+"""Record of type 📝 Homepage (homepage)"""
 type HomepageRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -562,7 +508,12 @@ type HomepageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  backgroundColor: ColorField!
   id: ItemId!
+  seoAnalysis: JsonField
+  seoSettingsSocial: SeoField
+  structuredText: HomepageModelStructuredTextField!
+  title: String!
 }
 
 """Block of type 🌅 Image (image_block)"""
@@ -710,6 +661,34 @@ type ImageGalleryBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   assets: [ImageFileField!]!
   id: ItemId!
+}
+
+"""Block of type Bloc Image + texte (image_text_block)"""
+type ImageTextBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  image: ImageFileField!
+  text(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
 }
 
 input ImgixParams {
@@ -2846,8 +2825,6 @@ input NavigationModelFilter {
   AND: [NavigationModelFilter]
 }
 
-union NavigationModelItemsField = HomepageRecord | PageRecord
-
 enum NavigationModelOrderBy {
   _createdAt_ASC
   _createdAt_DESC
@@ -2893,7 +2870,7 @@ type NavigationRecord implements RecordInterface {
   _updatedAt: DateTime!
   children: [NavigationRecord!]!
   id: ItemId!
-  items: NavigationModelItemsField
+  items: PageRecord
   parent: NavigationRecord
   position: IntType
 }
@@ -3009,7 +2986,7 @@ enum PageModelOrderBy {
   title_DESC
 }
 
-union PageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | OlivBlockRecord | VideoBlockRecord
+union PageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | ImageTextBlockRecord | OlivBlockRecord | VideoBlockRecord
 
 type PageModelStructuredTextField {
   blocks: [PageModelStructuredTextBlocksField!]!
@@ -3134,13 +3111,6 @@ type Query {
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
-  _allHomepagesMeta(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-    filter: HomepageModelFilter
-  ): CollectionMetadata!
-
-  """Returns meta information regarding a record collection"""
   _allMembersMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -3217,25 +3187,6 @@ type Query {
     filter: AgendaModelFilter
     orderBy: [AgendaModelOrderBy] = [_updatedAt_DESC]
   ): [AgendaRecord!]!
-
-  """Returns a collection of records"""
-  allHomepages(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-
-    """Skip the first results"""
-    skip: IntType
-
-    """Limit the number of results"""
-    first: IntType = 20
-    filter: HomepageModelFilter
-    orderBy: [HomepageModelOrderBy] = [_updatedAt_DESC]
-  ): [HomepageRecord!]!
 
   """Returns a collection of records"""
   allMembers(
@@ -3343,7 +3294,7 @@ type Query {
     fallbackLocales: [SiteLocale!]
   ): FooterRecord
 
-  """Returns a specific record"""
+  """Returns the single instance record"""
   homepage(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -3352,8 +3303,6 @@ type Query {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-    filter: HomepageModelFilter
-    orderBy: [HomepageModelOrderBy] = [_updatedAt_DESC]
   ): HomepageRecord
 
   """Returns a specific record"""

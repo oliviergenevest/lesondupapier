@@ -27,6 +27,8 @@ import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock
 
 import { OlivBlock } from '~/components/blocks/OlivBlock';
 import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
+import { ImageTextBlock } from '~/components/blocks/ImageTextBlock';
+import { ImageTextBlockFragment } from '~/components/blocks/ImageTextBlock/fragments';
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
 
@@ -67,6 +69,9 @@ const query = graphql(
             ... on OlivBlockRecord {
               ...OlivBlockFragment
             }
+            ... on ImageTextBlockRecord {
+              ...ImageTextBlockFragment
+            }
           }
           links {
             ... on RecordInterface {
@@ -85,6 +90,7 @@ const query = graphql(
     ImageBlockFragment,
     ImageGalleryBlockFragment,
     OlivBlockFragment,
+    ImageTextBlockFragment,
     VideoBlockFragment,
     PageLinkFragment,
     PageInlineFragment,
@@ -113,7 +119,7 @@ console.log('-----> variables: backgroundColor=', bgColor);
 
 <Layout additionalSeo={page._seoMetaTags} backgroundColor={page.backgroundColor?.hex}>
   <Wrapper class="wrapper">
-    <Title class="title h1 with-lines">CMS PAGE</Title>
+    <p><b>MODEL PAGE</b></p>
 
     {
       /*
@@ -134,6 +140,7 @@ console.log('-----> variables: backgroundColor=', bgColor);
         ImageGalleryBlockRecord: ImageGalleryBlock,
         VideoBlockRecord: VideoBlock,
         OlivBlockRecord: OlivBlock,
+        ImageTextBlockRecord: ImageTextBlock,
       }}
       linkToRecordComponents={/*
        * If the structured text includes a link to another DatoCMS record,

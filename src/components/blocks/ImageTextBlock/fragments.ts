@@ -13,13 +13,13 @@ import { ResponsiveImageFragment } from '~/components/ResponsiveImage/fragments'
  * Learn more: https://gql-tada.0no.co/guides/fragment-colocation
  */
 
-export const OlivBlockFragment = graphql(
+export const ImageTextBlockFragment = graphql(
   /* GraphQL */ `
-    fragment OlivBlockFragment on OlivBlockRecord {
-      slug
-      content
+    fragment ImageTextBlockFragment on ImageTextBlockRecord {
+      
+      text
       image {
-        alt
+        alt 
         responsiveImage(sizes: "(max-width: 700px) 100vw, 700px") {
           ...ResponsiveImageFragment
         }

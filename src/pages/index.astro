@@ -31,15 +31,15 @@ import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
 
 /**
- * The GraphQL query that will be executed for this route to generate the page
+ * The GraphQL query that will be executed for this route to generate the homepage
  * content and metadata.
  *
  * Thanks to gql.tada, the result will be fully typed!
  */
 const query = graphql(
   /* GraphQL */ `
-    query BasicPageQuery {
-      page {
+    query HomepageQuery {
+      homepage {
         _seoMetaTags {
           ...TagFragment
         }
@@ -89,9 +89,9 @@ const query = graphql(
 );
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
-const { page } = await executeQuery(query, { includeDrafts: draftModeEnabled });
+const { homepage } = await executeQuery(query, { includeDrafts: draftModeEnabled });
 
-if (!page) {
+if (!homepage) {
   return new Response(null, {
     status: 404,
     statusText: 'Not found',
@@ -99,12 +99,10 @@ if (!page) {
 }
 ---
 
-<Layout additionalSeo={page._seoMetaTags} backgroundColor="white">
+<Layout additionalSeo={homepage._seoMetaTags} backgroundColor="var(--color-cream)">
   <Wrapper class="wrapper">
-    <Title class="title h1">{page.title}</Title>
-    <Title class="title h1 with-lines">Les ateliers partagés</Title>
-    <Title class="title h2">Les ateliers partagés</Title>
-
+       <p><b>HOMEPAGE MODEL PAGE</b></p>
+    
     {
       /*
        * Structured Text is a JSON format similar to HTML, but with the advantage
@@ -114,7 +112,7 @@ if (!page) {
        */
     }
     <StructuredText
-      data={page.structuredText}
+      data={homepage.structuredText}
       blockComponents={/*
        * If the structured text embeds any blocks, it's up to you to decide
        * how to render them:
@@ -150,7 +148,7 @@ if (!page) {
     />
   </Wrapper>
 
-  <div>Published at {page._firstPublishedAt}</div>
+  <div>Published at {homepage._firstPublishedAt}</div>
 
   <DraftModeQueryListener query={query} />
 </Layout>
