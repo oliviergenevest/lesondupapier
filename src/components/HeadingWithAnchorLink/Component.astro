@@ -32,7 +32,7 @@ const slug = slugify(structuredTextToPlainText(node));
   /*
     Renders a Structured Text heading node as an heading with anchor link.
   */
-/*
+  /*
   slug ? (
     <Element id={slug} tabindex="-1">
       <a href={`#${slug}`}>
@@ -46,9 +46,8 @@ const slug = slugify(structuredTextToPlainText(node));
   )
   */
 
- 
-slug ? (
-    <Title as={`h${node.level}`}  id={slug} tabindex="-1" class="title with-lines">
+  slug ? (
+    <Title as={`h${node.level}`} id={slug} tabindex="-1" class="title with-lines">
       <a href={`#${slug}`}>
         <slot />
       </a>

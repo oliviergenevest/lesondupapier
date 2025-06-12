@@ -41,11 +41,11 @@ const query = graphql(
     query AllPagesQuery($slug: String) {
       page(filter: { slug: { eq: $slug } }) {
         _seoMetaTags {
-            ...TagFragment
-            }
-         title
-         backgroundColor { 
-          hex 
+          ...TagFragment
+        }
+        title
+        backgroundColor {
+          hex
         }
         _firstPublishedAt
         structuredText {
@@ -93,8 +93,11 @@ const query = graphql(
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 
 const variables = { slug: Astro.params.slug! };
-console.log("-----> variables: slug page =", variables);
-const { page } = await executeQuery(query, { includeDrafts: draftModeEnabled, variables: variables });
+console.log('-----> variables: slug page =', variables);
+const { page } = await executeQuery(query, {
+  includeDrafts: draftModeEnabled,
+  variables: variables,
+});
 
 if (!page) {
   return new Response(null, {
@@ -105,17 +108,12 @@ if (!page) {
 
 //const backgroundColor = page.backgroundColor?.hex;
 const bgColor = page.backgroundColor.hex;
-console.log("-----> variables: backgroundColor=",  bgColor);
-
-
---- 
-
+console.log('-----> variables: backgroundColor=', bgColor);
+---
 
 <Layout additionalSeo={page._seoMetaTags} backgroundColor={page.backgroundColor?.hex}>
   <Wrapper class="wrapper">
-   
     <Title class="title h1 with-lines">CMS PAGE</Title>
-
 
     {
       /*
@@ -156,7 +154,7 @@ console.log("-----> variables: backgroundColor=",  bgColor);
        * You can also override the default rendering of certain nodes.
        * In this case, we want to tweak the way headings (h1-h6) are rendered.
        */ {
-          heading: HeadingWithAnchorLink,
+        heading: HeadingWithAnchorLink,
         //heading: Title,
       }}
     />

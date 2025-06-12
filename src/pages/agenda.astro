@@ -28,10 +28,10 @@ import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock
 import { OlivBlock } from '~/components/blocks/OlivBlock';
 import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
 
-
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
-import {Image} from '@datocms/astro';
+import { ResponsiveImage } from '~/components/ResponsiveImage';
+import { ResponsiveImageFragment } from '~/components/ResponsiveImage/fragments';
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -50,29 +50,16 @@ const query = graphql(
         image {
           alt
           responsiveImage {
-             # always required
-              src
-              srcSet
-              width
-              height
-
-              # not required, but strongly suggested!
-              alt
-              title
-
-              # LQIP (base64-encoded)
-              base64
-
-              # you can omit 'sizes' if you explicitly pass the 'sizes' prop to the image component
-              sizes
+            ...ResponsiveImageFragment
           }
         }
         _firstPublishedAt
       }
     }
   `,
-  [TagFragment],
+  [TagFragment, ResponsiveImageFragment],
 );
+
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 const { pageAgenda } = await executeQuery(query, { includeDrafts: draftModeEnabled });
@@ -83,17 +70,15 @@ if (!pageAgenda) {
     statusText: 'Not found',
   });
 }
+
 ---
 
-
-<Layout additionalSeo={pageAgenda._seoMetaTags} backgroundColor='var(--color-yellow)'>
+<Layout additionalSeo={pageAgenda._seoMetaTags} backgroundColor="var(--color-yellow)">
   <Wrapper class="wrapper">
     <Title class="title h1 with-lines">{pageAgenda.title}</Title>
     ICI LE COMPOSANT AGENDA sur date future limité à 10 items.
 
-
-
-   <Image data={pageAgenda.image.responsiveImage} />
+    <ResponsiveImage data={pageAgenda.image.responsiveImage}/>
     <footer>Published at {pageAgenda._firstPublishedAt}</footer>
   </Wrapper>
   <DraftModeQueryListener query={query} />

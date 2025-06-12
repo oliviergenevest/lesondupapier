@@ -41,24 +41,24 @@ const query = graphql(
     query AllSpectaclesQuery($slug: String) {
       spectacle(filter: { slug: { eq: $slug } }) {
         _seoMetaTags {
-            ...TagFragment
-            }
+          ...TagFragment
+        }
         title
         slug
       }
     }
   `,
-  [
-    TagFragment,
-    
-  ],
+  [TagFragment],
 );
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 
 const variables = { slug: Astro.params.slug! };
-console.log("-----> variables: slug spectacle =", variables);
-const { spectacle } = await executeQuery(query, { includeDrafts: draftModeEnabled, variables: variables });
+console.log('-----> variables: slug spectacle =', variables);
+const { spectacle } = await executeQuery(query, {
+  includeDrafts: draftModeEnabled,
+  variables: variables,
+});
 
 if (!spectacle) {
   return new Response(null, {
@@ -67,13 +67,15 @@ if (!spectacle) {
   });
 }
 ---
+
 {
-      /*
-       * 
-       * Mettre le bon layout correspondant aux spectacles (LayoutSpectacle)
-       */
-    }
-<Layout additionalSeo={spectacle._seoMetaTags} backgroundColor='var(--color-cream'>
+  /*
+   *
+   * Mettre le bon layout correspondant aux spectacles (LayoutSpectacle)
+   */
+}
+<Layout additionalSeo={spectacle._seoMetaTags} backgroundColor="var(--color-cream">
   <Wrapper class="wrapper">
     <Title class="title h1">{spectacle.title}</Title>
-</Layout>
+  </Wrapper></Layout
+>

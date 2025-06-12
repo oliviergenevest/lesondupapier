@@ -1,5 +1,5 @@
 import { graphql } from '~/lib/datocms/graphql';
-
+import { ResponsiveImageFragment } from '~/components/ResponsiveImage/fragments';
 /**
  * Let's define the GraphQL fragment needed for the component to function.
  *
@@ -17,5 +17,12 @@ export const OlivBlockFragment = graphql(/* GraphQL */ `
   fragment OlivBlockFragment on OlivBlockRecord {
     slug
     content
+    image {
+      alt
+       responsiveImage(sizes: "(max-width: 700px) 100vw, 700px") {
+          ...ResponsiveImageFragment
+        }
+    
+    }
   }
-`);
+`,  [ResponsiveImageFragment]);

@@ -37,7 +37,7 @@
   }
 
   .subheader {
-    height:36px;
+    height: 36px;
     background: var(--color-yellow);
     text-align: right;
     padding-left: var(--page-margin);
@@ -80,7 +80,7 @@
   h5,
   h6 {
     overflow-wrap: break-word;
-    font-weight:normal;
+    font-weight: normal;
   }
 
   ::-moz-selection {

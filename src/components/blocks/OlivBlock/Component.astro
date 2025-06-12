@@ -1,6 +1,7 @@
 ---
 import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
 import { OlivBlockFragment } from './fragments';
+import { ResponsiveImage } from '~/components/ResponsiveImage';
 
 interface Props {
   block: FragmentOf<typeof OlivBlockFragment>;
@@ -8,7 +9,7 @@ interface Props {
 
 const { block } = Astro.props;
 //console.log(block);
-
+ 
 // Read unmasked block from fragment
 const unmaskedBlock = readFragment(OlivBlockFragment, block);
 ---
@@ -16,3 +17,5 @@ const unmaskedBlock = readFragment(OlivBlockFragment, block);
 {/* Display block slug field */}
 <p>{unmaskedBlock.slug}</p>
 <div set:html={unmaskedBlock.content} />
+
+<ResponsiveImage data={unmaskedBlock.image.responsiveImage}/>

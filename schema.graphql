@@ -2923,6 +2923,7 @@ type OlivBlockRecord implements RecordInterface {
     markdown: Boolean
   ): String
   id: ItemId!
+  image: ImageFileField!
   slug: String
 }
 
@@ -2956,7 +2957,7 @@ type PageAgendaRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  image: FileField!
+  image: ImageFileField!
   seoAnalysis: JsonField
   seoSettingsSocial: SeoField
   title: String!
