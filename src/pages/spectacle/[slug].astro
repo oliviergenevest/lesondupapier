@@ -1,6 +1,6 @@
 ---
 import { graphql } from '~/lib/datocms/graphql';
-import { Layout } from '../layouts/Layout';
+import { Layout } from '../../layouts/Layout';
 import { TagFragment } from '~/lib/datocms/commonFragments';
 import { executeQuery } from '~/lib/datocms/executeQuery';
 import { StructuredText } from '@datocms/astro';
@@ -27,11 +27,8 @@ import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock
 
 import { OlivBlock } from '~/components/blocks/OlivBlock';
 import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
-
-
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
-import {Image} from '@datocms/astro';
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -41,60 +38,42 @@ import {Image} from '@datocms/astro';
  */
 const query = graphql(
   /* GraphQL */ `
-    query AgendaPageQuery {
-      pageAgenda {
+    query AllSpectaclesQuery($slug: String) {
+      spectacle(filter: { slug: { eq: $slug } }) {
         _seoMetaTags {
-          ...TagFragment
-        }
+            ...TagFragment
+            }
         title
-        image {
-          alt
-          responsiveImage {
-             # always required
-              src
-              srcSet
-              width
-              height
-
-              # not required, but strongly suggested!
-              alt
-              title
-
-              # LQIP (base64-encoded)
-              base64
-
-              # you can omit 'sizes' if you explicitly pass the 'sizes' prop to the image component
-              sizes
-          }
-        }
-        _firstPublishedAt
+        slug
       }
     }
   `,
-  [TagFragment],
+  [
+    TagFragment,
+    
+  ],
 );
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
-const { pageAgenda } = await executeQuery(query, { includeDrafts: draftModeEnabled });
 
-if (!pageAgenda) {
+const variables = { slug: Astro.params.slug! };
+console.log("-----> variables: slug spectacle =", variables);
+const { spectacle } = await executeQuery(query, { includeDrafts: draftModeEnabled, variables: variables });
+
+if (!spectacle) {
   return new Response(null, {
     status: 404,
     statusText: 'Not found',
   });
 }
 ---
-
-
-<Layout additionalSeo={pageAgenda._seoMetaTags} backgroundColor='var(--color-yellow)'>
+{
+      /*
+       * 
+       * Mettre le bon layout correspondant aux spectacles (LayoutSpectacle)
+       */
+    }
+<Layout additionalSeo={spectacle._seoMetaTags} backgroundColor='var(--color-cream'>
   <Wrapper class="wrapper">
-    <Title class="title h1 with-lines">{pageAgenda.title}</Title>
-    ICI LE COMPOSANT AGENDA sur date future limité à 10 items.
-
-
-
-   <Image data={pageAgenda.image.responsiveImage} />
-    <footer>Published at {pageAgenda._firstPublishedAt}</footer>
-  </Wrapper>
-  <DraftModeQueryListener query={query} />
+    <Title class="title h1">{spectacle.title}</Title>
 </Layout>

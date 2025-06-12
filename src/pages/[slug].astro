@@ -38,12 +38,15 @@ import { Title } from '~/components/Title';
  */
 const query = graphql(
   /* GraphQL */ `
-    query BasicPageQuery {
-      page {
+    query AllPagesQuery($slug: String) {
+      page(filter: { slug: { eq: $slug } }) {
         _seoMetaTags {
-          ...TagFragment
+            ...TagFragment
+            }
+         title
+         backgroundColor { 
+          hex 
         }
-        title
         _firstPublishedAt
         structuredText {
           value
@@ -87,9 +90,11 @@ const query = graphql(
     PageInlineFragment,
   ],
 );
-
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
-const { page } = await executeQuery(query, { includeDrafts: draftModeEnabled });
+
+const variables = { slug: Astro.params.slug! };
+console.log("-----> variables: slug page =", variables);
+const { page } = await executeQuery(query, { includeDrafts: draftModeEnabled, variables: variables });
 
 if (!page) {
   return new Response(null, {
@@ -97,13 +102,20 @@ if (!page) {
     statusText: 'Not found',
   });
 }
----
 
-<Layout additionalSeo={page._seoMetaTags} backgroundColor='white'>
+//const backgroundColor = page.backgroundColor?.hex;
+const bgColor = page.backgroundColor.hex;
+console.log("-----> variables: backgroundColor=",  bgColor);
+
+
+--- 
+
+
+<Layout additionalSeo={page._seoMetaTags} backgroundColor={page.backgroundColor?.hex}>
   <Wrapper class="wrapper">
-    <Title class="title h1">{page.title}</Title>
-    <Title class="title h1 with-lines">Les ateliers partagés</Title>
-    <Title class="title h2">Les ateliers partagés</Title>
+   
+    <Title class="title h1 with-lines">CMS PAGE</Title>
+
 
     {
       /*
@@ -150,7 +162,7 @@ if (!page) {
     />
   </Wrapper>
 
-  <div>Published at {page._firstPublishedAt}</div>
+  <div class="published_date">Published at {page._firstPublishedAt}</div>
 
   <DraftModeQueryListener query={query} />
 </Layout>

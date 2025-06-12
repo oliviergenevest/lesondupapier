@@ -4,10 +4,12 @@ import './global.css';
 
 type Props = {
   seo: TitleMetaLinkTag[];
+  backgroundColor: string;
 };
 
-const { seo } = Astro.props;
+const { seo, backgroundColor } = Astro.props;
 
+const bgColor = backgroundColor;
 ---
 
 <!doctype html>
@@ -19,10 +21,19 @@ const { seo } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <Seo data={[ ...seo]} />
+    <Seo data={[...seo]} />
     <slot name="head" />
   </head>
   <body>
     <slot />
   </body>
 </html>
+
+
+<style is:global define:vars={{bgColor}}>
+
+body  {
+    background-color:var(--bgColor);
+  
+  }
+</style>

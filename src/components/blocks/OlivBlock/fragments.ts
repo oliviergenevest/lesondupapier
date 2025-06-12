@@ -17,6 +17,5 @@ export const OlivBlockFragment = graphql(/* GraphQL */ `
   fragment OlivBlockFragment on OlivBlockRecord {
     slug
     content
-    
   }
 `);

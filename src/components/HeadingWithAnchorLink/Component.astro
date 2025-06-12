@@ -1,7 +1,7 @@
 ---
 import { render as structuredTextToPlainText } from 'datocms-structured-text-to-plain-text';
 import type { Heading } from 'datocms-structured-text-utils';
-
+import { Title } from '../Title';
 interface Props {
   // https://www.datocms.com/docs/structured-text/dast#heading
   node: Heading;
@@ -32,13 +32,27 @@ const slug = slugify(structuredTextToPlainText(node));
   /*
     Renders a Structured Text heading node as an heading with anchor link.
   */
-
+/*
   slug ? (
     <Element id={slug} tabindex="-1">
       <a href={`#${slug}`}>
         <slot />
       </a>
     </Element>
+  ) : (
+    <Element>
+      <slot />
+    </Element>
+  )
+  */
+
+ 
+slug ? (
+    <Title as={`h${node.level}`}  id={slug} tabindex="-1" class="title with-lines">
+      <a href={`#${slug}`}>
+        <slot />
+      </a>
+    </Title>
   ) : (
     <Element>
       <slot />

@@ -1,1 +1,1 @@
-export {default as Title} from './Component.astro'
+export { default as Title } from './Component.astro';

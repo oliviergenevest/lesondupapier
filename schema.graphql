@@ -2714,6 +2714,14 @@ enum ItemStatus {
 
 scalar JsonField
 
+"""Specifies how to filter JSON fields"""
+input JsonFilter {
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
 """Specifies how to filter Single-link fields"""
 input LinkFilter {
   """
@@ -2948,9 +2956,56 @@ type PageAgendaRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  image: FileField!
   seoAnalysis: JsonField
   seoSettingsSocial: SeoField
   title: String!
+}
+
+input PageModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  position: PositionFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  backgroundColor: ColorFilter
+  seoAnalysis: JsonFilter
+  seoSettingsSocial: SeoFilter
+  slug: SlugFilter
+  structuredText: StructuredTextFilter
+  title: StringFilter
+  OR: [PageModelFilter]
+  AND: [PageModelFilter]
+}
+
+enum PageModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  position_ASC
+  position_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  title_ASC
+  title_DESC
 }
 
 union PageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | OlivBlockRecord | VideoBlockRecord
@@ -2982,9 +3037,12 @@ type PageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  backgroundColor: ColorField!
   id: ItemId!
+  position: IntType
   seoAnalysis: JsonField
   seoSettingsSocial: SeoField
+  slug: String!
   structuredText: PageModelStructuredTextField!
   title: String!
 }
@@ -3093,6 +3151,13 @@ type Query {
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
     filter: NavigationModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
+  _allPagesMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: PageModelFilter
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
@@ -3210,6 +3275,25 @@ type Query {
   ): [NavigationRecord!]!
 
   """Returns a collection of records"""
+  allPages(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: PageModelFilter
+    orderBy: [PageModelOrderBy] = [position_ASC]
+  ): [PageRecord!]!
+
+  """Returns a collection of records"""
   allSpectacles(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -3297,7 +3381,7 @@ type Query {
     orderBy: [NavigationModelOrderBy] = [position_ASC]
   ): NavigationRecord
 
-  """Returns the single instance record"""
+  """Returns a specific record"""
   page(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -3306,6 +3390,8 @@ type Query {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
+    filter: PageModelFilter
+    orderBy: [PageModelOrderBy] = [position_ASC]
   ): PageRecord
 
   """Returns the single instance record"""
@@ -3410,6 +3496,14 @@ type SeoField {
   noIndex: BooleanType
   title: String
   twitterCard: String
+}
+
+"""Specifies how to filter SEO meta tags fields"""
+input SeoFilter {
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
 }
 
 type Site {
@@ -3570,6 +3664,30 @@ input StringMatchesFilter {
   pattern: String!
   caseSensitive: BooleanType = false
   regexp: BooleanType = true
+}
+
+"""Specifies how to filter Structured Text fields values"""
+input StructuredTextFilter {
+  """Filter records based on a regular expression"""
+  matches: StringMatchesFilter
+
+  """Exclude records based on a regular expression"""
+  notMatches: StringMatchesFilter
+
+  """
+  Filter records with the specified field set as blank (null or single empty paragraph)
+  """
+  isBlank: BooleanType
+
+  """
+  Filter records with the specified field present (neither null, nor empty string)
+  """
+  isPresent: BooleanType
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
+  """
+  exists: BooleanType
 }
 
 type Tag {

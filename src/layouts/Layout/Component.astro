@@ -5,15 +5,19 @@ import { graphql } from '~/lib/datocms/graphql';
 import { DraftModeToggler } from '~/components/DraftModeToggler';
 import { Seo, type TitleMetaLinkTag } from '@datocms/astro';
 import { isDraftModeEnabled } from '~/lib/draftMode';
-import  Footer  from '~/components/Footer/Footer.astro';
+import Footer from '~/components/Footer/Footer.astro';
 import { BaseLayout } from '../BaseLayout';
-import  {Navigation}  from '~/components/Navigation'
-import {Wrapper} from '~/components/Wrapper'
+import { Navigation } from '~/components/Navigation';
+import { Wrapper } from '~/components/Wrapper';
+import { Image } from 'astro:assets';
+import logo from '../../img/logo_lesondupapier.png';
+
 type Props = {
   additionalSeo?: TitleMetaLinkTag[];
+  backgroundColor: string;
 };
 
-const { additionalSeo = [] } = Astro.props;
+const { additionalSeo = [], backgroundColor } = Astro.props;
 
 const query = graphql(
   /* GraphQL */ `
@@ -30,27 +34,24 @@ const query = graphql(
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
----
-<BaseLayout seo={[...result._site.faviconMetaTags, ...additionalSeo]}>
-<div class="subheader">SUBHEADER</div>
+
+
+--- 
+
+<BaseLayout seo={[...result._site.faviconMetaTags, ...additionalSeo]} backgroundColor={backgroundColor}>
+  <div class="subheader">réseaux sociaux</div>
   <div class="header">
+    <a href="./" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
+    <Navigation />
+  </div>
 
-    <div>LOGO</div> 
-    <Navigation/> 
-
- 
-
-</div>
-    
-    <DraftModeToggler /> <!-- <Navbar data={navbarData} />-->
-    <div transition:animate="fade">
-      <slot />
-    </div>
-    <Footer />
-
+  <DraftModeToggler />
+  <!-- <Navbar data={navbarData} />-->
+  <div transition:animate="fade">
+    <slot />
+  </div>
+  <Footer />
 </BaseLayout>
-
-
 
 <!--
 <!doctype html>

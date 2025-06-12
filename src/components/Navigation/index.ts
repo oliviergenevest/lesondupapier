@@ -1,1 +1,1 @@
-export {default as Navigation} from './Component.astro';
+export { default as Navigation } from './Component.astro';

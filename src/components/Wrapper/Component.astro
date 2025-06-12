@@ -12,21 +12,17 @@ const { as: Tag = 'div' as any, ...props } = Astro.props;
   <slot />
 </Tag>
 
-
-
 <style>
-.wrapper {
+  .wrapper {
     width: 100%;
     padding-left: var(--page-margin);
     padding-right: var(--page-margin);
-     max-width: var(--page-width-with-margin);
+    max-width: var(--page-width-with-margin);
     margin-left: auto;
     margin-right: auto;
-    
+
     .wrapper {
-      padding:0;
+      padding: 0;
     }
-}
-
+  }
 </style>
-

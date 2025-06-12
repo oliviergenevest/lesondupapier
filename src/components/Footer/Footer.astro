@@ -1,14 +1,20 @@
 ---
-import { Wrapper } from "../Wrapper";
+import { Wrapper } from '../Wrapper';
 
-const platform = "github";
-const username = "withastro";
+const platform = 'github';
+const username = 'withastro';
 ---
 
 <footer>
   <Wrapper>
     <p>Suivez-nous sur <a href={`https://www.${platform}.com/${username}`}>{platform}</a> !</p>
     <p>lien vers pages légales - credits - protection données</p>
-    <p>2025 -  Le son du papier</p>
+    <p>2025 - Le son du papier</p>
   </Wrapper>
 </footer>
+
+<style>
+  footer {
+    background-color: var(--color-cream);
+  }
+</style>

@@ -1,1 +1,1 @@
-export {default as Wrapper} from './Component.astro'
+export { default as Wrapper } from './Component.astro';
