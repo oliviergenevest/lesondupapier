@@ -16,10 +16,9 @@ import { ResponsiveImageFragment } from '~/components/ResponsiveImage/fragments'
 export const ImageTextBlockFragment = graphql(
   /* GraphQL */ `
     fragment ImageTextBlockFragment on ImageTextBlockRecord {
-      
       text
       image {
-        alt 
+        alt
         responsiveImage(sizes: "(max-width: 700px) 100vw, 700px") {
           ...ResponsiveImageFragment
         }
