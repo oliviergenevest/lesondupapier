@@ -6,9 +6,10 @@ type Props<T extends HTMLTag = 'div'> = Polymorphic<{
 }>;
 
 const { as: Tag = 'div' as any, ...props } = Astro.props;
+//console.log("wrapper component props", props.class);
 ---
 
-<Tag {...props} class="wrapper">
+<Tag {...props} class:list={["wrapper", props.class]}>
   <slot />
 </Tag>
 

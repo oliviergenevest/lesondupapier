@@ -1,0 +1,100 @@
+---
+import { ImageBlock } from "../blocks/ImageBlock";
+import { ResponsiveImage } from "../ResponsiveImage";
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { Title } from "../Title";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'free-astro-components'
+
+const { data } = Astro.props;
+//console.log(data.image)
+
+
+{/*
+
+- les items "membre" ouvrent un popup tandis que les autres ("atelier" ou "spectacle") ouvrent une page dédiée.
+- le path pour les liens est généré selon le __typename (atelier ou spectacle)
+- les items "spectacle" ont une image et un subtitle spécifique pour les vignettes (cardImage, cardSubtitle)
+
+*/}
+var path = "/#modal";
+path = (data.__typename === 'SpectacleRecord') ? `/spectacle/${data.slug}/` : path;
+path = (data.__typename === 'AtelierRecord') ? `/atelier/${data.slug}/` : path;
+const subtitle = (data.__typename === 'SpectacleRecord') ? data.cardSubtitle : data.subtitle;
+const image = data.image ? data.image.responsiveImage : data.cardImage.responsiveImage;
+---
+
+
+{console.log("memeber : ", data.slug) }
+
+<div class="card">
+    <ResponsiveImage data={image}/>
+    <div class="content">
+        <Title as="h2" class:list={["title", "h2"]}>{data.title}</Title>
+        <div class="subtitle" set:html={subtitle}/>
+        
+        {(data.__typename === 'MemberRecord') &&
+           
+        <Modal id={data.slug} class="modal" size="4xl">
+            <ModalBody>
+                <div class="modal_image">
+                    <ResponsiveImage data={data.image.responsiveImage} />
+                </div>
+                <Title as="h2" class="title modal_title">{data.title} </Title>
+                <div set:html={data.subtitle} class="modal_subtitle"/>
+                <div set:html={data.content} class="modal_content"/>
+            </ModalBody>
+        </Modal>
+        }    
+    </div>
+    {(data.__typename === 'MemberRecord') ? <Button label="Open Modal" data-modal-trigger={data.slug} /> : 
+        <a href={path}>LINK</a>
+    }
+</div>
+
+<style >
+    .card {
+        display:flex;
+        flex-direction: column;
+        gap:8px;
+        padding-bottom:8px;
+    }
+
+    .subtitle {
+        color:var(--color-white);
+        font-size:rfs(14px);
+        font-weight:300;
+    }
+    </style>
+
+    <style is:global>
+
+    .modal {
+        --ac-modal-border-radius: 8px;
+        --ac-modal-backdrop-filter: grayscale(50%);
+        --ac-modal-background-color: var(--color-cream);
+        --ac-spacing-4:32px;
+        --ac-spacing-6:32px;  
+        --ac-font-sans: var(--font-sans);
+        
+        }
+        .modal_title {
+            text-transform: uppercase;
+            color:var(--color-turquoise)!important;
+        }
+        .modal_subtitle p {
+            font-weight:bold;
+            color:var(--color-black)!important;
+        }  
+        .modal_content p {
+           
+            color:var(--color-black)!important;
+        }
+
+        .modal_image {
+            padding-bottom:16px!important;
+        }
+
+</style>
+
+
+

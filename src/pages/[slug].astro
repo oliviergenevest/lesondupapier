@@ -27,8 +27,13 @@ import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock
 
 import { OlivBlock } from '~/components/blocks/OlivBlock';
 import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
+
 import { ImageTextBlock } from '~/components/blocks/ImageTextBlock';
 import { ImageTextBlockFragment } from '~/components/blocks/ImageTextBlock/fragments';
+
+import { ItemsListBlock } from '~/components/blocks/ItemsListBlock';
+import { ItemsListBlockFragment } from '~/components/blocks/ItemsListBlock/fragments';
+
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
 
@@ -72,6 +77,10 @@ const query = graphql(
             ... on ImageTextBlockRecord {
               ...ImageTextBlockFragment
             }
+
+            ...on ItemsListBlockRecord {
+               ...ItemsListBlockFragment
+            }
           }
           links {
             ... on RecordInterface {
@@ -94,6 +103,7 @@ const query = graphql(
     VideoBlockFragment,
     PageLinkFragment,
     PageInlineFragment,
+    ItemsListBlockFragment,
   ],
 );
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
@@ -112,15 +122,12 @@ if (!page) {
   });
 }
 
-//const backgroundColor = page.backgroundColor?.hex;
 const bgColor = page.backgroundColor.hex;
-console.log('-----> variables: backgroundColor=', bgColor);
 ---
 
 <Layout additionalSeo={page._seoMetaTags} backgroundColor={page.backgroundColor?.hex}>
   <Wrapper class="wrapper">
-    <p><b>MODEL PAGE</b></p>
-
+   
     {
       /*
        * Structured Text is a JSON format similar to HTML, but with the advantage
@@ -141,6 +148,7 @@ console.log('-----> variables: backgroundColor=', bgColor);
         VideoBlockRecord: VideoBlock,
         OlivBlockRecord: OlivBlock,
         ImageTextBlockRecord: ImageTextBlock,
+        ItemsListBlockRecord: ItemsListBlock,
       }}
       linkToRecordComponents={/*
        * If the structured text includes a link to another DatoCMS record,

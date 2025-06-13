@@ -25,12 +25,14 @@
     "astro": "^5.3.0",
     "datocms-structured-text-generic-html-renderer": "^5.0.0",
     "datocms-structured-text-to-plain-text": "^5.0.0",
+    "free-astro-components": "^1.2.0",
     "gql.tada": "^1.8.5",
     "jsdom": "^24.1.1",
     "jsonwebtoken": "^9.0.2",
     "react": "^18.3.1",
     "react-datocms": "^7.0.1",
     "react-dom": "^18.3.1",
+    "rfs": "^10.0.0",
     "serialize-error": "^11.0.3",
     "typescript": "^5.5.4"
   },
@@ -39,6 +41,7 @@
     "@types/jsdom": "^21.1.7",
     "@types/jsonwebtoken": "^9.0.6",
     "dotenv-cli": "^7.4.2",
+    "postcss-nested": "^7.0.2",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "simple-git-hooks": "^2.11.1"

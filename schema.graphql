@@ -2691,6 +2691,33 @@ enum ItemStatus {
   published
 }
 
+union ItemsListBlockModelItemsField = MemberRecord | SpectacleRecord
+
+"""Block of type Liste de vignettes (items_list_block)"""
+type ItemsListBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  format: String
+  id: ItemId!
+  items: [ItemsListBlockModelItemsField!]!
+}
+
 scalar JsonField
 
 """Specifies how to filter JSON fields"""
@@ -2738,7 +2765,8 @@ input MemberModelFilter {
   backgroundColor: ColorFilter
   content: TextFilter
   image: FileFilter
-  subtitle: StringFilter
+  slug: SlugFilter
+  subtitle: TextFilter
   title: StringFilter
   OR: [MemberModelFilter]
   AND: [MemberModelFilter]
@@ -2763,8 +2791,6 @@ enum MemberModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  subtitle_ASC
-  subtitle_DESC
   title_ASC
   title_DESC
 }
@@ -2795,9 +2821,13 @@ type MemberRecord implements RecordInterface {
     markdown: Boolean
   ): String
   id: ItemId!
-  image: FileField
-  subtitle: String
-  title: String
+  image: ImageFileField
+  slug: String!
+  subtitle(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String!
+  title: String!
 }
 
 scalar MetaTagAttributes
@@ -2986,7 +3016,7 @@ enum PageModelOrderBy {
   title_DESC
 }
 
-union PageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | ImageTextBlockRecord | OlivBlockRecord | VideoBlockRecord
+union PageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | ImageTextBlockRecord | ItemsListBlockRecord | OlivBlockRecord | VideoBlockRecord
 
 type PageModelStructuredTextField {
   blocks: [PageModelStructuredTextBlocksField!]!
@@ -3456,6 +3486,37 @@ input SeoFilter {
   exists: BooleanType
 }
 
+type SideContentBlocModelContentField {
+  blocks: [SideContentBlocRecord!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+"""Block of type Contenu annexe (side_content_bloc)"""
+type SideContentBlocRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content: SideContentBlocModelContentField!
+  id: ItemId!
+}
+
 type Site {
   favicon: FileField
   faviconMetaTags(
@@ -3505,10 +3566,25 @@ input SpectacleModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  cardImage: FileFilter
+  cardSubtitle: TextFilter
+  mainContent: StructuredTextFilter
+  mainImage: FileFilter
+  seoSettingsSocial: SeoFilter
   slug: SlugFilter
+  subtitle: TextFilter
   title: StringFilter
   OR: [SpectacleModelFilter]
   AND: [SpectacleModelFilter]
+}
+
+union SpectacleModelMainContentBlocksField = ImageGalleryBlockRecord | VideoBlockRecord
+
+type SpectacleModelMainContentField {
+  blocks: [SpectacleModelMainContentBlocksField!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
 }
 
 enum SpectacleModelOrderBy {
@@ -3554,9 +3630,22 @@ type SpectacleRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  cardImage: ImageFileField!
+  cardSubtitle(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String!
   id: ItemId!
-  slug: String
-  title: String
+  mainContent: SpectacleModelMainContentField!
+  mainImage: ImageFileField!
+  seoSettingsSocial: SeoField
+  sideContent: [SideContentBlocRecord!]!
+  slug: String!
+  subtitle(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String!
+  title: String!
 }
 
 """Specifies how to filter by status"""

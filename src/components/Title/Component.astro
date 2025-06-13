@@ -15,22 +15,36 @@ const { as: Tag = 'h1' as any, anchor, children, ...props } = Astro.props;
   {anchor && <a data-permalink href={`#${anchor}`} />}
 </Tag>
 
-<style>
+<style is:global>
   .title {
     color: var(--color-white);
     font-family: var(--font-headline);
+    font-weight:normal;
+    
   }
 
+  a {
+      text-decoration:none!important;
+      
+    }
+
   .h1 {
-    font-size: 28px;
+    font-size: rfs(28px);
+  }
+
+  .h2 {
+    font-size: rfs(24px);
+    text-transform: uppercase;
   }
 
   .with-lines {
+    
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 1.6rem;
-    color: var(--color-white);
+    padding:rfs(32px) 0;
+    gap: rfs(16px);
+
     text-transform: uppercase;
     &::before,
     &::after {
@@ -40,6 +54,7 @@ const { as: Tag = 'h1' as any, anchor, children, ...props } = Astro.props;
       background-color: white;
       position: relative;
       display: block;
+       flex: 1 0 20px;
     }
   }
 </style>

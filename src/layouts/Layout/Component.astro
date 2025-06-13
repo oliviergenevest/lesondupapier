@@ -46,39 +46,12 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
     <Navigation />
   </div>
 
-  <DraftModeToggler />
+  
   <!-- <Navbar data={navbarData} />-->
   <div transition:animate="fade">
     <slot />
   </div>
+  <DraftModeToggler />
   <Footer />
 </BaseLayout>
 
-<!--
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="generator" content={Astro.generator} />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/datocms/nextjs-starter-kit/src/app/global.css"
-    />
-    <Seo data={[...result._site.faviconMetaTags, ...additionalSeo]} />
-  </head>
-  <body>
-    <header>
-      <h1>LE SON DU PAPIER</h1>
-      <nav>
-        <a class="navlink" href="https://www.datocms.com/docs/astro"> 📚 Doc astro datocms </a>
-        <DraftModeToggler />
-      </nav>
-    </header>
-
-    <main>
-      <slot />
-    </main>
-    <Footer />
-  </body>
-</html>
- -->

@@ -1,0 +1,43 @@
+---
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { ItemsListBlockFragment } from './fragments';
+import { ResponsiveImage } from '~/components/ResponsiveImage';
+import { Wrapper } from '~/components/Wrapper';
+import { Card } from '~/components/Card';
+
+interface Props {
+  block: FragmentOf<typeof ItemsListBlockFragment>;
+}
+
+const { block } = Astro.props;
+//console.log(block);
+
+// Read unmasked block from fragment
+const unmaskedBlock = readFragment(ItemsListBlockFragment, block);
+---
+ <p>Listing de CARD au format : {unmaskedBlock.format}</p>
+
+<Wrapper as="div" class:list={["grid_card_listing", unmaskedBlock.format]}>
+  {unmaskedBlock.items.map((item) => (
+    <Card data={item}/>
+   ))
+  }
+  
+ 
+</Wrapper>
+
+<style>
+  .grid_card_listing{
+    display:grid;
+    grid-template-columns:repeat(3 ,1fr);
+    gap:rfs(32px);
+  }
+
+  .big {
+    grid-template-columns:repeat(3 ,1fr);
+  }
+
+  .small {
+    grid-template-columns:repeat(4 ,1fr);
+  }
+</style>

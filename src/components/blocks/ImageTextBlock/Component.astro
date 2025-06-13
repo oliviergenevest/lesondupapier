@@ -2,6 +2,7 @@
 import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
 import { ImageTextBlockFragment } from './fragments';
 import { ResponsiveImage } from '~/components/ResponsiveImage';
+import { Wrapper } from '~/components/Wrapper';
 
 interface Props {
   block: FragmentOf<typeof ImageTextBlockFragment>;
@@ -13,8 +14,30 @@ const { block } = Astro.props;
 // Read unmasked block from fragment
 const unmaskedBlock = readFragment(ImageTextBlockFragment, block);
 ---
+<Wrapper as="section" class="section grid">
+  <div class="image">
+    <ResponsiveImage data={unmaskedBlock.image.responsiveImage}/>
+  </div>
+  <div set:html={unmaskedBlock.text} class="text" />
+</Wrapper>
 
+<style>
+  .grid {
+    display:grid;
+    grid-template-columns: 1fr 2fr;
+    gap:32px;
+    position:relative;
+  }
 
-<div set:html={unmaskedBlock.text} />
+  .image  {
+    position:relative;
+     min-width:300px;
+     display:block;
 
-<ResponsiveImage data={unmaskedBlock.image.responsiveImage} />
+  }
+  .text{
+     flex: 2 1 auto;
+      position:relative;
+       display:block;
+  }
+</style>
