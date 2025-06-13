@@ -78,8 +78,8 @@ const query = graphql(
               ...ImageTextBlockFragment
             }
 
-            ...on ItemsListBlockRecord {
-               ...ItemsListBlockFragment
+            ... on ItemsListBlockRecord {
+              ...ItemsListBlockFragment
             }
           }
           links {
@@ -127,7 +127,6 @@ const bgColor = page.backgroundColor.hex;
 
 <Layout additionalSeo={page._seoMetaTags} backgroundColor={page.backgroundColor?.hex}>
   <Wrapper class="wrapper">
-   
     {
       /*
        * Structured Text is a JSON format similar to HTML, but with the advantage

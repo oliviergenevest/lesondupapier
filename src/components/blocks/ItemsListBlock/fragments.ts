@@ -17,38 +17,37 @@ export const ItemsListBlockFragment = graphql(
   /* GraphQL */ `
     fragment ItemsListBlockFragment on ItemsListBlockRecord {
       items {
-            ... on MemberRecord {
-              id
-              __typename
-              slug
-              subtitle
-              title
-              content
-              image {
-                alt
-                responsiveImage(sizes: "(max-width: 340px) 100vw, 340px") {
-                  ...ResponsiveImageFragment
-                }
-              }
+        ... on MemberRecord {
+          id
+          __typename
+          slug
+          subtitle
+          title
+          content
+          image {
+            alt
+            responsiveImage(sizes: "(max-width: 800px) 100vw, 800px", imgixParams: { auto: format, w: 800, ar: "16:9", fit: crop}) {
+              ...ResponsiveImageFragment
             }
+          }
+        }
 
-            ... on SpectacleRecord {
-              id
-              title
-              __typename
-              slug
-              cardSubtitle
-              cardImage {
-                alt
-                responsiveImage(sizes: "(max-width: 340px) 100vw, 340px") {
-                  ...ResponsiveImageFragment
-                }
-              }
+        ... on SpectacleRecord {
+          id
+          title
+          __typename
+          slug
+          cardSubtitle
+          cardImage {
+            alt
+            responsiveImage(sizes: "(max-width: 400px) 100vw, 400px", imgixParams: { auto: format, w: 400, ar: "16:9", fit: crop }) {
+              ...ResponsiveImageFragment
             }
+          }
+        }
       }
       format
     }
-      
   `,
   [ResponsiveImageFragment],
 );

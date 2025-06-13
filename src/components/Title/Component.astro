@@ -19,14 +19,12 @@ const { as: Tag = 'h1' as any, anchor, children, ...props } = Astro.props;
   .title {
     color: var(--color-white);
     font-family: var(--font-headline);
-    font-weight:normal;
-    
+    font-weight: normal;
   }
 
   a {
-      text-decoration:none!important;
-      
-    }
+    text-decoration: none !important;
+  }
 
   .h1 {
     font-size: rfs(28px);
@@ -38,11 +36,10 @@ const { as: Tag = 'h1' as any, anchor, children, ...props } = Astro.props;
   }
 
   .with-lines {
-    
     width: 100%;
     display: flex;
     align-items: center;
-    padding:rfs(32px) 0;
+    padding: rfs(32px) 0;
     gap: rfs(16px);
 
     text-transform: uppercase;
@@ -54,7 +51,7 @@ const { as: Tag = 'h1' as any, anchor, children, ...props } = Astro.props;
       background-color: white;
       position: relative;
       display: block;
-       flex: 1 0 20px;
+      flex: 1 0 20px;
     }
   }
 </style>

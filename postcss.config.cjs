@@ -5,7 +5,7 @@ module.exports = {
       baseValue: '18px',
       unit: 'px',
     },
-   /* 'postcss-inline-svg': {
+    /* 'postcss-inline-svg': {
       paths: ['src'],
     },*/
   },

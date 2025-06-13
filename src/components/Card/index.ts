@@ -1,1 +1,1 @@
-export {default as Card} from './Component.astro'
+export { default as Card } from './Component.astro';

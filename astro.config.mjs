@@ -8,7 +8,7 @@ export default defineConfig({
   security: {
     checkOrigin: false,
   },
-  
+
   env: {
     schema: {
       DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN: envField.string({

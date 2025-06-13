@@ -13,7 +13,7 @@
   }
 
   html {
-   /* line-height: 1.25;*/
+    /* line-height: 1.25;*/
     -webkit-text-size-adjust: 100%;
     scrollbar-gutter: both-edges;
     scroll-behavior: smooth;
@@ -30,11 +30,11 @@
   }
 
   dialog {
- margin: auto; /* `margin: auto;` is the default. */
- transform: translateX(-50%);
- left: 50%;
- top:32px;
-}
+    margin: auto; /* `margin: auto;` is the default. */
+    transform: translateX(-50%);
+    left: 50%;
+    top: 32px;
+  }
 
   .header {
     background: var(--color-cream);
@@ -52,10 +52,9 @@
   }
 
   p {
-
-    line-height:rfs(26px);
-    color:white;
-    margin-bottom:rfs(16px);
+    line-height: rfs(26px);
+    color: white;
+    margin-bottom: rfs(16px);
   }
 
   img,
@@ -84,7 +83,7 @@
 
   a {
     color: inherit;
-    text-decoration:none;
+    text-decoration: none;
   }
 
   p,

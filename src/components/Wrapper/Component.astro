@@ -9,7 +9,7 @@ const { as: Tag = 'div' as any, ...props } = Astro.props;
 //console.log("wrapper component props", props.class);
 ---
 
-<Tag {...props} class:list={["wrapper", props.class]}>
+<Tag {...props} class:list={['wrapper', props.class]}>
   <slot />
 </Tag>
 

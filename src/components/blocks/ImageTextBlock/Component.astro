@@ -14,30 +14,30 @@ const { block } = Astro.props;
 // Read unmasked block from fragment
 const unmaskedBlock = readFragment(ImageTextBlockFragment, block);
 ---
+
 <Wrapper as="section" class="section grid">
   <div class="image">
-    <ResponsiveImage data={unmaskedBlock.image.responsiveImage}/>
+    <ResponsiveImage data={unmaskedBlock.image.responsiveImage} />
   </div>
   <div set:html={unmaskedBlock.text} class="text" />
 </Wrapper>
 
 <style>
   .grid {
-    display:grid;
+    display: grid;
     grid-template-columns: 1fr 2fr;
-    gap:32px;
-    position:relative;
+    gap: 32px;
+    position: relative;
   }
 
-  .image  {
-    position:relative;
-     min-width:300px;
-     display:block;
-
+  .image {
+    position: relative;
+    min-width: 300px;
+    display: block;
   }
-  .text{
-     flex: 2 1 auto;
-      position:relative;
-       display:block;
+  .text {
+    flex: 2 1 auto;
+    position: relative;
+    display: block;
   }
 </style>
