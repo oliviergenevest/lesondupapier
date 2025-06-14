@@ -20,7 +20,7 @@ import { Wrapper } from '~/components/Wrapper';
     gap: rfs(16px);
     justify-content: center;
     list-style: none;
-    wrap: flex-wrap;
+    flex-wrap: wrap;
   }
   li {
     padding: rfs(16px);
@@ -35,6 +35,6 @@ import { Wrapper } from '~/components/Wrapper';
 
   @media screen and (max-width: 768px) {
     /* BREAKPOOINT MENU MOBILE*/
-    wrap: no-wrap;
+    ul {flex-wrap: nowrap;}
   }
 </style>
