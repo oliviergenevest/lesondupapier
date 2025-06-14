@@ -34,7 +34,7 @@ export const ItemsListBlockFragment = graphql(
             }
           }
         }
-        
+
         ... on AtelierRecord {
           id
           title
@@ -51,7 +51,7 @@ export const ItemsListBlockFragment = graphql(
             }
           }
         }
-        
+
         ... on SpectacleRecord {
           id
           title

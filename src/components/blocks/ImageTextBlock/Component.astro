@@ -28,10 +28,7 @@ const unmaskedBlock = readFragment(ImageTextBlockFragment, block);
     grid-template-columns: 1fr 2fr;
     gap: 32px;
     position: relative;
-      
   }
-
-
 
   .image {
     position: relative;
@@ -43,18 +40,18 @@ const unmaskedBlock = readFragment(ImageTextBlockFragment, block);
     position: relative;
     display: block;
   }
-    @media screen and (max-width: 890px) {
-          .image {
-           min-width:100%;
-            } 
-      }
-
-    @media screen and (max-width: 600px) {
-       .image {
-        width:100%;
-        } 
-        .grid {
-          grid-template-columns: 1fr;
-        }
+  @media screen and (max-width: 890px) {
+    .image {
+      min-width: 100%;
     }
+  }
+
+  @media screen and (max-width: 600px) {
+    .image {
+      width: 100%;
+    }
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

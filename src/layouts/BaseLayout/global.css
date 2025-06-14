@@ -57,16 +57,12 @@
     margin-bottom: rfs(16px);
   }
 
-  
   @media screen and (max-width: 600px) {
-   .brandlogo {
-    width:200px;
-    height:auto;  
+    .brandlogo {
+      width: 200px;
+      height: auto;
+    }
   }
-
-  }
-
-  
 
   img,
   picture,
