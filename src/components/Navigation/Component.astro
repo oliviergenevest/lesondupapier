@@ -20,6 +20,7 @@ import { Wrapper } from '~/components/Wrapper';
     gap: rfs(16px);
     justify-content: center;
     list-style: none;
+    wrap:flex-wrap;
   }
   li {
     padding: rfs(16px);
@@ -30,5 +31,10 @@ import { Wrapper } from '~/components/Wrapper';
     font-size: rfs(24px);
     color: var(--color-darkblue);
     text-decoration: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    /* BREAKPOOINT MENU MOBILE*/
+
   }
 </style>

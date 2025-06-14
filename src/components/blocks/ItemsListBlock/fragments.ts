@@ -26,12 +26,32 @@ export const ItemsListBlockFragment = graphql(
           content
           image {
             alt
-            responsiveImage(sizes: "(max-width: 800px) 100vw, 800px", imgixParams: { auto: format, w: 800, ar: "16:9", fit: crop}) {
+            responsiveImage(
+              sizes: "(max-width: 800px) 100vw, 800px"
+              imgixParams: { auto: format, w: 800, ar: "16:9", fit: crop }
+            ) {
               ...ResponsiveImageFragment
             }
           }
         }
-
+        
+        ... on AtelierRecord {
+          id
+          title
+          __typename
+          slug
+          cardSubtitle
+          cardImage {
+            alt
+            responsiveImage(
+              sizes: "(max-width: 400px) 100vw, 400px"
+              imgixParams: { auto: format, w: 400, ar: "16:9", fit: crop }
+            ) {
+              ...ResponsiveImageFragment
+            }
+          }
+        }
+        
         ... on SpectacleRecord {
           id
           title
@@ -40,7 +60,10 @@ export const ItemsListBlockFragment = graphql(
           cardSubtitle
           cardImage {
             alt
-            responsiveImage(sizes: "(max-width: 400px) 100vw, 400px", imgixParams: { auto: format, w: 400, ar: "16:9", fit: crop }) {
+            responsiveImage(
+              sizes: "(max-width: 400px) 100vw, 400px"
+              imgixParams: { auto: format, w: 400, ar: "16:9", fit: crop }
+            ) {
               ...ResponsiveImageFragment
             }
           }

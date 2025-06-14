@@ -38,8 +38,8 @@ import { Title } from '~/components/Title';
  */
 const query = graphql(
   /* GraphQL */ `
-    query AllSpectaclesQuery($slug: String) {
-      spectacle(filter: { slug: { eq: $slug } }) {
+    query AllAteliersQuery($slug: String) {
+      atelier(filter: { slug: { eq: $slug } }) {
         _seoMetaTags {
           ...TagFragment
         }
@@ -54,13 +54,13 @@ const query = graphql(
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 
 const variables = { slug: Astro.params.slug! };
-console.log('-----> variables: slug spectacle =', variables);
-const { spectacle } = await executeQuery(query, {
+console.log('-----> variables: slug atelier =', variables);
+const { atelier } = await executeQuery(query, {
   includeDrafts: draftModeEnabled,
   variables: variables,
 });
 
-if (!spectacle) {
+if (!atelier) {
   return new Response(null, {
     status: 404,
     statusText: 'Not found',
@@ -74,9 +74,9 @@ if (!spectacle) {
    * Mettre le bon layout correspondant aux spectacles (LayoutSpectacle)
    */
 }
-<Layout additionalSeo={spectacle._seoMetaTags} backgroundColor="var(--color-cream)">
+<Layout additionalSeo={atelier._seoMetaTags} backgroundColor="var(--color-cream)">
   <Wrapper class="wrapper">
     
-    <Title class="title h1">{spectacle.title}</Title>
+    <Title class="title h1">{atelier.title}</Title>
   </Wrapper></Layout
 >
