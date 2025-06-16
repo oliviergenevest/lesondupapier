@@ -1,0 +1,16 @@
+---
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { AgendaBlockFragment } from './fragments';
+import { Agenda } from '~/components/Agenda';
+
+interface Props {
+  block: FragmentOf<typeof AgendaBlockFragment>;
+}
+
+const { block } = Astro.props;
+
+// Read unmasked block from fragment
+const unmaskedBlock = readFragment(AgendaBlockFragment, block);
+---
+
+<Agenda data={unmaskedBlock} />

@@ -6,7 +6,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { Icon } from '@iconify/react';
 
 import { StaticImage } from 'gatsby-plugin-image';
-import AgendaItem from './agendaItem';
+import AgendaItem from './_agendaItem';
 
 import { Reveal } from 'react-awesome-reveal';
 import { fadeInUp, fadeInDown } from '../../style/animations';

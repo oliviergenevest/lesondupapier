@@ -33,6 +33,8 @@
   --color-white: #fff;
   --color-black: #000;
 
+  /*--breakpoint-tablet:768px;*/
+
   --clip-path: polygon(0 3vw, 100% 0, 100% calc(100% - 3vw), 0 100%);
   --dato-gradient: linear-gradient(to right, #ff593d, #ff7751);
 

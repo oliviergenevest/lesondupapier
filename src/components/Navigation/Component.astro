@@ -1,17 +1,47 @@
 ---
+import { graphql } from '~/lib/datocms/graphql';
+import { executeQuery } from '~/lib/datocms/executeQuery';
+import { isDraftModeEnabled } from '~/lib/draftMode';
+import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 import { Wrapper } from '~/components/Wrapper';
+import Hamburger from '../Hamburger.astro';
+
+
+const query = graphql(
+  /* GraphQL */ `
+    query NavigationQuery {
+       allNavigations(orderBy: position_DESC) {
+          items {
+            title
+            slug
+            position
+          }
+        }
+    }
+  `
+);
+
+const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
+const { allNavigations } = await executeQuery(query, { includeDrafts: draftModeEnabled });
+
+if (!allNavigations) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  });
+}
+
 ---
 
 <Wrapper>
   <nav>
     <ul>
-      <li><a href="/spectacles/">Spectacles</a></li>
-      <li><a href="/agenda/">Agenda</a></li>
-      <li><a href="/compagnie/">La compagnie</a></li>
-      <li><a href="/ateliers/">Ateliers</a></li>
-      <li><a href="/contacts/">Contacts</a></li>
+      {allNavigations.map( (item) => 
+      <li><a href={'/'+item.items?.slug+'/'} title={item.items?.title}>{item.items?.title}</a></li>
+     )} 
     </ul>
   </nav>
+  <Hamburger/>
 </Wrapper>
 
 <style>
@@ -33,10 +63,9 @@ import { Wrapper } from '~/components/Wrapper';
     text-decoration: none;
   }
 
+nav { 
   @media screen and (max-width: 768px) {
-    /* BREAKPOOINT MENU MOBILE*/
-    ul {
-      flex-wrap: wrap;
-    }
+   display:none;
   }
+}
 </style>

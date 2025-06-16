@@ -2,6 +2,7 @@
 import { Seo, type TitleMetaLinkTag } from '@datocms/astro';
 import './global.css';
 
+
 type Props = {
   seo: TitleMetaLinkTag[];
   backgroundColor: string;
@@ -23,6 +24,7 @@ const bgColor = backgroundColor;
     <meta name="generator" content={Astro.generator} />
     <Seo data={[...seo]} />
     <slot name="head" />
+  
   </head>
   <body>
     <slot />
