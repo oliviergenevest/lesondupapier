@@ -36,9 +36,13 @@ const unmaskedBlock = readFragment(ImageTextBlockFragment, block);
     display: block;
   }
   .text {
+
     flex: 2 1 auto;
     position: relative;
     display: block;
+    :global(p) {
+      color:var(--color-white);
+      }
   }
   @media screen and (max-width: 890px) {
     .image {

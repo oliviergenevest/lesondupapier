@@ -1,7 +1,7 @@
 @import './variables.css';
 @import './font-faces.css';
 
-@layer reset {
+
   *,
   *::before,
   *::after {
@@ -29,11 +29,16 @@
     overflow-y: auto;
   }
 
+
+  /* pour la modal de l'equipe todo: a afiiner */
   dialog {
-    margin: auto; /* `margin: auto;` is the default. */
+    margin: auto; 
     transform: translateX(-50%);
     left: 50%;
     top: 32px;
+    width:90vw;
+    --ac-modal-width-4xl: 800px;
+
   }
 
   .header {
@@ -41,14 +46,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .subheader {
-    height: rfs(36px);
-    background: var(--color-yellow);
-    text-align: right;
-    padding-left: var(--page-margin);
-    padding-right: var(--page-margin);
+    padding-bottom:16px;
   }
 
   p {
@@ -90,10 +88,10 @@
 
   a {
     color: inherit;
-    text-decoration: none;
+    text-decoration: underline;
   }
 
-  p,
+  
   h1,
   h2,
   h3,
@@ -116,6 +114,7 @@
       transparent;
     font-weight: inherit;
     color: inherit;
+  
   }
 
   mark.good {
@@ -174,7 +173,7 @@
       z-index: 10;
     }
   }
-}
+
 
 @keyframes highlightElement {
   0% {
@@ -198,7 +197,6 @@
       0 0 0 80px transparent;
   }
 }
-
 
 /* nav styles */
 .hamburger {

@@ -6,20 +6,17 @@ import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 import { Wrapper } from '~/components/Wrapper';
 import Hamburger from '../Hamburger.astro';
 
-
-const query = graphql(
-  /* GraphQL */ `
-    query NavigationQuery {
-       allNavigations(orderBy: position_DESC) {
-          items {
-            title
-            slug
-            position
-          }
-        }
+const query = graphql(/* GraphQL */ `
+  query NavigationQuery {
+    allNavigations(orderBy: position_ASC) {
+      items {
+        title
+        slug
+        position
+      }
     }
-  `
-);
+  }
+`);
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 const { allNavigations } = await executeQuery(query, { includeDrafts: draftModeEnabled });
@@ -31,17 +28,32 @@ if (!allNavigations) {
   });
 }
 
+// the `pathname` is sth like - "/agenda"
+const { pathname } = Astro.url;
+const pathSlug = pathname.replace(/\/$/, '').slice(1);
+
 ---
 
 <Wrapper>
   <nav>
     <ul>
-      {allNavigations.map( (item) => 
-      <li><a href={'/'+item.items?.slug+'/'} title={item.items?.title}>{item.items?.title}</a></li>
-     )} 
+      {
+        allNavigations.map((item) => (
+          <li>
+            <a 
+              href={'/' + item.items.slug + '/'} 
+              title={item.items.title} 
+              class:list={"link--metis"}
+              aria-current={pathSlug === item.items.slug ? 'page' : 'false'}
+              >
+              {item.items.title}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
-  <Hamburger/>
+  <Hamburger />
 </Wrapper>
 
 <style>
@@ -61,11 +73,42 @@ if (!allNavigations) {
     font-size: rfs(24px);
     color: var(--color-darkblue);
     text-decoration: none;
+    position:relative;
+    padding-bottom:4px;
+    text-transform: lowercase;
   }
 
-nav { 
-  @media screen and (max-width: 768px) {
-   display:none;
-  }
+
+  a[aria-current="page"]::before {
+  /* the styles for the active nav item */
+   transform-origin: 0% 50%;
+      transform: scale3d(1, 1, 1);
 }
+
+
+.link--metis::before {
+    content:"";
+    position: absolute;
+    width: 80%;
+    height: 2px;
+    background: var(--color-yellow);
+    top: 100%;
+    left: 10%;
+    pointer-events: none;
+    transform-origin: 100% 50%;
+    transform: scale3d(0, 1, 1);
+    transition: transform 0.3s;
+}
+
+.link--metis:hover::before {
+    transform-origin: 0% 50%;
+    transform: scale3d(1, 1, 1);
+}
+   
+
+  nav {
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
 </style>

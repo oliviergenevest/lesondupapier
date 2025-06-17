@@ -3,163 +3,158 @@ import { graphql } from '~/lib/datocms/graphql';
 import { executeQuery } from '~/lib/datocms/executeQuery';
 import { isDraftModeEnabled } from '~/lib/draftMode';
 import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
-import  { format } from 'date-fns';
+import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-
 
 const { data } = Astro.props;
 
-
-const query = graphql(
-  /* GraphQL */ `
-    query AgendaQuery($currentDate: Date!) {
-       
-       upcomingEvents : allAgendas(filter:{startDate: {gt: $currentDate}}, orderBy:startDate_ASC) {
-          startDate
-          endDate
-          city
-          location
-          content
-          spectacle { 
-            slug
-            title
-          }
-        }
-        
-        pastEvents : allAgendas(filter:{startDate: {lt: $currentDate}},  orderBy:startDate_ASC) {
-          startDate
-          endDate
-          city
-          location
-          content
-          spectacle { 
-            slug 
-            title
-            }
-        }
+const query = graphql(/* GraphQL */ `
+  query AgendaQuery($currentDate: Date!) {
+    upcomingEvents: allAgendas(
+      filter: { startDate: { gt: $currentDate } }
+      orderBy: startDate_ASC
+    ) {
+      startDate
+      endDate
+      city
+      location
+      content
+      spectacle {
+        slug
+        title
+      }
     }
-  `
-);
-const variables = { currentDate : format(new Date() , 'yyyy-MM-dd')};
-console.log("DATE DU JOUR UTILISEE POUR LES REQUETES AGENDA =============",variables.currentDate);
+
+    pastEvents: allAgendas(filter: { startDate: { lt: $currentDate } }, orderBy: startDate_ASC) {
+      startDate
+      endDate
+      city
+      location
+      content
+      spectacle {
+        slug
+        title
+      }
+    }
+  }
+`);
+const variables = { currentDate: format(new Date(), 'yyyy-MM-dd') };
+console.log('DATE DU JOUR UTILISEE POUR LES REQUETES AGENDA =============', variables.currentDate);
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 
-const { upcomingEvents, pastEvents} = await executeQuery(query, { includeDrafts: draftModeEnabled, variables: variables});
- 
+const { upcomingEvents, pastEvents } = await executeQuery(query, {
+  includeDrafts: draftModeEnabled,
+  variables: variables,
+});
+
 var events = [];
-if( data.passedEvents) {
-     events = data.numberEvents > 0 ? pastEvents.slice(0, data.numberEvents) : pastEvents;
+if (data.passedEvents) {
+  events = data.numberEvents > 0 ? pastEvents.slice(0, data.numberEvents) : pastEvents;
 } else {
-     events = data.numberEvents > 0 ? upcomingEvents.slice(0, data.numberEvents) : upcomingEvents;
+  events = data.numberEvents > 0 ? upcomingEvents.slice(0, data.numberEvents) : upcomingEvents;
 }
 
-
 if (events.length === 0) {
-
   return new Response(null, {
     status: 404,
     statusText: 'Not found',
   });
 }
-  
 ---
-<div class="agenda_wrapper"></div>
-{events.map((item) => (
-        <div class="agenda_item">
-         <div class="date">
-            {!item.endDate
-              ? format(new Date(item.startDate), 'dd LLL yyyy', { locale: fr })
-              : format(new Date(item.startDate), 'dd LLL', { locale: fr }) +
-                ' au ' +
-                format(new Date(item.endDate), 'dd LLL yyyy', { locale: fr })}
-          </div>
-         <div class="infos">
-            <div class="city_location">
-              {data.displayName && (
-              <div class="spectacle_name">
-                <a href={'/spectacle/'+item.spectacle.slug}>{item.spectacle.title}</a> 
-              </div>
-            )}
-              <div set:html={item.location} class="location"/><div class="city">{item.city}</div>
+
+<div class="agenda_wrapper">
+{
+  events.map((item) => (
+    <div class="agenda_item">
+      <div class="date">
+        {!item.endDate
+          ? format(new Date(item.startDate), 'dd LLL yyyy', { locale: fr })
+          : format(new Date(item.startDate), 'dd LLL', { locale: fr }) +
+            ' au ' +
+            format(new Date(item.endDate), 'dd LLL yyyy', { locale: fr })}
+      </div>
+      <div class="infos">
+        <div class="city_location">
+          {data.displayName && (
+            <div class="spectacle_name">
+              <a href={'/spectacle/' + item.spectacle.slug}>{item.spectacle.title}</a>
             </div>
-            <div class="content" set:html={item.content} />
-          </div>
+          )}
+          <>
+            <div set:html={item.location} class="location" />
+            <div class="city">{item.city}</div>
+          </>
         </div>
-   
-)
-)
+        <div class="content" set:html={item.content} />
+      </div>
+    </div>
+  ))
 }
+</div>
 
-
-
-<style is:inline>
+<style >
   .agenda_wrapper {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap:16px;
-  
+    gap: 16px;
   }
 
   .agenda_item {
-    display:flex;
+    display: flex;
     flex-direction: row;
-    flex-wrap:nowrap;
-    font-size:18px;
-    gap:32px;
+    flex-wrap: nowrap;
+    font-size: 18px;
+    gap: 32px;
   }
 
   .date {
-    width:125px;
-  
-    font-weight:bold;
-    flex-shrink:0;
-    color:var(--color-white);
-     text-transform: uppercase;
+    width: 125px;
+
+    font-weight: bold;
+    flex-shrink: 0;
+    color: var(--color-white);
+    text-transform: uppercase;
   }
 
   .spectacle_name {
     text-transform: uppercase;
-    color:var(--color-darkblue);
-    font-weight:bold;
-    padding-right:8px;
+    color: var(--color-darkblue);
+    font-weight: bold;
+    padding-right: 8px;
   }
 
   .city_location {
     text-transform: uppercase;
-    display:flex;
-    gap:0;
-    flex-wrap:wrap;
-    font-weight:normal;
-     color:white;
-    
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+    font-weight: normal;
+    color: var(--color-white);
   }
 
-  .location  {
-     p {
+  .location :global(p) {
+    
       line-height: normal;
       padding: 0;
-     margin: 0;
-     font-weight:bold;
-     }
-     
-     padding-right:8px;
-   }
-
-   .city{
-   
-    font-weight:bold;
-   }
-
-  .content p {
- font-size:16px;
-    color:var(--color-white);
-    line-height:normal; 
+      margin: 0;
+      font-weight: bold;
+      padding-right: 8px;
   }
 
-  .infos{
-    display:flex;
-    flex-direction:column;
-   
+  .city {
+    font-weight: bold;
   }
- </style> 
+
+  .content :global(p) {
+    font-size: 16px;
+    color: var(--color-white);
+    line-height: normal;
+  }
+
+  .infos {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+

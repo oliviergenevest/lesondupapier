@@ -191,7 +191,7 @@ type AtelierRecord implements RecordInterface {
   mainContent: AtelierModelMainContentField!
   position: IntType
   seoSettingsSocial: SeoField
-  sideContent: [SideContentBlocRecord!]!
+  sideContent: [SideContentBlockRecord!]!
   slug: String!
   subtitle(
     """Process content as markdown"""
@@ -3020,7 +3020,7 @@ type NavigationRecord implements RecordInterface {
   _updatedAt: DateTime!
   children: [NavigationRecord!]!
   id: ItemId!
-  items: PageRecord
+  items: PageRecord!
   parent: NavigationRecord
   position: IntType
 }
@@ -3751,15 +3751,17 @@ input SeoFilter {
   exists: BooleanType
 }
 
-type SideContentBlocModelContentField {
-  blocks: [SideContentBlocRecord!]!
+union SideContentBlockModelContentBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | VideoBlockRecord
+
+type SideContentBlockModelContentField {
+  blocks: [SideContentBlockModelContentBlocksField!]!
   inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
 
-"""Block of type Contenu annexe (side_content_bloc)"""
-type SideContentBlocRecord implements RecordInterface {
+"""Block of type Contenu annexe (side_content_block)"""
+type SideContentBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
   """Editing URL"""
@@ -3778,7 +3780,7 @@ type SideContentBlocRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  content: SideContentBlocModelContentField!
+  content: SideContentBlockModelContentField!
   id: ItemId!
 }
 
@@ -3843,12 +3845,12 @@ input SpectacleModelFilter {
   AND: [SpectacleModelFilter]
 }
 
-union SpectacleModelMainContentBlocksField = ImageGalleryBlockRecord | VideoBlockRecord
+union SpectacleModelMainContentBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | VideoBlockRecord
 
 type SpectacleModelMainContentField {
   blocks: [SpectacleModelMainContentBlocksField!]!
   inlineBlocks: [String!]!
-  links: [String!]!
+  links: [PageRecord!]!
   value: JsonField!
 }
 
@@ -3904,7 +3906,7 @@ type SpectacleRecord implements RecordInterface {
   mainContent: SpectacleModelMainContentField!
   mainImage: ImageFileField!
   seoSettingsSocial: SeoField
-  sideContent: [SideContentBlocRecord!]!
+  sideContent: [SideContentBlockRecord!]!
   slug: String!
   subtitle(
     """Process content as markdown"""

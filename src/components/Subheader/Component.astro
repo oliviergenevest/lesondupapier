@@ -1,0 +1,62 @@
+---
+import { graphql } from '~/lib/datocms/graphql';
+import { executeQuery } from '~/lib/datocms/executeQuery';
+import { isDraftModeEnabled } from '~/lib/draftMode';
+import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
+
+
+
+const query = graphql(/* GraphQL */ `
+  query subheaderQuery {
+    allNews(orderBy: position_ASC, first:1) {
+        
+            content
+        
+    }
+  }
+`);
+
+const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
+const { allNews } = await executeQuery(query, { includeDrafts: draftModeEnabled });
+
+if (!allNews) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  });
+}
+
+
+---
+
+<div class="subheader">
+    <div class="news" set:html={allNews[0].content} />
+
+    <div class="socials">Reseaux sociaux</div>
+</div>
+
+<style>
+  .subheader {
+    height: auto;
+    background: var(--color-yellow);
+   
+    padding-left: var(--page-margin);
+    padding-right: var(--page-margin);
+    padding-top:8px;
+    padding-bottom:8px;
+    display:flex;
+    flex-wrap: nowrap;
+    gap:16px;
+    justify-content: space-between;
+    
+  }
+
+  .news {
+    :global(p){
+        margin-bottom:0;
+        font-size:18px;
+        color:var(--color-white);
+    }
+   
+  }
+</style>

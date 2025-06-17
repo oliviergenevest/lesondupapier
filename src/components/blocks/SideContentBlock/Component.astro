@@ -1,0 +1,15 @@
+---
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { SideContentBlockFragment } from './fragments';
+import { ResponsiveImage } from '~/components/ResponsiveImage';
+
+interface Props {
+  block: FragmentOf<typeof SideContentBlockFragment>;
+}
+
+const { block } = Astro.props;
+//console.log(block);
+
+// Read unmasked block from fragment
+const unmaskedBlock = readFragment(SideContentBlockFragment, block);
+---

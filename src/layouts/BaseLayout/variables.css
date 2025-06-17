@@ -1,14 +1,14 @@
 :root {
   --font-sans:
-    AtkinsonHyperlegible, colfax, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    AtkinsonHyperlegible,  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  --font-headline: KirangHaerang, tiempos-headline, 'Times New Roman', serif;
+  --font-headline: KirangHaerang,  'Times New Roman', serif;
   --font-mono: AtkinsonHyperlegible, SFMono-Regular, Source Code Pro, Menlo, monospace;
-  --font-serif: AtkinsonHyperlegible, tiempos-text, Georgia, serif;
+  --font-serif: AtkinsonHyperlegible, Georgia, serif;
   --page-margin: 30px;
   --page-width-with-margin: 1144px;
 
-  --base-body-color: #2f333f;
+  --base-body-color: #fff;
   --extra-light-body-color: #969fb6;
   --light-body-color: #71788a;
   --base-bg-color: white;

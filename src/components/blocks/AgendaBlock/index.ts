@@ -1,1 +1,1 @@
-export {default as AgendaBlock} from './Component.astro'
+export { default as AgendaBlock } from './Component.astro';

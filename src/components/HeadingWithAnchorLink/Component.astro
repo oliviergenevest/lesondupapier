@@ -47,7 +47,7 @@ const slug = slugify(structuredTextToPlainText(node));
   */
 
   slug ? (
-    <Title as={`h${node.level}`} id={slug} tabindex="-1" class="title with-lines">
+    <Title as={`h${node.level}`} id={slug} tabindex="-1" class={`h${node.level}`}>
       <a href={`#${slug}`}>
         <slot />
       </a>

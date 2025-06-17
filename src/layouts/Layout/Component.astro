@@ -11,6 +11,7 @@ import { Navigation } from '~/components/Navigation';
 import { Wrapper } from '~/components/Wrapper';
 import { Image } from 'astro:assets';
 import logo from '../../img/logo_lesondupapier.png';
+import { Subheader } from '~/components/Subheader';
 
 type Props = {
   additionalSeo?: TitleMetaLinkTag[];
@@ -40,7 +41,7 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   seo={[...result._site.faviconMetaTags, ...additionalSeo]}
   backgroundColor={backgroundColor}
 >
-  <div class="subheader">réseaux sociaux</div>
+  <Subheader/>
   <div class="header">
     <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
     <Navigation />

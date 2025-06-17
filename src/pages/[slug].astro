@@ -80,7 +80,7 @@ const query = graphql(
             ... on ImageTextBlockRecord {
               ...ImageTextBlockFragment
             }
-             ... on ItemsListBlockRecord {
+            ... on ItemsListBlockRecord {
               ...ItemsListBlockFragment
             }
             ... on AgendaBlockRecord {
@@ -115,7 +115,7 @@ const query = graphql(
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 
 const variables = { slug: Astro.params.slug! };
-console.log('-----> variables: slug page =', variables);
+/*console.log('-----> variables: slug page =', variables);*/
 const { page } = await executeQuery(query, {
   includeDrafts: draftModeEnabled,
   variables: variables,
@@ -182,6 +182,5 @@ const bgColor = page.backgroundColor.hex;
   </Wrapper>
 
   <div class="published_date">Published at {page._firstPublishedAt}</div>
-
   <DraftModeQueryListener query={query} />
 </Layout>
