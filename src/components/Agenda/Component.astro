@@ -64,36 +64,36 @@ if (events.length === 0) {
 ---
 
 <div class="agenda_wrapper">
-{
-  events.map((item) => (
-    <div class="agenda_item">
-      <div class="date">
-        {!item.endDate
-          ? format(new Date(item.startDate), 'dd LLL yyyy', { locale: fr })
-          : format(new Date(item.startDate), 'dd LLL', { locale: fr }) +
-            ' au ' +
-            format(new Date(item.endDate), 'dd LLL yyyy', { locale: fr })}
-      </div>
-      <div class="infos">
-        <div class="city_location">
-          {data.displayName && (
-            <div class="spectacle_name">
-              <a href={'/spectacle/' + item.spectacle.slug}>{item.spectacle.title}</a>
-            </div>
-          )}
-          <>
-            <div set:html={item.location} class="location" />
-            <div class="city">{item.city}</div>
-          </>
+  {
+    events.map((item) => (
+      <div class="agenda_item">
+        <div class="date">
+          {!item.endDate
+            ? format(new Date(item.startDate), 'dd LLL yyyy', { locale: fr })
+            : format(new Date(item.startDate), 'dd LLL', { locale: fr }) +
+              ' au ' +
+              format(new Date(item.endDate), 'dd LLL yyyy', { locale: fr })}
         </div>
-        <div class="content" set:html={item.content} />
+        <div class="infos">
+          <div class="city_location">
+            {data.displayName && (
+              <div class="spectacle_name">
+                <a href={'/spectacle/' + item.spectacle.slug}>{item.spectacle.title}</a>
+              </div>
+            )}
+            <>
+              <div set:html={item.location} class="location" />
+              <div class="city">{item.city}</div>
+            </>
+          </div>
+          <div class="content" set:html={item.content} />
+        </div>
       </div>
-    </div>
-  ))
-}
+    ))
+  }
 </div>
 
-<style >
+<style>
   .agenda_wrapper {
     display: flex;
     flex-direction: column;
@@ -134,12 +134,11 @@ if (events.length === 0) {
   }
 
   .location :global(p) {
-    
-      line-height: normal;
-      padding: 0;
-      margin: 0;
-      font-weight: bold;
-      padding-right: 8px;
+    line-height: normal;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    padding-right: 8px;
   }
 
   .city {
@@ -157,4 +156,3 @@ if (events.length === 0) {
     flex-direction: column;
   }
 </style>
-

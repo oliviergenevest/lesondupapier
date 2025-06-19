@@ -22,16 +22,19 @@ path = data.__typename === 'SpectacleRecord' ? `/spectacle/${data.slug}/` : path
 path = data.__typename === 'AtelierRecord' ? `/atelier/${data.slug}/` : path;
 const subtitle = data.__typename === 'MemberRecord' ? data.subtitle : data.cardSubtitle;
 
-const image = data.image ? data.image.responsiveImage : (data.cardImage ? data.cardImage.responsiveImage : null);
-console.log("IMAGE",image)
+const image = data.image
+  ? data.image.responsiveImage
+  : data.cardImage
+    ? data.cardImage.responsiveImage
+    : null;
+console.log('IMAGE', image);
 ---
 
 <div class="card">
   {data.__typename === 'MemberRecord' ? <a data-modal-trigger={data.slug} /> : <a href={path} />}
-  
-  <div class="card_image">
-    { image ?  <ResponsiveImage data={image} /> : <div class="color"/>}
 
+  <div class="card_image">
+    {image ? <ResponsiveImage data={image} /> : <div class="color" />}
   </div>
   <div class="content">
     <Title as="h2" class:list={['card_title', 'h2']}>{data.title}</Title>
@@ -41,8 +44,8 @@ console.log("IMAGE",image)
       data.__typename === 'MemberRecord' && (
         <Modal id={data.slug} class="modal" size="4xl">
           <ModalBody>
-            <div class="modal_image" >
-             { image && <ResponsiveImage data={data.image.responsiveImage} />}
+            <div class="modal_image">
+              {image && <ResponsiveImage data={data.image.responsiveImage} />}
             </div>
             <Title as="h2" class="h2 modal_title">
               {data.title}{' '}
@@ -79,14 +82,14 @@ console.log("IMAGE",image)
     transition: transform 0.1s ease-in-out;
     overflow: hidden;
     position: relative;
-     height:100%;
+    flex-grow:1;
   }
 
-  .card_image .color{
-    background:white;
-    width:100%;
-    display:block;
-    height:100%;
+  .card_image .color {
+    background: white;
+    width: 100%;
+    display: block;
+    height: 100%;
   }
 
   a {
@@ -96,17 +99,17 @@ console.log("IMAGE",image)
     z-index: 1;
   }
 
-.card_title {
-    color:var(--color-white);
-    padding:0;
-    margin:0;
+  .card_title {
+    color: var(--color-white);
+    padding: 0;
+    margin: 0;
   }
 
-  .subtitle :global(p){
+  .subtitle :global(p) {
     color: var(--color-white);
     font-size: rfs(14px);
     font-weight: 400;
-    line-height:normal;
+    line-height: normal;
   }
 </style>
 
@@ -121,16 +124,16 @@ console.log("IMAGE",image)
   }
   .modal_title {
     text-transform: uppercase;
-    color: var(--color-turquoise) ;
+    color: var(--color-turquoise);
   }
   .modal_subtitle p {
     font-weight: bold;
     color: var(--color-black);
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
   }
   .modal_content p {
-    color: var(--color-black) ;
+    color: var(--color-black);
   }
 
   .modal_image {

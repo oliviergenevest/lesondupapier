@@ -29,6 +29,7 @@ import { OlivBlock } from '~/components/blocks/OlivBlock';
 import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
+import { SideContentBlockFragment } from '~/components/blocks/SideContentBlock/fragments';
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -44,17 +45,47 @@ const query = graphql(
           ...TagFragment
         }
         title
+        subtitle
         slug
+         sideContent {
+          ... on RecordInterface {
+            id
+            __typename
+          }
+          ... on SideContentBlockRecord {
+            ...SideContentBlockFragment
+          }
+        }
+        mainContent {
+          value
+          blocks {
+            ... on RecordInterface {
+              id
+              __typename
+            }
+
+            ... on ImageGalleryBlockRecord {
+              ...ImageGalleryBlockFragment
+            }
+            ... on VideoBlockRecord {
+              ...VideoBlockFragment
+            }
+
+            ... on ImageBlockRecord {
+              ...ImageBlockFragment
+            }
+          }
+        }
       }
     }
   `,
-  [TagFragment],
+  [TagFragment, SideContentBlockFragment],
 );
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 
 const variables = { slug: Astro.params.slug! };
-console.log('-----> variables: slug atelier =', variables);
+//console.log('-----> variables: slug atelier =', variables);
 const { atelier } = await executeQuery(query, {
   includeDrafts: draftModeEnabled,
   variables: variables,
@@ -68,14 +99,193 @@ if (!atelier) {
 }
 ---
 
-{
-  /*
-   *
-   * Mettre le bon layout correspondant aux spectacles (LayoutSpectacle)
-   */
-}
+
 <Layout additionalSeo={atelier._seoMetaTags} backgroundColor="var(--color-cream)">
-  <Wrapper class="wrapper">
-    <Title class="title h1">{atelier.title}</Title>
-  </Wrapper></Layout
->
+  <Wrapper class="wrapper wide">
+    <Title class="title h1"> <span set:html={atelier.subtitle} /></Title>
+
+
+
+
+
+<div class="atelier_grid">
+      
+      <div class="grid_side">
+        {
+          atelier.sideContent.map((block) => (
+            <div class="side_content_bloc">
+              {
+              /* todo: fix type error */
+              /* @ts-ignore*/}
+              <StructuredText
+                data={block.content}
+                blockComponents={
+                  /*
+                   * If the structured text embeds any blocks, it's up to you to decide
+                   * how to render them:
+                   */
+                  {
+                    ImageBlockRecord: ImageBlock,
+                    ImageGalleryBlockRecord: ImageGalleryBlock,
+                    VideoBlockRecord: VideoBlock,
+                  }
+                }
+                linkToRecordComponents={
+                  /*
+                   * If the structured text includes a link to another DatoCMS record,
+                   * it's your decision to determine where the link should lead, or if
+                   * you wish to customize its appearance:
+                   */
+                  {
+                    PageRecord: PageLink,
+                  }
+                }
+                inlineRecordComponents={
+                  /*
+                   * If the structured text includes a reference to another DatoCMS
+                   * record, it's up to you to decide how to render them:
+                   */
+                  {
+                    PageRecord: PageInline,
+                  }
+                }
+                nodeOverrides={
+                  /*
+                   * You can also override the default rendering of certain nodes.
+                   * In this case, we want to tweak the way headings (h1-h6) are rendered.
+                   */ {
+                    heading: HeadingWithAnchorLink,
+                    //heading: Title,
+                  }
+                }
+              />
+            </div>
+          ))
+        }
+      </div>
+      <div class="grid_main">
+        {
+          /*
+           * Structured Text is a JSON format similar to HTML, but with the advantage
+           * of a significantly reduced and tailored set of possible tags
+           * for editorial content, along with the capability to create hyperlinks
+           * to other DatoCMS records and embed custom DatoCMS blocks.
+           */
+        }
+
+        <StructuredText
+          data={atelier.mainContent}
+          blockComponents={/*
+           * If the structured text embeds any blocks, it's up to you to decide
+           * how to render them:
+           */
+          {
+            ImageGalleryBlockRecord: ImageGalleryBlock,
+            VideoBlockRecord: VideoBlock,
+            ImageBlockRecord: ImageBlock,
+          }}
+          linkToRecordComponents={/*
+           * If the structured text includes a link to another DatoCMS record,
+           * it's your decision to determine where the link should lead, or if
+           * you wish to customize its appearance:
+           */
+          {
+            PageRecord: PageLink,
+          }}
+          inlineRecordComponents={/*
+           * If the structured text includes a reference to another DatoCMS
+           * record, it's up to you to decide how to render them:
+           */
+          {
+            PageRecord: PageInline,
+          }}
+          nodeOverrides={/*
+           * You can also override the default rendering of certain nodes.
+           * In this case, we want to tweak the way headings (h1-h6) are rendered.
+           */ {
+            heading: HeadingWithAnchorLink,
+            //heading: Title,
+          }}
+        />
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+  </Wrapper>
+  </Layout>
+
+<style>
+  body{
+    background-color:var(--color-red);
+  }
+
+  .title.h1 span :global(p) {
+    margin-bottom:0;
+    padding-bottom: 0;
+  }
+
+
+  .atelier_grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    padding-top: rfs(8px);
+    :global(p) {
+      color: var(--color-black);
+    }
+    @media (max-width: 750px) {
+      gap: 32px;
+      grid-template-columns: 1fr;
+    }
+    @media (max-width: 1150px) {
+      gap: 32px;
+    }
+  }
+
+  .grid_main {
+    background-color: var(--color-white);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+     
+  }
+
+  :global(p > mark) {
+    font-size: rfs(28px);
+    font-weight: bold;
+    background: none;
+    line-height: rfs(28px);
+  }
+
+  .grid_side {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    
+  }
+
+  .side_content_bloc {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: var(--color-white);
+    border-top: 4px solid var(--color-yellow);
+    padding: 32px;
+    :global(p) {
+      font-size: rfs(16px);
+      line-height: rfs(24px);
+    }
+  }
+
+
+
+
+</style>

@@ -128,7 +128,7 @@ input AtelierModelFilter {
   AND: [AtelierModelFilter]
 }
 
-union AtelierModelMainContentBlocksField = ImageGalleryBlockRecord | VideoBlockRecord
+union AtelierModelMainContentBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | VideoBlockRecord
 
 type AtelierModelMainContentField {
   blocks: [AtelierModelMainContentBlocksField!]!

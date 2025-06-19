@@ -1,1 +1,1 @@
-export {default as Subheader} from './Component.astro'
+export { default as Subheader } from './Component.astro';

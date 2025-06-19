@@ -31,7 +31,6 @@ if (!allNavigations) {
 // the `pathname` is sth like - "/agenda"
 const { pathname } = Astro.url;
 const pathSlug = pathname.replace(/\/$/, '').slice(1);
-
 ---
 
 <Wrapper>
@@ -40,12 +39,12 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
       {
         allNavigations.map((item) => (
           <li>
-            <a 
-              href={'/' + item.items.slug + '/'} 
-              title={item.items.title} 
-              class:list={"link--metis"}
+            <a
+              href={'/' + item.items.slug + '/'}
+              title={item.items.title}
+              class:list={'link--metis'}
               aria-current={pathSlug === item.items.slug ? 'page' : 'false'}
-              >
+            >
               {item.items.title}
             </a>
           </li>
@@ -73,21 +72,19 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
     font-size: rfs(24px);
     color: var(--color-darkblue);
     text-decoration: none;
-    position:relative;
-    padding-bottom:4px;
+    position: relative;
+    padding-bottom: 4px;
     text-transform: lowercase;
   }
 
+  a[aria-current='page']::before {
+    /* the styles for the active nav item */
+    transform-origin: 0% 50%;
+    transform: scale3d(1, 1, 1);
+  }
 
-  a[aria-current="page"]::before {
-  /* the styles for the active nav item */
-   transform-origin: 0% 50%;
-      transform: scale3d(1, 1, 1);
-}
-
-
-.link--metis::before {
-    content:"";
+  .link--metis::before {
+    content: '';
     position: absolute;
     width: 80%;
     height: 2px;
@@ -98,13 +95,12 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
     transform-origin: 100% 50%;
     transform: scale3d(0, 1, 1);
     transition: transform 0.3s;
-}
+  }
 
-.link--metis:hover::before {
+  .link--metis:hover::before {
     transform-origin: 0% 50%;
     transform: scale3d(1, 1, 1);
-}
-   
+  }
 
   nav {
     @media screen and (max-width: 768px) {

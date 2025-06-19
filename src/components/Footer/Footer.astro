@@ -1,15 +1,76 @@
 ---
+import { graphql } from '~/lib/datocms/graphql';
+import { executeQuery } from '~/lib/datocms/executeQuery';
 import { Wrapper } from '../Wrapper';
+import { isDraftModeEnabled } from '~/lib/draftMode';
+import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
+import { PageLinkFragment } from '../linkToRecord/PageLink/fragments';
+import { PageInlineFragment } from '../inlineRecord/PageInline/fragments';
+import { StructuredText } from '@datocms/astro';
+import { PageLink } from '../linkToRecord/PageLink';
+import { PageInline } from '../inlineRecord/PageInline';
 
-const platform = 'github';
-const username = 'withastro';
+
+
+const query = graphql(/* GraphQL */ `
+  query FooterQuery {
+    footer {
+      structuredFooter {
+        value
+        links {
+        ... on RecordInterface {
+          id
+          __typename
+        }
+        ...PageLinkFragment
+        ...PageInlineFragment
+      }
+      }
+    }
+  }
+`,  [
+    
+    PageLinkFragment,
+    PageInlineFragment,
+
+  ],);
+
+
+const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
+const { footer } = await executeQuery(query, { includeDrafts: draftModeEnabled });
+
+if (!footer) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  });
+}
 ---
 
 <footer>
   <Wrapper>
-    <p>Suivez-nous sur <a href={`https://www.${platform}.com/${username}`}>{platform}</a> !</p>
-    <p>lien vers pages légales - credits - protection données</p>
-    <p>2025 - Le son du papier</p>
+ <StructuredText
+      data={footer.structuredFooter}
+      
+      linkToRecordComponents={/*
+       * If the structured text includes a link to another DatoCMS record,
+       * it's your decision to determine where the link should lead, or if
+       * you wish to customize its appearance:
+       */
+      {
+        PageRecord: PageLink,
+      }}
+
+      inlineRecordComponents={/*
+       * If the structured text includes a reference to another DatoCMS
+       * record, it's up to you to decide how to render them:
+       */
+      {
+        PageRecord: PageInline,
+      }}
+      
+    />
+  
   </Wrapper>
 </footer>
 
@@ -21,11 +82,9 @@ const username = 'withastro';
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: rfs(16px);
+      gap: rfs(8px);
+      :global(p) {color:var(--color-black); font-size: rfs(16px);}
     }
-    p {
-      color: var(--color-dark);
-      font-size: rfs(16px);
-    }
+   
   }
 </style>

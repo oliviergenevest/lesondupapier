@@ -1,4 +1,3 @@
-
 import { graphql } from '~/lib/datocms/graphql';
 import { VideoBlockFragment } from '../VideoBlock/fragments';
 import { ImageBlockFragment } from '../ImageBlock/fragments';
@@ -24,28 +23,21 @@ export const SideContentBlockFragment = graphql(
         value
         blocks {
           ... on RecordInterface {
-              id
-              __typename
-            }
-             ... on ImageGalleryBlockRecord {
-              ...ImageGalleryBlockFragment
-            }
-            ... on VideoBlockRecord {
-              ...VideoBlockFragment
-            }
-            ... on ImageBlockRecord{
-              ...ImageBlockFragment
-            }
-             
-          
-   
+            id
+            __typename
+          }
+          ... on ImageGalleryBlockRecord {
+            ...ImageGalleryBlockFragment
+          }
+          ... on VideoBlockRecord {
+            ...VideoBlockFragment
+          }
+          ... on ImageBlockRecord {
+            ...ImageBlockFragment
+          }
         }
       }
     }
   `,
-  [
-    ImageBlockFragment,
-    ImageGalleryBlockFragment,
-    VideoBlockFragment,
-  ],
+  [ImageBlockFragment, ImageGalleryBlockFragment, VideoBlockFragment],
 );

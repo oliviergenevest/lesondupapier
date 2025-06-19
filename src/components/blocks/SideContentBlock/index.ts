@@ -1,1 +1,1 @@
-export {default as SideContentBlock} from './Component.astro';
+export { default as SideContentBlock } from './Component.astro';
