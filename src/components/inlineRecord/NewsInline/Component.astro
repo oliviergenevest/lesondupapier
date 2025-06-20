@@ -11,4 +11,5 @@ const { record } = Astro.props;
 const unmaskedRecord = readFragment(NewsInlineFragment, record);
 //console.log("unmaskedRecord", unmaskedRecord.content)
 ---
+
 <div set:html={unmaskedRecord.content} class="news_inline" />

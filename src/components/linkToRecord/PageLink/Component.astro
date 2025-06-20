@@ -16,28 +16,27 @@ const { node, record, attrs } = Astro.props;
 const unmaskedRecord = readFragment(PageLinkFragment, record);
 ---
 
-<a {...attrs} href={'/'+unmaskedRecord.slug} title={unmaskedRecord.title} class="record_link"><slot /></a>
-
+<a {...attrs} href={'/' + unmaskedRecord.slug} title={unmaskedRecord.title} class="record_link"
+  ><slot /></a
+>
 
 <style>
-.record_link {
-  font-weight:bold;
-  font-style: italic;
-  color:var(--color-cream);
-  transition:all 0.9s ease-in-out;
-  &:hover{
-    color:var(--color-white);
+  .record_link {
+    font-weight: bold;
+    font-style: italic;
+    color: var(--color-cream);
+    transition: all 0.9s ease-in-out;
+    &:hover {
+      color: var(--color-white);
+    }
+    &:after {
+      content: ' →';
+      color: var(--color-white);
+      transition: all 0.15s ease-in-out;
+    }
+    &:hover:after {
+      color: var(--color-cream);
+      margin-left: 8px;
+    }
   }
-  &:after{
-    content:' →';
-    color:var(--color-white);
-      transition:all 0.15s ease-in-out;
-  }
-  &:hover:after {
-    color:var(--color-cream);
-    margin-left:8px;
-  }
-}
-
-
 </style>

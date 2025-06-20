@@ -1,5 +1,5 @@
 import { graphql } from '~/lib/datocms/graphql';
-import { ImageBlockFragment } from '../ImageBlock/fragments';
+
 
 import { AgendaBlockFragment } from '../AgendaBlock/fragments';
 import { ItemsListBlockFragment } from '../ItemsListBlock/fragments';
@@ -23,7 +23,9 @@ import { NewsInlineFragment } from '~/components/inlineRecord/NewsInline/fragmen
 export const HomepageSectionBlockFragment = graphql(
   /* GraphQL */ `
     fragment HomepageSectionBlockFragment on HomepageSectionBlockRecord {
-      backgroundColor {hex}
+      backgroundColor {
+        hex
+      }
       structuredText {
         value
         blocks {
@@ -34,23 +36,29 @@ export const HomepageSectionBlockFragment = graphql(
           ... on ItemsListBlockRecord {
             ...ItemsListBlockFragment
           }
-        
+
           ... on AgendaBlockRecord {
             ...AgendaBlockFragment
           }
         }
-        
-         links {
-            ... on RecordInterface {
-              id
-              __typename
-            }
-            ...PageLinkFragment
-            ...PageInlineFragment
-             ...NewsInlineFragment 
+
+        links {
+          ... on RecordInterface {
+            id
+            __typename
           }
+          ...PageLinkFragment
+          ...PageInlineFragment
+          ...NewsInlineFragment
+        }
       }
     }
   `,
-  [ AgendaBlockFragment, ItemsListBlockFragment, PageInlineFragment, PageLinkFragment, NewsInlineFragment],
+  [
+    AgendaBlockFragment,
+    ItemsListBlockFragment,
+    PageInlineFragment,
+    PageLinkFragment,
+    NewsInlineFragment,
+  ],
 );

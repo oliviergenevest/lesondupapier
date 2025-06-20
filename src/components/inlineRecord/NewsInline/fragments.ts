@@ -18,9 +18,8 @@ export const NewsInlineFragment = graphql(/* GraphQL */ `
     ... on RecordInterface {
       id
       __typename
-      
     }
-    
+
     ... on NewsRecord {
       content
     }

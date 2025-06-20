@@ -45,12 +45,11 @@ const { as: Tag = 'h1' as any, anchor, children, ...props } = Astro.props;
   }
 
   .h1.homepage {
- 
     &::before,
     &::after {
-    display:none;
+      display: none;
     }
-    padding-bottom:rfs(16px);
+    padding-bottom: rfs(16px);
   }
 
   .h2 {

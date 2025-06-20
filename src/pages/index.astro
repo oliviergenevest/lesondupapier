@@ -4,7 +4,6 @@ import { Layout } from '../layouts/Layout';
 import { TagFragment } from '~/lib/datocms/commonFragments';
 import { executeQuery } from '~/lib/datocms/executeQuery';
 
-
 import { HeadingWithAnchorLink } from '~/components/HeadingWithAnchorLink';
 
 import { isDraftModeEnabled } from '~/lib/draftMode';
@@ -12,8 +11,8 @@ import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 
 import { PageInline } from '~/components/inlineRecord/PageInline';
 import { PageInlineFragment } from '~/components/inlineRecord/PageInline/fragments';
-import { HomepageSectionBlock } from '~/components/blocks/HomepageSectionBlock'
-import { HomepageSectionBlockFragment } from '~/components/blocks/HomepageSectionBlock/fragments'
+import { HomepageSectionBlock } from '~/components/blocks/HomepageSectionBlock';
+import { HomepageSectionBlockFragment } from '~/components/blocks/HomepageSectionBlock/fragments';
 import { PageLink } from '~/components/linkToRecord/PageLink';
 import { PageLinkFragment } from '~/components/linkToRecord/PageLink/fragments';
 
@@ -39,24 +38,13 @@ const query = graphql(
           hex
         }
         _firstPublishedAt
-        homepageSections
-         {
-          
-            
-              ...HomepageSectionBlockFragment
-            
-           
-
-         
+        homepageSections {
+          ...HomepageSectionBlockFragment
         }
       }
     }
   `,
-  [
-    TagFragment,
-    HomepageSectionBlockFragment,
-    
-  ],
+  [TagFragment, HomepageSectionBlockFragment],
 );
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
@@ -73,10 +61,7 @@ if (!homepage) {
 <Layout additionalSeo={homepage._seoMetaTags} backgroundColor="var(--color-cream)">
   <Wrapper class="wrapper homepage">
     <p><b>LANDING SCREEN </b></p>
-    { homepage.homepageSections.map((item) => 
-        <HomepageSectionBlock block={item}/>)
-     }
-    
+    {homepage.homepageSections.map((item) => <HomepageSectionBlock block={item} />)}
   </Wrapper>
 
   <div>Published at {homepage._firstPublishedAt}</div>

@@ -23,14 +23,14 @@ const slugify = (str: string | null) =>
     : undefined;
 
 const Element = `h${node.level}` as const;
-
 ---
 
 {
-  /*
+  (
+    /*
     Renders a Structured Text heading node as an heading with anchor link.
   */
-  /*
+    /*
   slug ? (
     <Element id={slug} tabindex="-1">
       <a href={`#${slug}`}>
@@ -44,9 +44,8 @@ const Element = `h${node.level}` as const;
   )
   */
 
-
     <Element class={`h${node.level} homepage`}>
       <slot />
     </Element>
-  
+  )
 }

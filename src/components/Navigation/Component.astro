@@ -11,7 +11,9 @@ const query = graphql(/* GraphQL */ `
     allNavigations(orderBy: position_ASC) {
       items {
         title
-        backgroundColor { hex }
+        backgroundColor {
+          hex
+        }
         slug
         position
       }
@@ -32,7 +34,6 @@ if (!allNavigations) {
 // the `pathname` is sth like - "/agenda"
 const { pathname } = Astro.url;
 const pathSlug = pathname.replace(/\/$/, '').slice(1);
-
 ---
 
 <Wrapper>
@@ -49,7 +50,6 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
             >
               {item.items.title}
             </a>
-            
           </li>
         ))
       }
@@ -58,7 +58,7 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
   <Hamburger />
 </Wrapper>
 
-<style >
+<style>
   ul {
     display: flex;
     gap: rfs(16px);

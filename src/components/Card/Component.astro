@@ -28,7 +28,6 @@ const image = data.image
     ? data.cardImage.responsiveImage
     : null;
 
-
 //console.log('badgeLabel', data.badgeLabel);
 ---
 
@@ -73,23 +72,22 @@ const image = data.image
     transition: transform 0.2s ease-in-out;
     &:hover {
       cursor: pointer;
-      
-        transform: scale(1.03);
-        transition: transform 0.2s ease-in-out;
-      
+
+      transform: scale(1.03);
+      transition: transform 0.2s ease-in-out;
     }
   }
 
   .card_badge {
-    background-color:var(--color-turquoise);
-    color:var(--color-cream);
-    position:absolute;
-    display:inline;
-    border-radius:2px;
-    top:8px;
-    left:8px;
-    z-index:1;
-    padding:4px;
+    background-color: var(--color-turquoise);
+    color: var(--color-cream);
+    position: absolute;
+    display: inline;
+    border-radius: 2px;
+    top: 8px;
+    left: 8px;
+    z-index: 1;
+    padding: 4px;
   }
 
   .card_image {
@@ -97,7 +95,7 @@ const image = data.image
     overflow: hidden;
     position: relative;
     flex-grow: 1;
-    border-radius:4px;
+    border-radius: 4px;
   }
 
   .card_image .color {

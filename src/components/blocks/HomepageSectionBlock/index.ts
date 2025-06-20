@@ -1,1 +1,1 @@
-export { default as HomepageSectionBlock } from './Component.astro'
+export { default as HomepageSectionBlock } from './Component.astro';
