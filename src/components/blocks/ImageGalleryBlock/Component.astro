@@ -18,12 +18,14 @@ const unmaskedBlock = readFragment(ImageGalleryBlockFragment, block);
   <div class="gallery">
     {
       unmaskedBlock.assets.map((asset) => (
-       <Lightbox lightboxUrl={asset.url}> <figure>
-          {/* Display responsive image for each asset */}
-          <ResponsiveImage data={asset.responsiveImage} />
-          {/* Display title for each asset */}
-          <figcaption>{asset.title}</figcaption>
-        </figure>
+        <Lightbox lightboxUrl={asset.url}>
+          {' '}
+          <figure>
+            {/* Display responsive image for each asset */}
+            <ResponsiveImage data={asset.responsiveImage} />
+            {/* Display title for each asset */}
+            <figcaption>{asset.title}</figcaption>
+          </figure>
         </Lightbox>
       ))
     }

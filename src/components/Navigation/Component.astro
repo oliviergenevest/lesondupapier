@@ -36,7 +36,7 @@ const { pathname } = Astro.url;
 const pathSlug = pathname.replace(/\/$/, '').slice(1);
 ---
 
-<Wrapper>
+
   <nav>
     <ul>
       {
@@ -57,7 +57,7 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
     <button class="btn_close">Fermer</button>
   </nav>
   <Hamburger />
-</Wrapper>
+
 
 <style>
   ul {

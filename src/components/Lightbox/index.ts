@@ -1,1 +1,1 @@
-export {default as Lightbox} from './Component.astro'
+export { default as Lightbox } from './Component.astro';
