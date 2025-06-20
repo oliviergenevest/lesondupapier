@@ -19,7 +19,7 @@ const unmaskedBlock = readFragment(ImageGalleryBlockFragment, block);
       unmaskedBlock.assets.map((asset) => (
         <figure>
           {/* Display responsive image for each asset */}
-          <ResponsiveImage data={asset.responsiveImage}  />
+          <ResponsiveImage data={asset.responsiveImage} />
           {/* Display title for each asset */}
           <figcaption>{asset.title}</figcaption>
         </figure>

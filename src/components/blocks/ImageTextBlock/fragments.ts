@@ -19,7 +19,7 @@ export const ImageTextBlockFragment = graphql(
       text
       image {
         alt
-        responsiveImage(sizes: "(max-width: 400px) 100vw, 400px") {
+        responsiveImage(imgixParams: { auto: format} , sizes: "(max-width: 400px) 100vw, 400px") {
           ...ResponsiveImageFragment
         }
       }

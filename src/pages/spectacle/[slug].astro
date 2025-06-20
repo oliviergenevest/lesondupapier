@@ -48,7 +48,7 @@ const query = graphql(
         _firstPublishedAt
         mainImage {
           url
-          responsiveImage(imgixParams: { w: 2000 }, sizes: "1600px") {
+          responsiveImage(imgixParams: { auto:format, w: 2000 }, sizes: "2000px") {
             ...ResponsiveImageFragment
           }
         }
@@ -114,7 +114,7 @@ if (!spectacle) {
 }
 
 const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSize: true });
-//console.log( "optimizedBgImage",optimizedBgImage.src);
+//console.log( "optimizedBgImage",spectacle.mainImage.responsiveImage);
 ---
 
 <Layout additionalSeo={spectacle._seoMetaTags} backgroundColor="var(--color-cream)">

@@ -60,12 +60,12 @@ p {
 }
 
 .gallery {
-    display: flex;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    grid-template-rows: auto;
-    position:relative;
-  }
+  display: flex;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  grid-template-rows: auto;
+  position: relative;
+}
 
 img,
 picture,
