@@ -646,6 +646,11 @@ type HomepageRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   backgroundColor: ColorField!
+  backgroundImage: FileField!
+  ctaText(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String!
   homepageSections: [HomepageSectionBlockRecord!]!
   id: ItemId!
   seoAnalysis: JsonField

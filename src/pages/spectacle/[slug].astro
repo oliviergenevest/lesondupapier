@@ -30,6 +30,8 @@ import { Title } from '~/components/Title';
 import { ResponsiveImage } from '~/components/ResponsiveImage';
 import { ResponsiveImageFragment } from '~/components/ResponsiveImage/fragments';
 import { SideContentBlockFragment } from '~/components/blocks/SideContentBlock/fragments';
+import { getImage } from "astro:assets";
+
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -46,6 +48,7 @@ const query = graphql(
         }
         _firstPublishedAt
         mainImage {
+          url
           responsiveImage(imgixParams: { w: 2000 }, sizes: "1600px") {
             ...ResponsiveImageFragment
           }
@@ -103,23 +106,28 @@ const { spectacle } = await executeQuery(query, {
   includeDrafts: draftModeEnabled,
   variables: variables,
 });
-console.log(spectacle);
+//console.log(spectacle);
 if (!spectacle) {
   return new Response(null, {
     status: 404,
     statusText: 'Not found',
   });
 }
+
+
+
+const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSize:true });
+//console.log( "optimizedBgImage",optimizedBgImage.src);
 ---
 
 <Layout additionalSeo={spectacle._seoMetaTags} backgroundColor="var(--color-cream)">
-  <div class="intro">
-    <div class="intro_background_image_wrapper">
+  <div class="intro" style={`--urlimg: url('${optimizedBgImage.src}');`}>
+   {/* <div class="intro_background_image_wrapper" >
       <ResponsiveImage
         imgClass="intro_background_image"
         data={spectacle.mainImage.responsiveImage}
       />
-    </div>
+    </div> */}
     <Wrapper class="intro_content">
       <div class="intro_title">
         {spectacle.title}
@@ -242,47 +250,21 @@ if (!spectacle) {
     display: flex;
     align-items: center;
     overflow: hidden;
-    &::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: black;
-      z-index: -1;
-    }
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--urlimg);
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center bottom;
+
   }
 
-  .intro_background_image_wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
-  :global(.intro_background_image) {
-    height: 100%;
-    bottom: 0;
-    right: 0;
-    top: 0;
-    width: 100%;
-    left: 0;
-    margin: 0;
-    max-width: none;
-    padding: 0;
-    position: absolute;
-
-    object-fit: cover;
-  }
-
-  .intro_background_image figure img {
-    height: 90vh;
-
-    max-width: 100% !important;
-  }
 
   .intro_content {
     z-index: 1;
     position: relative;
     display: block;
+    @media (max-width:600px) {
+      padding:32px;
+    }
   }
 
   .intro_title {

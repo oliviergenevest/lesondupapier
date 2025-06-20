@@ -1,6 +1,5 @@
 import { graphql } from '~/lib/datocms/graphql';
 
-
 import { AgendaBlockFragment } from '../AgendaBlock/fragments';
 import { ItemsListBlockFragment } from '../ItemsListBlock/fragments';
 import { PageInlineFragment } from '~/components/inlineRecord/PageInline/fragments';

@@ -39,7 +39,7 @@ const query = graphql(/* GraphQL */ `
   }
 `);
 const variables = { currentDate: format(new Date(), 'yyyy-MM-dd') };
-console.log('DATE DU JOUR UTILISEE POUR LES REQUETES AGENDA =============', variables.currentDate);
+//console.log('DATE DU JOUR UTILISEE POUR LES REQUETES AGENDA =============', variables.currentDate);
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 

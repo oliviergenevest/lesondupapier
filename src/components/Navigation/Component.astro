@@ -54,6 +54,7 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
         ))
       }
     </ul>
+    <button class="btn_close">Fermer</button>
   </nav>
   <Hamburger />
 </Wrapper>
@@ -106,8 +107,56 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
   }
 
   nav {
-    @media screen and (max-width: 768px) {
+    .btn_close {
       display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    /* nav responsive ci dessous pour mobile */
+    @media screen and (max-width: 768px) {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 50%;
+      overflow: hidden;
+      height: 0;
+      transition: width 0.07s ease-in;
+      ul {
+        display: flex;
+        flex-direction: column;
+        padding-top: 48px;
+      }
+      .btn_close {
+        display: block;
+      }
+
+      &.expanded {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+
+        transition: width 0.1s ease-in;
+      }
     }
   }
 </style>
+<style is:global>
+  html.menu_open {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  document.querySelector('.hamburger')?.addEventListener('click', () => {
+    document.querySelector('nav')?.classList.toggle('expanded');
+    document.querySelector('html')?.classList.toggle('menu_open');
+  });
+  document.querySelector('.btn_close')?.addEventListener('click', () => {
+    document.querySelector('html')?.classList.toggle('menu_open');
+    document.querySelector('nav')?.classList.toggle('expanded');
+  });
+</script>

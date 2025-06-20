@@ -3,18 +3,14 @@ import { graphql } from '~/lib/datocms/graphql';
 import { Layout } from '../layouts/Layout';
 import { TagFragment } from '~/lib/datocms/commonFragments';
 import { executeQuery } from '~/lib/datocms/executeQuery';
-
-import { HeadingWithAnchorLink } from '~/components/HeadingWithAnchorLink';
+import { getImage } from "astro:assets";
 
 import { isDraftModeEnabled } from '~/lib/draftMode';
 import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 
-import { PageInline } from '~/components/inlineRecord/PageInline';
-import { PageInlineFragment } from '~/components/inlineRecord/PageInline/fragments';
 import { HomepageSectionBlock } from '~/components/blocks/HomepageSectionBlock';
 import { HomepageSectionBlockFragment } from '~/components/blocks/HomepageSectionBlock/fragments';
-import { PageLink } from '~/components/linkToRecord/PageLink';
-import { PageLinkFragment } from '~/components/linkToRecord/PageLink/fragments';
+
 
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
@@ -34,6 +30,10 @@ const query = graphql(
         }
         title
         id
+        ctaText
+        backgroundImage {
+          url
+        }
         backgroundColor {
           hex
         }
@@ -56,11 +56,17 @@ if (!homepage) {
     statusText: 'Not found',
   });
 }
+
+
+const optimizedBgImage = await getImage({ src: homepage.backgroundImage.url, inferSize:true });
+//console.log( "optimizedBgImage",optimizedBgImage.src);
 ---
 
 <Layout additionalSeo={homepage._seoMetaTags} backgroundColor="var(--color-cream)">
+  <div class="section_cta"  style={`--urlimg: url('${optimizedBgImage.src}');`}>
+   <Wrapper> <div class="content" set:html={homepage.ctaText}/></Wrapper>
+  </div>
   <Wrapper class="wrapper homepage">
-    <p><b>LANDING SCREEN </b></p>
     {homepage.homepageSections.map((item) => <HomepageSectionBlock block={item} />)}
   </Wrapper>
 
@@ -68,3 +74,23 @@ if (!homepage) {
 
   <DraftModeQueryListener query={query} />
 </Layout>
+
+
+<style>
+.section_cta{
+
+  min-height:600px;
+  display:flex;
+  align-items:center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--urlimg);
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: center center;
+  margin-bottom:30px;
+}
+
+.content{
+ padding:32px;
+
+}
+  </style>
