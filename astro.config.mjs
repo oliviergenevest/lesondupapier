@@ -39,4 +39,8 @@ export default defineConfig({
     validateSecrets: true,
   },
   integrations: [react()],
+   image: {
+   
+     remotePatterns: [{ protocol: "https" }],
+  }
 });

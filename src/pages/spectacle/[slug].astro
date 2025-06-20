@@ -30,8 +30,7 @@ import { Title } from '~/components/Title';
 import { ResponsiveImage } from '~/components/ResponsiveImage';
 import { ResponsiveImageFragment } from '~/components/ResponsiveImage/fragments';
 import { SideContentBlockFragment } from '~/components/blocks/SideContentBlock/fragments';
-import { getImage } from "astro:assets";
-
+import { getImage } from 'astro:assets';
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -114,20 +113,20 @@ if (!spectacle) {
   });
 }
 
-
-
-const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSize:true });
+const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSize: true });
 //console.log( "optimizedBgImage",optimizedBgImage.src);
 ---
 
 <Layout additionalSeo={spectacle._seoMetaTags} backgroundColor="var(--color-cream)">
   <div class="intro" style={`--urlimg: url('${optimizedBgImage.src}');`}>
-   {/* <div class="intro_background_image_wrapper" >
+    {
+      /* <div class="intro_background_image_wrapper" >
       <ResponsiveImage
         imgClass="intro_background_image"
         data={spectacle.mainImage.responsiveImage}
       />
-    </div> */}
+    </div> */
+    }
     <Wrapper class="intro_content">
       <div class="intro_title">
         {spectacle.title}
@@ -251,19 +250,17 @@ const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSiz
     align-items: center;
     overflow: hidden;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--urlimg);
-    background-size:cover;
-    background-repeat:no-repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-position: center bottom;
-
   }
-
 
   .intro_content {
     z-index: 1;
     position: relative;
     display: block;
-    @media (max-width:600px) {
-      padding:32px;
+    @media (max-width: 600px) {
+      padding: 32px;
     }
   }
 

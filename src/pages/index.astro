@@ -3,14 +3,13 @@ import { graphql } from '~/lib/datocms/graphql';
 import { Layout } from '../layouts/Layout';
 import { TagFragment } from '~/lib/datocms/commonFragments';
 import { executeQuery } from '~/lib/datocms/executeQuery';
-import { getImage } from "astro:assets";
+import { getImage } from 'astro:assets';
 
 import { isDraftModeEnabled } from '~/lib/draftMode';
 import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 
 import { HomepageSectionBlock } from '~/components/blocks/HomepageSectionBlock';
 import { HomepageSectionBlockFragment } from '~/components/blocks/HomepageSectionBlock/fragments';
-
 
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
@@ -57,14 +56,13 @@ if (!homepage) {
   });
 }
 
-
-const optimizedBgImage = await getImage({ src: homepage.backgroundImage.url, inferSize:true });
+const optimizedBgImage = await getImage({ src: homepage.backgroundImage.url, inferSize: true });
 //console.log( "optimizedBgImage",optimizedBgImage.src);
 ---
 
 <Layout additionalSeo={homepage._seoMetaTags} backgroundColor="var(--color-cream)">
-  <div class="section_cta"  style={`--urlimg: url('${optimizedBgImage.src}');`}>
-   <Wrapper> <div class="content" set:html={homepage.ctaText}/></Wrapper>
+  <div class="section_cta" style={`--urlimg: url('${optimizedBgImage.src}');`}>
+    <Wrapper> <div class="content" set:html={homepage.ctaText} /></Wrapper>
   </div>
   <Wrapper class="wrapper homepage">
     {homepage.homepageSections.map((item) => <HomepageSectionBlock block={item} />)}
@@ -75,22 +73,19 @@ const optimizedBgImage = await getImage({ src: homepage.backgroundImage.url, inf
   <DraftModeQueryListener query={query} />
 </Layout>
 
-
 <style>
-.section_cta{
+  .section_cta {
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--urlimg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-bottom: 30px;
+  }
 
-  min-height:600px;
-  display:flex;
-  align-items:center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--urlimg);
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-position: center center;
-  margin-bottom:30px;
-}
-
-.content{
- padding:32px;
-
-}
-  </style>
+  .content {
+    padding: 32px;
+  }
+</style>
