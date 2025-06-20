@@ -3,7 +3,7 @@ import { graphql } from '~/lib/datocms/graphql';
 import { Layout } from '../layouts/Layout';
 import { TagFragment } from '~/lib/datocms/commonFragments';
 import { executeQuery } from '~/lib/datocms/executeQuery';
-import { StructuredText } from '@datocms/astro';
+
 
 import { HeadingWithAnchorLink } from '~/components/HeadingWithAnchorLink';
 
@@ -12,21 +12,11 @@ import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 
 import { PageInline } from '~/components/inlineRecord/PageInline';
 import { PageInlineFragment } from '~/components/inlineRecord/PageInline/fragments';
-
+import { HomepageSectionBlock } from '~/components/blocks/HomepageSectionBlock'
+import { HomepageSectionBlockFragment } from '~/components/blocks/HomepageSectionBlock/fragments'
 import { PageLink } from '~/components/linkToRecord/PageLink';
 import { PageLinkFragment } from '~/components/linkToRecord/PageLink/fragments';
 
-import { VideoBlock } from '~/components/blocks/VideoBlock';
-import { VideoBlockFragment } from '~/components/blocks/VideoBlock/fragments';
-
-import { ImageBlock } from '~/components/blocks/ImageBlock';
-import { ImageBlockFragment } from '~/components/blocks/ImageBlock/fragments';
-
-import { ImageGalleryBlock } from '~/components/blocks/ImageGalleryBlock';
-import { ImageGalleryBlockFragment } from '~/components/blocks/ImageGalleryBlock/fragments';
-
-import { OlivBlock } from '~/components/blocks/OlivBlock';
-import { OlivBlockFragment } from '~/components/blocks/OlivBlock/fragments';
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
 
@@ -44,47 +34,28 @@ const query = graphql(
           ...TagFragment
         }
         title
+        id
+        backgroundColor {
+          hex
+        }
         _firstPublishedAt
-        structuredText {
-          value
-          blocks {
-            ... on RecordInterface {
-              id
-              __typename
-            }
-            ... on ImageBlockRecord {
-              ...ImageBlockFragment
-            }
-            ... on ImageGalleryBlockRecord {
-              ...ImageGalleryBlockFragment
-            }
-            ... on VideoBlockRecord {
-              ...VideoBlockFragment
-            }
-            ... on OlivBlockRecord {
-              ...OlivBlockFragment
-            }
-          }
-          links {
-            ... on RecordInterface {
-              id
-              __typename
-            }
-            ...PageLinkFragment
-            ...PageInlineFragment
-          }
+        homepageSections
+         {
+          
+            
+              ...HomepageSectionBlockFragment
+            
+           
+
+         
         }
       }
     }
   `,
   [
     TagFragment,
-    ImageBlockFragment,
-    ImageGalleryBlockFragment,
-    OlivBlockFragment,
-    VideoBlockFragment,
-    PageLinkFragment,
-    PageInlineFragment,
+    HomepageSectionBlockFragment,
+    
   ],
 );
 
@@ -100,51 +71,12 @@ if (!homepage) {
 ---
 
 <Layout additionalSeo={homepage._seoMetaTags} backgroundColor="var(--color-cream)">
-  <Wrapper class="wrapper">
-    <p><b>HOMEPAGE MODEL PAGE</b></p>
-    {
-      /*
-       * Structured Text is a JSON format similar to HTML, but with the advantage
-       * of a significantly reduced and tailored set of possible tags
-       * for editorial content, along with the capability to create hyperlinks
-       * to other DatoCMS records and embed custom DatoCMS blocks.
-       */
-    }
-    <StructuredText
-      data={homepage.structuredText}
-      blockComponents={/*
-       * If the structured text embeds any blocks, it's up to you to decide
-       * how to render them:
-       */
-      {
-        ImageBlockRecord: ImageBlock,
-        ImageGalleryBlockRecord: ImageGalleryBlock,
-        VideoBlockRecord: VideoBlock,
-        OlivBlockRecord: OlivBlock,
-      }}
-      linkToRecordComponents={/*
-       * If the structured text includes a link to another DatoCMS record,
-       * it's your decision to determine where the link should lead, or if
-       * you wish to customize its appearance:
-       */
-      {
-        PageRecord: PageLink,
-      }}
-      inlineRecordComponents={/*
-       * If the structured text includes a reference to another DatoCMS
-       * record, it's up to you to decide how to render them:
-       */
-      {
-        PageRecord: PageInline,
-      }}
-      nodeOverrides={/*
-       * You can also override the default rendering of certain nodes.
-       * In this case, we want to tweak the way headings (h1-h6) are rendered.
-       */ {
-        heading: HeadingWithAnchorLink,
-        //heading: Title,
-      }}
-    />
+  <Wrapper class="wrapper homepage">
+    <p><b>LANDING SCREEN </b></p>
+    { homepage.homepageSections.map((item) => 
+        <HomepageSectionBlock block={item}/>)
+     }
+    
   </Wrapper>
 
   <div>Published at {homepage._firstPublishedAt}</div>

@@ -13,15 +13,16 @@ import { graphql } from '~/lib/datocms/graphql';
  * Learn more: https://gql-tada.0no.co/guides/fragment-colocation
  */
 
-export const PageLinkFragment = graphql(/* GraphQL */ `
-  fragment PageLinkFragment on PageRecord {
+export const NewsInlineFragment = graphql(/* GraphQL */ `
+  fragment NewsInlineFragment on NewsRecord {
     ... on RecordInterface {
       id
       __typename
+      
     }
-    ... on PageRecord {
-      title
-      slug
+    
+    ... on NewsRecord {
+      content
     }
   }
 `);

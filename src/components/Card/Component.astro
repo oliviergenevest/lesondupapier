@@ -27,12 +27,14 @@ const image = data.image
   : data.cardImage
     ? data.cardImage.responsiveImage
     : null;
-console.log('IMAGE', image);
+
+
+//console.log('badgeLabel', data.badgeLabel);
 ---
 
 <div class="card">
   {data.__typename === 'MemberRecord' ? <a data-modal-trigger={data.slug} /> : <a href={path} />}
-
+  {data.badgeLabel && <div class="card_badge">{data.badgeLabel}</div>}
   <div class="card_image">
     {image ? <ResponsiveImage data={image} /> : <div class="color" />}
   </div>
@@ -68,21 +70,34 @@ console.log('IMAGE', image);
     padding-bottom: 8px;
     overflow: hidden;
     border-radius: 4px;
-
+    transition: transform 0.2s ease-in-out;
     &:hover {
       cursor: pointer;
-      .card_image {
-        transform: scale(1.1);
+      
+        transform: scale(1.03);
         transition: transform 0.2s ease-in-out;
-      }
+      
     }
+  }
+
+  .card_badge {
+    background-color:var(--color-turquoise);
+    color:var(--color-cream);
+    position:absolute;
+    display:inline;
+    border-radius:2px;
+    top:8px;
+    left:8px;
+    z-index:1;
+    padding:4px;
   }
 
   .card_image {
     transition: transform 0.1s ease-in-out;
     overflow: hidden;
     position: relative;
-    flex-grow:1;
+    flex-grow: 1;
+    border-radius:4px;
   }
 
   .card_image .color {

@@ -117,6 +117,7 @@ input AtelierModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  badgeLabel: StringFilter
   cardImage: FileFilter
   cardSubtitle: TextFilter
   mainContent: StructuredTextFilter
@@ -158,6 +159,8 @@ enum AtelierModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  badgeLabel_ASC
+  badgeLabel_DESC
   title_ASC
   title_DESC
 }
@@ -182,6 +185,7 @@ type AtelierRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  badgeLabel: String
   cardImage: ImageFileField!
   cardSubtitle(
     """Process content as markdown"""
@@ -208,6 +212,32 @@ input BooleanFilter {
 
 """Represents `true` or `false` values."""
 scalar BooleanType
+
+"""Block of type Bouton (bouton)"""
+type BoutonRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  external: BooleanType!
+  id: ItemId!
+  label: String!
+  targetUrl: String
+}
 
 type CollectionMetadata {
   count: IntType!
@@ -583,10 +613,6 @@ type FooterRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  footer(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
   id: ItemId!
   structuredFooter: FooterModelStructuredFooterField
 }
@@ -597,15 +623,6 @@ type GlobalSeoField {
   siteName: String
   titleSuffix: String
   twitterAccount: String
-}
-
-union HomepageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | OlivBlockRecord | VideoBlockRecord
-
-type HomepageModelStructuredTextField {
-  blocks: [HomepageModelStructuredTextBlocksField!]!
-  inlineBlocks: [String!]!
-  links: [PageRecord!]!
-  value: JsonField!
 }
 
 """Record of type 📝 Homepage (homepage)"""
@@ -629,11 +646,47 @@ type HomepageRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   backgroundColor: ColorField!
+  homepageSections: [HomepageSectionBlockRecord!]!
   id: ItemId!
   seoAnalysis: JsonField
   seoSettingsSocial: SeoField
-  structuredText: HomepageModelStructuredTextField!
   title: String!
+}
+
+union HomepageSectionBlockModelStructuredTextBlocksField = AgendaBlockRecord | ItemsListBlockRecord
+
+type HomepageSectionBlockModelStructuredTextField {
+  blocks: [HomepageSectionBlockModelStructuredTextBlocksField!]!
+  inlineBlocks: [String!]!
+  links: [HomepageSectionBlockModelStructuredTextLinksField!]!
+  value: JsonField!
+}
+
+union HomepageSectionBlockModelStructuredTextLinksField = NewsRecord | PageRecord
+
+"""Block of type Section pour homepage (homepage_section_block)"""
+type HomepageSectionBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  backgroundColor: ColorField
+  id: ItemId!
+  structuredText: HomepageSectionBlockModelStructuredTextField!
 }
 
 """Block of type 🌅 Image (image_block)"""
@@ -3130,33 +3183,6 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
-"""Record of type 📝 Page Agenda (page_agenda)"""
-type PageAgendaRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  id: ItemId!
-  image: ImageFileField!
-  seoAnalysis: JsonField
-  seoSettingsSocial: SeoField
-  title: String!
-}
-
 input PageModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
@@ -3638,17 +3664,6 @@ type Query {
     filter: PageModelFilter
     orderBy: [PageModelOrderBy] = [position_ASC]
   ): PageRecord
-
-  """Returns the single instance record"""
-  pageAgenda(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): PageAgendaRecord
 
   """Returns a specific record"""
   spectacle(

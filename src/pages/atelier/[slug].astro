@@ -44,10 +44,11 @@ const query = graphql(
         _seoMetaTags {
           ...TagFragment
         }
+        
         title
         subtitle
         slug
-         sideContent {
+        sideContent {
           ... on RecordInterface {
             id
             __typename
@@ -99,23 +100,16 @@ if (!atelier) {
 }
 ---
 
-
 <Layout additionalSeo={atelier._seoMetaTags} backgroundColor="var(--color-cream)">
   <Wrapper class="wrapper wide">
     <Title class="title h1"> <span set:html={atelier.subtitle} /></Title>
 
-
-
-
-
-<div class="atelier_grid">
-      
+    <div class="atelier_grid">
       <div class="grid_side">
         {
           atelier.sideContent.map((block) => (
             <div class="side_content_bloc">
-              {
-              /* todo: fix type error */
+              {/* todo: fix type error */
               /* @ts-ignore*/}
               <StructuredText
                 data={block.content}
@@ -209,28 +203,18 @@ if (!atelier) {
         />
       </div>
     </div>
-
-
-
-
-
-
-
-
-
   </Wrapper>
-  </Layout>
+</Layout>
 
 <style>
-  body{
-    background-color:var(--color-red);
+  body {
+    background-color: var(--color-red);
   }
 
   .title.h1 span :global(p) {
-    margin-bottom:0;
+    margin-bottom: 0;
     padding-bottom: 0;
   }
-
 
   .atelier_grid {
     display: grid;
@@ -255,7 +239,6 @@ if (!atelier) {
     display: flex;
     flex-direction: column;
     gap: 16px;
-     
   }
 
   :global(p > mark) {
@@ -269,7 +252,6 @@ if (!atelier) {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    
   }
 
   .side_content_bloc {
@@ -284,8 +266,5 @@ if (!atelier) {
       line-height: rfs(24px);
     }
   }
-
-
-
 
 </style>

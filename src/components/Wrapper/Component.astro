@@ -27,7 +27,13 @@ const { as: Tag = 'div' as any, ...props } = Astro.props;
     }
   }
 
-  .wrapper.wide{
-    max-width:1280px;
+  .wrapper.wide {
+    max-width: 1280px;
+  }
+
+  .wrapper.homepage {
+    display:flex;
+    flex-direction: column;
+    gap:rfs(32px);
   }
 </style>

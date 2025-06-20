@@ -6,9 +6,9 @@
   --font-mono: AtkinsonHyperlegible, SFMono-Regular, Source Code Pro, Menlo, monospace;
   --font-serif: AtkinsonHyperlegible, Georgia, serif;
   --page-margin: 30px;
-  
-  @media screen and (max-width:600px){
-      --page-margin: 10px;
+
+  @media screen and (max-width: 600px) {
+    --page-margin: 10px;
   }
   --page-width-with-margin: 1144px;
 

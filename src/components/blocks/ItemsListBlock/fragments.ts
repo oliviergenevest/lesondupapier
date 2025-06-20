@@ -27,8 +27,8 @@ export const ItemsListBlockFragment = graphql(
           image {
             alt
             responsiveImage(
-              sizes: "(max-width: 800px) 100vw, 800px"
-              imgixParams: { auto: format, w: 800, ar: "16:9", fit: crop }
+              sizes: "(max-width: 720px) 100vw, 720px"
+              imgixParams: { auto: format, w: 720, ar: "16:9", fit: crop }
             ) {
               ...ResponsiveImageFragment
             }
@@ -40,12 +40,13 @@ export const ItemsListBlockFragment = graphql(
           title
           __typename
           slug
+          badgeLabel
           cardSubtitle
           cardImage {
             alt
             responsiveImage(
-              sizes: "(max-width: 400px) 100vw, 400px"
-              imgixParams: { auto: format, w: 400, ar: "16:9", fit: crop }
+              sizes: "(max-width: 526px) 100vw, 526px"
+              imgixParams: { auto: format, w: 526, ar: "16:9", fit: crop }
             ) {
               ...ResponsiveImageFragment
             }
@@ -61,8 +62,8 @@ export const ItemsListBlockFragment = graphql(
           cardImage {
             alt
             responsiveImage(
-              sizes: "(max-width: 400px) 100vw, 400px"
-              imgixParams: { auto: format, w: 400, ar: "16:9", fit: crop }
+              sizes: "(max-width: 526px) 100vw, 500px"
+              imgixParams: { auto: format, w: 526, ar: "16:9", fit: crop }
             ) {
               ...ResponsiveImageFragment
             }

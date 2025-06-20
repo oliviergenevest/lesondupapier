@@ -10,31 +10,26 @@ import { StructuredText } from '@datocms/astro';
 import { PageLink } from '../linkToRecord/PageLink';
 import { PageInline } from '../inlineRecord/PageInline';
 
-
-
-const query = graphql(/* GraphQL */ `
-  query FooterQuery {
-    footer {
-      structuredFooter {
-        value
-        links {
-        ... on RecordInterface {
-          id
-          __typename
+const query = graphql(
+  /* GraphQL */ `
+    query FooterQuery {
+      footer {
+        structuredFooter {
+          value
+          links {
+            ... on RecordInterface {
+              id
+              __typename
+            }
+            ...PageLinkFragment
+            ...PageInlineFragment
+          }
         }
-        ...PageLinkFragment
-        ...PageInlineFragment
-      }
       }
     }
-  }
-`,  [
-    
-    PageLinkFragment,
-    PageInlineFragment,
-
-  ],);
-
+  `,
+  [PageLinkFragment, PageInlineFragment],
+);
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 const { footer } = await executeQuery(query, { includeDrafts: draftModeEnabled });
@@ -49,9 +44,8 @@ if (!footer) {
 
 <footer>
   <Wrapper>
- <StructuredText
+    <StructuredText
       data={footer.structuredFooter}
-      
       linkToRecordComponents={/*
        * If the structured text includes a link to another DatoCMS record,
        * it's your decision to determine where the link should lead, or if
@@ -60,7 +54,6 @@ if (!footer) {
       {
         PageRecord: PageLink,
       }}
-
       inlineRecordComponents={/*
        * If the structured text includes a reference to another DatoCMS
        * record, it's up to you to decide how to render them:
@@ -68,9 +61,7 @@ if (!footer) {
       {
         PageRecord: PageInline,
       }}
-      
     />
-  
   </Wrapper>
 </footer>
 
@@ -83,8 +74,10 @@ if (!footer) {
       flex-direction: column;
       align-items: center;
       gap: rfs(8px);
-      :global(p) {color:var(--color-black); font-size: rfs(16px);}
+      :global(p) {
+        color: var(--color-black);
+        font-size: rfs(16px);
+      }
     }
-   
   }
 </style>

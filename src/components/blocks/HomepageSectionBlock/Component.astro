@@ -1,0 +1,98 @@
+---
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { HomepageSectionBlockFragment } from './fragments';
+import { StructuredText } from '@datocms/astro';
+
+import { ItemsListBlock } from '~/components/blocks/ItemsListBlock';
+import { ItemsListBlockFragment } from '~/components/blocks/ItemsListBlock/fragments';
+
+import { HeadingWithAnchorLink } from '~/components/HeadingWithAnchorLink';
+
+
+import { AgendaBlock } from '~/components/blocks/AgendaBlock';
+import { AgendaBlockFragment } from '~/components/blocks/AgendaBlock/fragments';
+
+import { PageInline } from '~/components/inlineRecord/PageInline';
+import { PageInlineFragment } from '~/components/inlineRecord/PageInline/fragments';
+import { NewsInline } from '~/components/inlineRecord/NewsInline';
+import { NewsInlineFragment } from '~/components/inlineRecord/NewsInline/fragments';
+
+import { PageLink } from '~/components/linkToRecord/PageLink';
+import { PageLinkFragment } from '~/components/linkToRecord/PageLink/fragments';
+import { TitleHomepage } from '~/components/TitleHomepage';
+
+interface Props {
+  block: FragmentOf<typeof HomepageSectionBlockFragment>;
+}
+
+const { block } = Astro.props;
+//console.log(block);
+
+// Read unmasked block from fragment
+const unmaskedBlock = readFragment(HomepageSectionBlockFragment, block);
+const bgBlockColor = unmaskedBlock.backgroundColor?.hex;
+---
+<div class="homepageSectionWrapper">
+
+ {
+      /*
+       * Structured Text is a JSON format similar to HTML, but with the advantage
+       * of a significantly reduced and tailored set of possible tags
+       * for editorial content, along with the capability to create hyperlinks
+       * to other DatoCMS records and embed custom DatoCMS blocks.
+       */
+    }
+    <StructuredText
+      data={unmaskedBlock.structuredText}
+      blockComponents={/*
+       * If the structured text embeds any blocks, it's up to you to decide
+       * how to render them:
+       */
+      {
+      
+        ItemsListBlockRecord: ItemsListBlock,
+        AgendaBlockRecord: AgendaBlock,
+      }}
+      linkToRecordComponents={/*
+       * If the structured text includes a link to another DatoCMS record,
+       * it's your decision to determine where the link should lead, or if
+       * you wish to customize its appearance:
+       */
+      {
+        PageRecord: PageLink,
+      }}
+      inlineRecordComponents={/*
+       * If the structured text includes a reference to another DatoCMS
+       * record, it's up to you to decide how to render them:
+       */
+      {
+        PageRecord: PageInline,
+        NewsRecord: NewsInline,
+      }}
+      nodeOverrides={/*
+       * You can also override the default rendering of certain nodes.
+       * In this case, we want to tweak the way headings (h1-h6) are rendered.
+       */ {
+        //heading: HeadingWithAnchorLink,
+        heading: TitleHomepage , 
+      }}
+    />
+
+</div>
+
+<style define:vars={{ bgBlockColor }}>
+  .homepageSectionWrapper {
+    background-color: var(--bgBlockColor);
+        padding-left: var(--page-margin);
+    padding-right: var(--page-margin);
+    max-width: var(--page-width-with-margin);
+    padding-bottom:30px;
+    border-radius:4px;
+
+    
+
+  }
+
+
+
+</style>

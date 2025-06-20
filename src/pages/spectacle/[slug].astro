@@ -112,7 +112,6 @@ if (!spectacle) {
 }
 ---
 
-
 <Layout additionalSeo={spectacle._seoMetaTags} backgroundColor="var(--color-cream)">
   <div class="intro">
     <div class="intro_background_image_wrapper">
@@ -179,8 +178,7 @@ if (!spectacle) {
         {
           spectacle.sideContent.map((block) => (
             <div class="side_content_bloc">
-              {
-              /* todo: fix type error */
+              {/* todo: fix type error */
               /* @ts-ignore*/}
               <StructuredText
                 data={block.content}
