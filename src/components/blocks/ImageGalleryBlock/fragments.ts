@@ -20,7 +20,11 @@ export const ImageGalleryBlockFragment = graphql(
       assets {
         id
         title
-        responsiveImage(imgixParams: { auto: format, w: 300, ar: "4:3", fit: crop, crop:focalpoint,  },  sizes: "300px") {
+        url
+        responsiveImage(
+          imgixParams: { auto: format, w: 300, ar: "4:3", fit: crop, crop: focalpoint }
+          sizes: "300px"
+        ) {
           ...ResponsiveImageFragment
         }
       }
