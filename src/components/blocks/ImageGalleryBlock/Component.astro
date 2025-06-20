@@ -14,7 +14,7 @@ const unmaskedBlock = readFragment(ImageGalleryBlockFragment, block);
 ---
 
 <div class="gallery">
-  <div>
+  
     {
       unmaskedBlock.assets.map((asset) => (
         <figure>
@@ -25,5 +25,13 @@ const unmaskedBlock = readFragment(ImageGalleryBlockFragment, block);
         </figure>
       ))
     }
-  </div>
+  
 </div>
+
+<style>
+  .gallery {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:8px;
+  }
+</style>
