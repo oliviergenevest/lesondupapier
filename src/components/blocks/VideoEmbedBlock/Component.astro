@@ -1,0 +1,23 @@
+---
+
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { VideoEmbedBlockFragment } from './fragments';
+import {  YouTube } from 'astro-embed';
+
+interface Props {
+  block: FragmentOf<typeof VideoEmbedBlockFragment>;
+} 
+
+const { block } = Astro.props;
+
+// Read unmasked block from fragment
+const unmaskedBlock = readFragment(VideoEmbedBlockFragment, block);
+console.log(unmaskedBlock.video.url); 
+---
+
+
+  {/* Render the video player component */}
+ 
+  <YouTube id={unmaskedBlock.video.url} />
+  {/* Display the title of the video asset below the video player */}
+  <p>{unmaskedBlock.video.title}</p>

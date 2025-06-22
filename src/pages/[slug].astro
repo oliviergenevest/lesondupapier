@@ -39,6 +39,8 @@ import { AgendaBlockFragment } from '~/components/blocks/AgendaBlock/fragments';
 
 import { Wrapper } from '~/components/Wrapper';
 import { Title } from '~/components/Title';
+import { LogosListBlockFragment } from '~/components/blocks/LogosListBlock/fragments';
+import { LogosListBlock } from '~/components/blocks/LogosListBlock';
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -86,6 +88,9 @@ const query = graphql(
             ... on AgendaBlockRecord {
               ...AgendaBlockFragment
             }
+            ... on LogosListBlockRecord {
+              ...LogosListBlockFragment
+            }
           }
           links {
             ... on RecordInterface {
@@ -110,6 +115,7 @@ const query = graphql(
     PageInlineFragment,
     ItemsListBlockFragment,
     AgendaBlockFragment,
+    LogosListBlockFragment,
   ],
 );
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
@@ -155,6 +161,7 @@ const bgColor = page.backgroundColor.hex;
         ImageTextBlockRecord: ImageTextBlock,
         ItemsListBlockRecord: ItemsListBlock,
         AgendaBlockRecord: AgendaBlock,
+        LogosListBlockRecord: LogosListBlock,
       }}
       linkToRecordComponents={/*
        * If the structured text includes a link to another DatoCMS record,

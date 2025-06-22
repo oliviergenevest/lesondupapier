@@ -8,7 +8,6 @@ import { isDraftModeEnabled } from '~/lib/draftMode';
 import Footer from '~/components/Footer/Footer.astro';
 import { BaseLayout } from '../BaseLayout';
 import { Navigation } from '~/components/Navigation';
-import { Wrapper } from '~/components/Wrapper';
 import { Image } from 'astro:assets';
 import logo from '../../img/logo_lesondupapier.png';
 import { Subheader } from '~/components/Subheader';
@@ -42,10 +41,12 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   backgroundColor={backgroundColor}
 >
   <Subheader />
-  <div class="header">
+  
+  <div class="header headroom">
     <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
     <Navigation />
   </div>
+
 
   <!-- <Navbar data={navbarData} />-->
   <div transition:animate="fade">

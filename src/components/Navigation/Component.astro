@@ -36,28 +36,28 @@ const { pathname } = Astro.url;
 const pathSlug = pathname.replace(/\/$/, '').slice(1);
 ---
 
-
-  <nav>
-    <ul>
-      {
-        allNavigations.map((item) => (
-          <li>
-            <a
-              href={'/' + item.items.slug + '/'}
-              title={item.items.title}
-              class:list={'link--metis'}
-              aria-current={pathSlug === item.items.slug ? 'page' : 'false'}
-            >
-              {item.items.title}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-    <button class="btn_close">Fermer</button>
-  </nav>
-  <Hamburger />
-
+<nav>
+  <ul>
+    {
+      allNavigations.map((item) => (
+        <li>
+          <a
+            href={'/' + item.items.slug + '/'}
+            title={item.items.title}
+            class:list={'link--metis'}
+            aria-current={pathSlug === item.items.slug ? 'page' : 'false'}
+          >
+            {item.items.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <button class="btn_close">Fermer</button>
+ 
+</nav>
+<Hamburger />
+ <div class="overlay"></div>
 
 <style>
   ul {
@@ -121,7 +121,7 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
       top: 0;
       bottom: 0;
       left: 0;
-      width: 50%;
+      width: 0;
       overflow: hidden;
       height: 0;
       transition: width 0.07s ease-in;
@@ -129,20 +129,40 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
         display: flex;
         flex-direction: column;
         padding-top: 48px;
+        a, a:hover {  color: var(--color-white);}
       }
+      
       .btn_close {
-        display: block;
+        display: none;
       }
+      
 
       &.expanded {
-        width: 100%;
+        width: 250px;
         height: 100%;
-        background-color: white;
+        background-color: var(--color-turquoise);
 
-        transition: width 0.1s ease-in;
+        transition: width 0.2s ease-in-out;
       }
     }
   }
+
+
+  html.menu_open .overlay {
+        display:none;
+        position:absolute;
+        background-color:rgba(17, 17, 17, 0.516);
+        width:100%;
+        height:100%;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index:1;
+        @media screen and (max-width: 768px) {
+          display:block; 
+        }
+      }
 </style>
 <style is:global>
   html.menu_open {
@@ -152,6 +172,10 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
 
 <script>
   document.querySelector('.hamburger')?.addEventListener('click', () => {
+    document.querySelector('nav')?.classList.toggle('expanded');
+    document.querySelector('html')?.classList.toggle('menu_open');
+  });
+  document.querySelector('.overlay')?.addEventListener('click', () => {
     document.querySelector('nav')?.classList.toggle('expanded');
     document.querySelector('html')?.classList.toggle('menu_open');
   });

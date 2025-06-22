@@ -1,0 +1,30 @@
+---
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { LogosListBlockFragment } from './fragments';
+import { LogoBlock } from '../LogoBlock';
+interface Props {
+  block: FragmentOf<typeof LogosListBlockFragment>;
+}
+
+const { block } = Astro.props;
+
+// Read unmasked block from fragment
+const unmaskedBlock = readFragment(LogosListBlockFragment, block);
+---
+<div class="logos_list_wrapper">
+  { unmaskedBlock.items.map((logo) => <LogoBlock logo={logo}/>) }
+</div>
+
+<style>
+  .logos_list_wrapper {
+    display:grid;
+    gap:rfs(16px);
+    grid-template-columns: repeat(4, 1fr);
+    @media screen and (max-width: 890px) {
+          grid-template-columns: repeat(3, 1fr);
+     }
+    @media screen and (max-width: 290px) {
+          grid-template-columns: repeat(2, 1fr);
+     }
+  }
+</style>

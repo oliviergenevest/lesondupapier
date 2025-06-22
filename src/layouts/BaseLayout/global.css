@@ -44,26 +44,26 @@ dialog {
   flex-direction: column;
   align-items: center;
   padding-bottom: 16px;
-  @media (max-width:770px)
-  {
+  @media (max-width: 770px) {
+    padding: 16px 10px;
+    flex-direction: row-reverse;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
     
-    padding:16px 10px;
-  flex-direction:row;
-  align-items: center;
-  align-content:center;
-  justify-content: space-between;
   }
 }
 
 p {
   line-height: rfs(26px);
+
   color: white;
   margin-bottom: rfs(16px);
 }
 
 @media screen and (max-width: 600px) {
   .brandlogo {
-    width: 200px;
+    width: 100%;
     height: auto;
   }
 }
@@ -218,8 +218,8 @@ mark.warning {
 .hamburger .line {
   display: block;
   width: 40px;
-  height: 5px;
-  margin-bottom: 10px;
+    height: 3px;
+    margin-bottom: 8px;
   background-color: #ff9776;
 }
 

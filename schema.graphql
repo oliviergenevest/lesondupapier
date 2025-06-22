@@ -2930,6 +2930,55 @@ input LinkFilter {
   exists: BooleanType
 }
 
+"""Block of type Logo (logo_block)"""
+type LogoBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  image: ImageFileField!
+  url: String!
+}
+
+"""Block of type Liste de logos (logos_list_block)"""
+type LogosListBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  items: [LogoBlockRecord!]!
+}
+
 input MemberModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
@@ -3234,7 +3283,7 @@ enum PageModelOrderBy {
   title_DESC
 }
 
-union PageModelStructuredTextBlocksField = AgendaBlockRecord | ImageBlockRecord | ImageGalleryBlockRecord | ImageTextBlockRecord | ItemsListBlockRecord | OlivBlockRecord | VideoBlockRecord
+union PageModelStructuredTextBlocksField = AgendaBlockRecord | ImageBlockRecord | ImageGalleryBlockRecord | ImageTextBlockRecord | ItemsListBlockRecord | LogosListBlockRecord | OlivBlockRecord | VideoBlockRecord
 
 type PageModelStructuredTextField {
   blocks: [PageModelStructuredTextBlocksField!]!
@@ -3865,7 +3914,7 @@ input SpectacleModelFilter {
   AND: [SpectacleModelFilter]
 }
 
-union SpectacleModelMainContentBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | VideoBlockRecord
+union SpectacleModelMainContentBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | VideoBlockRecord | VideoEmbedBlockRecord
 
 type SpectacleModelMainContentField {
   blocks: [SpectacleModelMainContentBlocksField!]!
@@ -4578,6 +4627,40 @@ type VideoBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   asset: VideoFileField!
   id: ItemId!
+}
+
+"""Block of type Video embed (video_embed_block)"""
+type VideoEmbedBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  video: VideoField!
+}
+
+type VideoField {
+  height: IntType!
+  provider: String!
+  providerUid: String!
+  thumbnailUrl: String!
+  title: String!
+  url: String!
+  width: IntType!
 }
 
 type VideoFileField implements FileFieldInterface {

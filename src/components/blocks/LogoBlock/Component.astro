@@ -1,0 +1,33 @@
+---
+import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
+import { LogoBlockFragment } from './fragments';
+import { ResponsiveImage } from '~/components/ResponsiveImage';
+
+interface Props {
+  logo: FragmentOf<typeof LogoBlockFragment>;
+}
+
+const { logo } = Astro.props;
+
+// Read unmasked block from fragment
+const unmaskedBlock = readFragment(LogoBlockFragment, logo);
+---
+
+<div class="logo">
+  <a href={unmaskedBlock.url} >
+
+    <ResponsiveImage data={unmaskedBlock.image.responsiveImage}/>
+  </a>
+
+</div>
+
+
+<style>
+  .logo{
+display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+     mix-blend-mode: exclusion;
+  }
+</style>

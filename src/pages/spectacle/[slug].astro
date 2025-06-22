@@ -31,6 +31,8 @@ import { ResponsiveImage } from '~/components/ResponsiveImage';
 import { ResponsiveImageFragment } from '~/components/ResponsiveImage/fragments';
 import { SideContentBlockFragment } from '~/components/blocks/SideContentBlock/fragments';
 import { getImage } from 'astro:assets';
+import { VideoEmbedBlockFragment } from '~/components/blocks/VideoEmbedBlock/fragments';
+import { VideoEmbedBlock } from '~/components/blocks/VideoEmbedBlock';
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -78,6 +80,9 @@ const query = graphql(
             ... on VideoBlockRecord {
               ...VideoBlockFragment
             }
+            ... on VideoEmbedBlockRecord {
+              ...VideoEmbedBlockFragment
+            }
 
             ... on ImageBlockRecord {
               ...ImageBlockFragment
@@ -94,6 +99,7 @@ const query = graphql(
     VideoBlockFragment,
     ImageGalleryBlockFragment,
     ImageBlockFragment,
+    VideoEmbedBlockFragment
   ],
 );
 
@@ -156,6 +162,7 @@ const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSiz
             ImageGalleryBlockRecord: ImageGalleryBlock,
             VideoBlockRecord: VideoBlock,
             ImageBlockRecord: ImageBlock,
+            VideoEmbedBlockRecord: VideoEmbedBlock,
           }}
           linkToRecordComponents={/*
            * If the structured text includes a link to another DatoCMS record,
@@ -301,6 +308,9 @@ const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSiz
     display: flex;
     flex-direction: column;
     gap: 16px;
+     @media (max-width: 750px) {
+      padding:16px;
+    }
   }
 
   :global(p > mark) {
@@ -325,7 +335,10 @@ const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSiz
     padding: 32px;
     :global(p) {
       font-size: rfs(16px);
-      line-height: rfs(24px);
+      line-height: rfs(20px);
+    }
+      @media (max-width: 750px) {
+      padding:16px;
     }
   }
 </style>
