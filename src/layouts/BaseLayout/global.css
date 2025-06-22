@@ -50,7 +50,6 @@ dialog {
     align-items: center;
     align-content: center;
     justify-content: space-between;
-    
   }
 }
 
@@ -218,11 +217,40 @@ mark.warning {
 .hamburger .line {
   display: block;
   width: 40px;
-    height: 3px;
-    margin-bottom: 8px;
+  height: 3px;
+  margin-bottom: 8px;
   background-color: #ff9776;
 }
 
 blockquote footer {
   color: darkgrey;
+}
+
+.hidingHeader {
+	position: relative;
+	--hidingHeader-height: auto;
+	--hidingHeader-bounds-height: auto;
+	--hidingHeader-animation-offset: 0px;
+	z-index: 10;
+	height: var(--hidingHeader-bounds-height);
+	margin-bottom: calc(
+		var(--hidingHeader-height) - var(--hidingHeader-bounds-height)
+	);
+	pointer-events: none;
+}
+
+.hidingHeader-in {
+	position: relative;
+	position: sticky;
+	top: 0;
+	pointer-events: auto;
+	transition: transform 0.2s;
+	transform: translateY(var(--hidingHeader-animation-offset));
+}
+
+@media (prefers-reduced-motion) {
+	.hidingHeader-in {
+		transition-duration: 1ms;
+		transition-timing-function: step-end;
+	}
 }

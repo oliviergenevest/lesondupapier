@@ -41,12 +41,17 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   backgroundColor={backgroundColor}
 >
   <Subheader />
-  
-  <div class="header headroom">
-    <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
-    <Navigation />
-  </div>
 
+  <div class=" hidingHeader " id="hidingHeader">
+  
+      <div class=" header hidingHeader-in">
+    <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
+
+    
+        <Navigation />
+
+    </div>
+  </div>
 
   <!-- <Navbar data={navbarData} />-->
   <div transition:animate="fade">
@@ -55,3 +60,14 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   <DraftModeToggler />
   <Footer />
 </BaseLayout>
+
+<script>
+  
+  import { hidingHeader } from 'hiding-header';
+
+  window.addEventListener("load", (event) => {
+    const container = document.querySelector('#hidingHeader');
+     hidingHeader(container);
+});
+
+</script>

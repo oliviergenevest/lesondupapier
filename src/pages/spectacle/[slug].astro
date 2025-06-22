@@ -99,7 +99,7 @@ const query = graphql(
     VideoBlockFragment,
     ImageGalleryBlockFragment,
     ImageBlockFragment,
-    VideoEmbedBlockFragment
+    VideoEmbedBlockFragment,
   ],
 );
 
@@ -308,8 +308,8 @@ const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSiz
     display: flex;
     flex-direction: column;
     gap: 16px;
-     @media (max-width: 750px) {
-      padding:16px;
+    @media (max-width: 750px) {
+      padding: 16px;
     }
   }
 
@@ -337,8 +337,8 @@ const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSiz
       font-size: rfs(16px);
       line-height: rfs(20px);
     }
-      @media (max-width: 750px) {
-      padding:16px;
+    @media (max-width: 750px) {
+      padding: 16px;
     }
   }
 </style>

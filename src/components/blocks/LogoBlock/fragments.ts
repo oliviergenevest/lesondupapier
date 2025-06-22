@@ -17,17 +17,14 @@ import { graphql } from '~/lib/datocms/graphql';
 export const LogoBlockFragment = graphql(
   /* GraphQL */ `
     fragment LogoBlockFragment on LogoBlockRecord {
-      
-        url
-        image {
-            responsiveImage(
-                imgixParams: {auto:format,w:200 } , 
-                sizes: "(max-width: 200px) 100vw, 200px"
-                ),
-                 {
-                 ...ResponsiveImageFragment
-                }
-        
+      url
+      image {
+        responsiveImage(
+          imgixParams: { auto: format, w: 200 }
+          sizes: "(max-width: 200px) 100vw, 200px"
+        ) {
+          ...ResponsiveImageFragment
+        }
       }
     }
   `,

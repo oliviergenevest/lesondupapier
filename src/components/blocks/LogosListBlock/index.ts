@@ -1,1 +1,1 @@
-export {default as LogosListBlock} from './Component.astro'
+export { default as LogosListBlock } from './Component.astro';

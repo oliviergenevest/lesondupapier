@@ -14,20 +14,17 @@ const unmaskedBlock = readFragment(LogoBlockFragment, logo);
 ---
 
 <div class="logo">
-  <a href={unmaskedBlock.url} >
-
-    <ResponsiveImage data={unmaskedBlock.image.responsiveImage}/>
+  <a href={unmaskedBlock.url}>
+    <ResponsiveImage data={unmaskedBlock.image.responsiveImage} />
   </a>
-
 </div>
 
-
 <style>
-  .logo{
-display: flex;
+  .logo {
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
-     mix-blend-mode: exclusion;
+    mix-blend-mode: exclusion;
   }
 </style>

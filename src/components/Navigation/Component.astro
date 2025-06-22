@@ -54,10 +54,9 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
     }
   </ul>
   <button class="btn_close">Fermer</button>
- 
 </nav>
 <Hamburger />
- <div class="overlay"></div>
+<div class="overlay"></div>
 
 <style>
   ul {
@@ -129,13 +128,15 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
         display: flex;
         flex-direction: column;
         padding-top: 48px;
-        a, a:hover {  color: var(--color-white);}
+        a,
+        a:hover {
+          color: var(--color-white);
+        }
       }
-      
+
       .btn_close {
         display: none;
       }
-      
 
       &.expanded {
         width: 250px;
@@ -147,22 +148,21 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
     }
   }
 
-
   html.menu_open .overlay {
-        display:none;
-        position:absolute;
-        background-color:rgba(17, 17, 17, 0.516);
-        width:100%;
-        height:100%;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        z-index:1;
-        @media screen and (max-width: 768px) {
-          display:block; 
-        }
-      }
+    display: none;
+    position: absolute;
+    background-color: rgba(17, 17, 17, 0.516);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+  }
 </style>
 <style is:global>
   html.menu_open {

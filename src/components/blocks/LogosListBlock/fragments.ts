@@ -17,10 +17,9 @@ import { LogoBlockFragment } from '../LogoBlock/fragments';
 export const LogosListBlockFragment = graphql(
   /* GraphQL */ `
     fragment LogosListBlockFragment on LogosListBlockRecord {
-      
-       items {
-          ...LogoBlockFragment
-       }
+      items {
+        ...LogoBlockFragment
+      }
     }
   `,
   [LogoBlockFragment],
