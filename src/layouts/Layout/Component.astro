@@ -42,14 +42,11 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 >
   <Subheader />
 
-  <div class=" hidingHeader " id="hidingHeader">
-  
-      <div class=" header hidingHeader-in">
-    <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
+  <div class="hidingHeader" id="hidingHeader">
+    <div class="header hidingHeader-in">
+      <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
 
-    
-        <Navigation />
-
+      <Navigation />
     </div>
   </div>
 
@@ -62,12 +59,10 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 </BaseLayout>
 
 <script>
-  
   import { hidingHeader } from 'hiding-header';
 
-  window.addEventListener("load", (event) => {
-    const container = document.querySelector('#hidingHeader');
-     hidingHeader(container);
-});
-
+  window.addEventListener('load', (event) => {
+    const container = document.querySelector('#hidingHeader')  as HTMLElement;
+    hidingHeader(container);
+  });
 </script>
