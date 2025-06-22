@@ -2,8 +2,9 @@
 import { graphql } from '~/lib/datocms/graphql';
 import { executeQuery } from '~/lib/datocms/executeQuery';
 import { isDraftModeEnabled } from '~/lib/draftMode';
-
-
+import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
+import { Wrapper } from '~/components/Wrapper';
+import Hamburger from '../Hamburger.astro';
 
 const query = graphql(/* GraphQL */ `
   query NavigationQuery {
@@ -35,7 +36,7 @@ const { pathname } = Astro.url;
 const pathSlug = pathname.replace(/\/$/, '').slice(1);
 ---
 
-<nav class="desktop_nav">
+<nav class="mobile_nav">
   <ul>
     {
       allNavigations.map((item) => (
@@ -52,13 +53,12 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
       ))
     }
   </ul>
+
+  <button class="btn_close">Fermer</button>
 </nav>
-
-
+<div class="overlay"/>
 <style>
-    @media screen and (max-width: 768px) {
-  nav.desktop_nav { display:none;}
-    }
+    nav {display:none;}
   ul {
     display: flex;
     gap: rfs(16px);
@@ -105,5 +105,69 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
     transform: scale3d(1, 1, 1);
   }
 
- 
-   </style>
+  nav.mobile_nav {
+    .btn_close {
+      display: none;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+
+    /* nav responsive ci dessous pour mobile */
+    @media screen and (max-width: 768px) {
+        display:block;
+      position: absolute;
+      z-index: 12;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      overflow: hidden;
+      height: 0;
+      transition: width 0.07s ease-in;
+      ul {
+        display: flex;
+        flex-direction: column;
+        padding-top: 48px;
+        a,
+        a:hover {
+          color: var(--color-white);
+        }
+      }
+
+      .btn_close {
+        display: none;
+      }
+
+      &.expanded {
+        width: 250px;
+        height: 100%;
+        background-color: var(--color-turquoise);
+        position:fixed;
+        transition: width 0.2s ease-in-out;
+      }
+    }
+  }
+
+  html.menu_open .overlay {
+    display: none;
+    position: fixed;
+    background-color: rgba(17, 17, 17, 0.516);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 11;
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+  }
+</style>
+<style is:global>
+  html.menu_open {
+    overflow: hidden;
+  }
+</style>
+

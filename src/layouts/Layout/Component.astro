@@ -11,6 +11,8 @@ import { Navigation } from '~/components/Navigation';
 import { Image } from 'astro:assets';
 import logo from '../../img/logo_lesondupapier.png';
 import { Subheader } from '~/components/Subheader';
+import Hamburger from '~/components/Hamburger.astro';
+import { NavigationMobile } from '~/components/NavigationMobile';
 
 type Props = {
   additionalSeo?: TitleMetaLinkTag[];
@@ -45,10 +47,12 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   <div class="hidingHeader" id="hidingHeader">
     <div class="header hidingHeader-in">
       <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
-
       <Navigation />
+      <Hamburger/>
     </div>
   </div>
+  <NavigationMobile />
+  
 
   <!-- <Navbar data={navbarData} />-->
   <div transition:animate="fade">
@@ -62,7 +66,24 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   import { hidingHeader } from 'hiding-header';
 
   window.addEventListener('load', (event) => {
-    const container = document.querySelector('#hidingHeader')  as HTMLElement;
+    const container = document.querySelector('#hidingHeader') as HTMLElement;
     hidingHeader(container);
+     document.querySelector('.hamburger')?.addEventListener('click', () => {
+    document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
+    document.querySelector('html')?.classList.toggle('menu_open');
   });
+  document.querySelector('.overlay')?.addEventListener('click', () => {
+    document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
+    document.querySelector('html')?.classList.toggle('menu_open');
+  });
+  document.querySelector('.btn_close')?.addEventListener('click', () => {
+    document.querySelector('body')?.classList.toggle('menu_open');
+    document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
+  });
+  });
+
+  
+
+ 
+
 </script>
