@@ -74,7 +74,7 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
   a,
   a:hover {
     font-family: var(--font-headline);
-    font-size: rfs(24px);
+    font-size: 22px;
     color: var(--color-darkblue);
     text-decoration: none;
     position: relative;
@@ -125,8 +125,10 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
       left: 0;
       width: 0;
       overflow: hidden;
-      height: 0;
-      transition: width 0.07s ease-in;
+      height: 100%;
+      background-color: var(--color-turquoise);
+
+      transition: all  0.15s ease-in;
       ul {
         display: flex;
         flex-direction: column;
@@ -144,8 +146,7 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
       &.expanded {
         width: 250px;
         height: 100%;
-        background-color: var(--color-turquoise);
-
+        
         transition: width 0.2s ease-in-out;
       }
     }
