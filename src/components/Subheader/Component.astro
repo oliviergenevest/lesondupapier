@@ -3,6 +3,7 @@ import { graphql } from '~/lib/datocms/graphql';
 import { executeQuery } from '~/lib/datocms/executeQuery';
 import { isDraftModeEnabled } from '~/lib/draftMode';
 import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
+import Hamburger from '../Hamburger.astro';
 
 const query = graphql(/* GraphQL */ `
   query subheaderQuery {
@@ -24,6 +25,7 @@ if (!allNews) {
 ---
 
 <div class="subheader">
+ 
   <div class="news" set:html={allNews[0].content} />
 
   <div class="socials">Reseaux sociaux</div>
@@ -34,7 +36,9 @@ if (!allNews) {
     height: auto;
     background: var(--color-yellow);
 
+   
     padding-left: var(--page-margin);
+     
     padding-right: var(--page-margin);
     padding-top: 8px;
     padding-bottom: 8px;
@@ -42,13 +46,22 @@ if (!allNews) {
     flex-wrap: nowrap;
     gap: 16px;
     justify-content: space-between;
+     @media screen and (max-width: 768px) {
+      justify-content: flex-end;
+      height:50px;
+     
+    }
   }
 
   .news {
     :global(p) {
+      padding-left: 72px;
       margin-bottom: 0;
       font-size: 18px;
-      color: var(--color-white);
+      color: white;
+    }
+    @media screen and (max-width: 768px) {
+      display:none;
     }
   }
 </style>

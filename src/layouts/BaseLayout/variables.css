@@ -8,8 +8,9 @@
   --page-margin: 30px;
 
   @media screen and (max-width: 600px) {
-    --page-margin: 10px;
+    --page-margin: 16px;
   }
+  
   --page-width-with-margin: 1144px;
 
   --base-body-color: #fff;

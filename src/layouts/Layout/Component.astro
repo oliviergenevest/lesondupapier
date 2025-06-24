@@ -48,11 +48,10 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
     <div class="header hidingHeader-in">
       <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
       <Navigation />
-      <Hamburger/>
+      <!--<Hamburger /> -->
     </div>
   </div>
-  <NavigationMobile />
-  
+  <NavigationMobile /> 
 
   <!-- <Navbar data={navbarData} />-->
   <div transition:animate="fade">
@@ -68,22 +67,17 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   window.addEventListener('load', (event) => {
     const container = document.querySelector('#hidingHeader') as HTMLElement;
     hidingHeader(container);
-     document.querySelector('.hamburger')?.addEventListener('click', () => {
-    document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
-    document.querySelector('html')?.classList.toggle('menu_open');
+    document.querySelector('.hamburger')?.addEventListener('click', () => {
+      document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
+      document.querySelector('html')?.classList.toggle('menu_open');
+    });
+    document.querySelector('.overlay')?.addEventListener('click', () => {
+      document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
+      document.querySelector('html')?.classList.toggle('menu_open');
+    });
+    document.querySelector('.btn_close')?.addEventListener('click', () => {
+      document.querySelector('body')?.classList.toggle('menu_open');
+      document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
+    });
   });
-  document.querySelector('.overlay')?.addEventListener('click', () => {
-    document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
-    document.querySelector('html')?.classList.toggle('menu_open');
-  });
-  document.querySelector('.btn_close')?.addEventListener('click', () => {
-    document.querySelector('body')?.classList.toggle('menu_open');
-    document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
-  });
-  });
-
-  
-
- 
-
 </script>

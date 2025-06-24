@@ -62,7 +62,7 @@ p {
 
 @media screen and (max-width: 600px) {
   .brandlogo {
-    width: 100%;
+    width: 300px;
     height: auto;
   }
 }
@@ -208,23 +208,12 @@ mark.warning {
   }
 }
 
-/* nav styles */
-.hamburger {
-  padding-right: 20px;
-  cursor: pointer;
-}
-
-.hamburger .line {
-  display: block;
-  width: 40px;
-  height: 3px;
-  margin-bottom: 8px;
-  background-color: #ff9776;
-}
 
 blockquote footer {
   color: darkgrey;
 }
+
+   @media screen and (min-width: 768px) {
 
 .hidingHeader {
   position: relative;
@@ -246,9 +235,12 @@ blockquote footer {
   transform: translateY(var(--hidingHeader-animation-offset));
 }
 
+
 @media (prefers-reduced-motion) {
   .hidingHeader-in {
     transition-duration: 1ms;
     transition-timing-function: step-end;
   }
 }
+   }
+
