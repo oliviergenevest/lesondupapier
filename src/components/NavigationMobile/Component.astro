@@ -53,12 +53,14 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
       ))
     }
   </ul>
-  <Hamburger/>
+  <Hamburger />
   <button class="btn_close">Fermer</button>
 </nav>
-<div class="overlay"/>
+<div class="overlay"></div>
 <style>
-    nav {display:none;}
+  nav {
+    display: none;
+  }
   ul {
     display: flex;
     gap: rfs(16px);
@@ -115,7 +117,7 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
 
     /* nav responsive ci dessous pour mobile */
     @media screen and (max-width: 768px) {
-        display:block;
+      display: block;
       position: fixed;
       z-index: 12;
       top: 0;
@@ -133,7 +135,6 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
         a:hover {
           color: var(--color-white);
         }
-        
       }
 
       .btn_close {
@@ -171,4 +172,3 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
     overflow: hidden;
   }
 </style>
-
