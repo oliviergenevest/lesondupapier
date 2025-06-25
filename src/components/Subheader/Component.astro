@@ -4,7 +4,7 @@ import { executeQuery } from '~/lib/datocms/executeQuery';
 import { isDraftModeEnabled } from '~/lib/draftMode';
 import { DraftModeQueryListener } from '~/components/DraftModeQueryListener';
 import Hamburger from '../Hamburger.astro';
-
+import {Icons} from '~/components/Icons'
 const query = graphql(/* GraphQL */ `
   query subheaderQuery {
     allNews(orderBy: position_ASC, first: 1) {
@@ -23,11 +23,12 @@ if (!allNews) {
   });
 }
 ---
-
+ 
 <div class="subheader">
+ 
   <div class="news" set:html={allNews[0].content} />
 
-  <div class="socials">Reseaux sociaux</div>
+  <div class="socials"><Icons className="socials_subheader"/></div>
 </div>
 
 <style>
@@ -35,8 +36,9 @@ if (!allNews) {
     height: auto;
     background: var(--color-yellow);
 
+   
     padding-left: var(--page-margin);
-
+     
     padding-right: var(--page-margin);
     padding-top: 8px;
     padding-bottom: 8px;
@@ -44,9 +46,10 @@ if (!allNews) {
     flex-wrap: nowrap;
     gap: 16px;
     justify-content: space-between;
-    @media screen and (max-width: 768px) {
+     @media screen and (max-width: 768px) {
       justify-content: flex-end;
-      height: 50px;
+      height:50px;
+     
     }
   }
 
@@ -58,7 +61,7 @@ if (!allNews) {
       color: white;
     }
     @media screen and (max-width: 768px) {
-      display: none;
+      display:none;
     }
   }
 </style>

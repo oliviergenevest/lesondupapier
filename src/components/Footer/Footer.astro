@@ -9,6 +9,10 @@ import { PageInlineFragment } from '../inlineRecord/PageInline/fragments';
 import { StructuredText } from '@datocms/astro';
 import { PageLink } from '../linkToRecord/PageLink';
 import { PageInline } from '../inlineRecord/PageInline';
+import { Icons } from '../Icons';
+
+
+
 
 const query = graphql(
   /* GraphQL */ `
@@ -44,6 +48,7 @@ if (!footer) {
 
 <footer>
   <Wrapper>
+    <div class="socials"><Icons className="socials_footer"/></div>
     <StructuredText
       data={footer.structuredFooter}
       linkToRecordComponents={/*
@@ -91,5 +96,12 @@ if (!footer) {
         }
       }
     }
+
+      .socials {
+    padding-bottom:24px;
   }
+
+  }
+
+
 </style>

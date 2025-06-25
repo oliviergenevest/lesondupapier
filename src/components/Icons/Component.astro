@@ -1,0 +1,42 @@
+---
+import { Icon } from 'astro-icon/components';
+interface Props {
+  
+  className?: String;
+}
+const { className } = Astro.props;
+
+---
+<div class="social-icons-list" class:list={[ className]}>
+    <Icon  name="teenyicons:facebook-outline" class:list={[className]}/>
+    <Icon name="teenyicons:youtube-outline" />
+</div>
+
+
+<style>
+    .social-icons-list {
+        display:flex;
+      
+        &.socials_footer{
+            color:#454040;
+            font-size:40px;
+            gap:32px;
+        }
+        &.socials_subheader{
+            font-size: 24px;
+            color: white;
+            gap:16px;
+        }
+    }
+
+   
+/*
+[data-icon] {
+
+    
+}*/
+
+.socials_footer {
+  
+    }
+</style>

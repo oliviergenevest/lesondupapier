@@ -1,5 +1,5 @@
 import { defineConfig, envField } from 'astro/config';
-
+import icon from "astro-icon";
 import react from '@astrojs/react';
 
 // https://astro.build/config
@@ -38,7 +38,15 @@ export default defineConfig({
     },
     validateSecrets: true,
   },
-  integrations: [react()],
+  integrations: [
+    react(),
+    icon({
+      include: {
+       // mdi: ["*"], // (Default) Loads entire Material Design Icon set
+        teenyicons: ["facebook-outline","youtube-outline"], // Loads only Teeny Icon's "account" SVG
+      },
+    }),
+    ],
   image: {
     remotePatterns: [{ protocol: 'https' }],
   },
