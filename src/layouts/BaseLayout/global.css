@@ -28,15 +28,6 @@ body {
   overflow-y: auto;
 }
 
-/* pour la modal de l'equipe todo: a afiiner */
-dialog {
-  margin: auto;
-  transform: translateX(-50%);
-  left: 50%;
-  top: 32px;
-  width: 90vw;
-  --ac-modal-width-4xl: 800px;
-}
 
 .header {
   background: var(--color-cream);
