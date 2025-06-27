@@ -41,7 +41,7 @@ export default defineConfig({
   integrations: [
     react(),
     icon({
-       iconDir: "src/icons",
+      iconDir: 'src/icons',
       include: {
         // mdi: ["*"], // (Default) Loads entire Material Design Icon set
         teenyicons: ['facebook-outline', 'youtube-outline'], // Loads only Teeny Icon's "account" SVG

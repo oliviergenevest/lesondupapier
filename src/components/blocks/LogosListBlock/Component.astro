@@ -3,7 +3,6 @@ import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
 import { LogosListBlockFragment } from './fragments';
 import { LogoBlock } from '../LogoBlock';
 
-
 interface Props {
   block: FragmentOf<typeof LogosListBlockFragment>;
 }
@@ -16,7 +15,6 @@ const unmaskedBlock = readFragment(LogosListBlockFragment, block);
 
 <div class="logos_list_wrapper">
   {unmaskedBlock.items.map((logo) => <LogoBlock logo={logo} />)}
-
 </div>
 
 <style>
