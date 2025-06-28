@@ -9,10 +9,12 @@ import Footer from '~/components/Footer/Footer.astro';
 import { BaseLayout } from '../BaseLayout';
 import { Navigation } from '~/components/Navigation';
 import { Image } from 'astro:assets';
-import logo from '../../img/logo_lesondupapier.png';
+import logo_png from '../../img/logo_lesondupapier.png';
+import logo_svg from '../../icons/lesondupapier-logo.svg';
 import { Subheader } from '~/components/Subheader';
 import Hamburger from '~/components/Hamburger.astro';
 import { NavigationMobile } from '~/components/NavigationMobile';
+import { Icon } from 'astro-icon/components';
 
 type Props = {
   additionalSeo?: TitleMetaLinkTag[];
@@ -46,7 +48,7 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 
   <div class="hidingHeader" id="hidingHeader">
     <div class="header hidingHeader-in">
-      <a href="/" title="Page d'accueil"><Image src={logo} alt="" class="brandlogo" /></a>
+      <a href="/" title="Page d'accueil"><Icon class="brandlogo" width="446px" name="lesondupapier-logo"/></a>
       <Navigation />
       <!--<Hamburger /> -->
     </div>
@@ -61,6 +63,13 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   <Footer />
 </BaseLayout>
 
+
+<style>
+  [data-icon="lesondupapier-logo"] {
+    font-size: 12rem;
+  /*  color: var(--brand-color);*/
+}
+  </style>
 <script>
   import { hidingHeader } from 'hiding-header';
 

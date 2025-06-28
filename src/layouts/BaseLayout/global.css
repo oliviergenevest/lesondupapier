@@ -28,7 +28,6 @@ body {
   overflow-y: auto;
 }
 
-
 .header {
   background: var(--color-cream);
   display: flex;

@@ -29,8 +29,8 @@ const image = data.image
     : null;
 
 //console.log('badgeLabel', data.badgeLabel);
-const backgroundColor = data.backgroundColor?.hex ? data.backgroundColor.hex : "yellow";
-console.log(backgroundColor)
+const backgroundColor = data.backgroundColor?.hex ? data.backgroundColor.hex : 'yellow';
+console.log(backgroundColor);
 ---
 
 <div class="card">
@@ -63,16 +63,15 @@ console.log(backgroundColor)
             <div set:html={data.content} class="modal_content" />
           </ModalBody>
           <ModalFooter>
-             <Button label="Fermer" data-modal-close />
-            </ModalFooter>
+            <Button label="Fermer" data-modal-close />
+          </ModalFooter>
         </Modal>
       )
     }
   </div>
 </div>
 
-<style define:vars={{backgroundColor}}>
-
+<style define:vars={{ backgroundColor }}>
   .card {
     position: relative;
     display: flex;
@@ -141,44 +140,43 @@ console.log(backgroundColor)
 
 <style is:global>
   .modal {
-    margin:0 auto;
-    top:10px;
-    margin-top: 10px; 
-    
-/* pour la modal de l'equipe todo: a afiiner */
-dialog {
-    margin: auto;
+    margin: 0 auto;
+    top: 10px;
+    margin-top: 10px;
 
+    /* pour la modal de l'equipe todo: a afiiner */
+    dialog {
+      margin: auto;
 
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    --ac-modal-width-4xl: 800px;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      --ac-modal-width-4xl: 800px;
 
-    --ac-modal-border-radius: 8px;
-    --ac-modal-backdrop-filter: grayscale(50%);
-    --ac-modal-background-color: var(--color-cream);
-    --ac-spacing-4: 32px;
-    --ac-spacing-6: 32px;
-    --ac-font-sans: var(--font-sans);
-  }
-  .modal_title {
-    text-transform: uppercase;
-    color: var(--color-turquoise);
-  }
-  .modal_subtitle p {
-    font-weight: bold;
-    color: var(--color-black);
-    padding: 0;
-    margin: 0;
-  }
-  .modal_content p {
-    color: var(--color-black);
-  }
+      --ac-modal-border-radius: 8px;
+      --ac-modal-backdrop-filter: grayscale(50%);
+      --ac-modal-background-color: var(--color-cream);
+      --ac-spacing-4: 32px;
+      --ac-spacing-6: 32px;
+      --ac-font-sans: var(--font-sans);
+    }
+    .modal_title {
+      text-transform: uppercase;
+      color: var(--color-turquoise);
+    }
+    .modal_subtitle p {
+      font-weight: bold;
+      color: var(--color-black);
+      padding: 0;
+      margin: 0;
+    }
+    .modal_content p {
+      color: var(--color-black);
+    }
 
-  .modal_image {
-    padding-bottom: 16px !important;
+    .modal_image {
+      padding-bottom: 16px !important;
+    }
   }
-}
 </style>
