@@ -9,8 +9,8 @@ import Footer from '~/components/Footer/Footer.astro';
 import { BaseLayout } from '../BaseLayout';
 import { Navigation } from '~/components/Navigation';
 import { Image } from 'astro:assets';
-import logo_png from '../../img/logo_lesondupapier.png';
-import logo_svg from '../../icons/lesondupapier-logo.svg';
+/*import logo_png from '../../img/logo_lesondupapier.png';
+import logo_svg from '../../icons/lesondupapier-logo.svg';*/
 import { Subheader } from '~/components/Subheader';
 import Hamburger from '~/components/Hamburger.astro';
 import { NavigationMobile } from '~/components/NavigationMobile';
@@ -48,7 +48,9 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 
   <div class="hidingHeader" id="hidingHeader">
     <div class="header hidingHeader-in">
-      <a href="/" title="Page d'accueil"><Icon class="brandlogo" width="446px" name="lesondupapier-logo"/></a>
+      <a href="/" title="Page d'accueil"
+        ><Icon class="brandlogo" width="446px" name="lesondupapier-logo" /></a
+      >
       <Navigation />
       <!--<Hamburger /> -->
     </div>
@@ -56,20 +58,34 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   <NavigationMobile />
 
   <!-- <Navbar data={navbarData} />-->
-  <div transition:animate="fade">
+  <div transition:animate="fade" id="site">
+    <Icon name="oiseau" class="background-svg"/>
     <slot />
   </div>
   <DraftModeToggler />
   <Footer />
 </BaseLayout>
 
-
 <style>
-  [data-icon="lesondupapier-logo"] {
+  [data-icon='lesondupapier-logo'] {
+    font-size: 10rem;
+    /*  color: var(--brand-color);*/
+  }
+
+  .background-svg {
+    position:absolute;
+    top:30%;
+    left:2%;
+    @media screen and (max-width:768px) {
+      display:none;
+    }
+  }
+ [data-icon='oiseau'] {
     font-size: 12rem;
-  /*  color: var(--brand-color);*/
-}
-  </style>
+    color:white;
+  }
+
+</style>
 <script>
   import { hidingHeader } from 'hiding-header';
 
@@ -90,3 +106,4 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
     });
   });
 </script>
+
