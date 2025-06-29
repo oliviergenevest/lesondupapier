@@ -44,10 +44,13 @@ body {
 }
 
 p {
-  line-height: rfs(26px);
+  line-height: 28px;
 
   color: white;
   margin-bottom: rfs(16px);
+  @media screen and (max-width: 600px) {
+  line-height: 26px;
+  }
 }
 
 @media screen and (max-width: 600px) {

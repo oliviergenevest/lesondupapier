@@ -59,7 +59,7 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 
   <!-- <Navbar data={navbarData} />-->
   <div transition:animate="fade" id="site">
-    <Icon name="oiseau" class="background-svg"/>
+    <Icon name="oiseau" class="background-svg" />
     <slot />
   </div>
   <DraftModeToggler />
@@ -69,22 +69,22 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 <style>
   [data-icon='lesondupapier-logo'] {
     font-size: 10rem;
+    padding-top:16px;
     /*  color: var(--brand-color);*/
   }
 
   .background-svg {
-    position:absolute;
-    top:30%;
-    left:2%;
-    @media screen and (max-width:768px) {
-      display:none;
+    position: absolute;
+    top: 30%;
+    left: 2%;
+    @media screen and (max-width: 768px) {
+      display: none;
     }
   }
- [data-icon='oiseau'] {
+  [data-icon='oiseau'] {
     font-size: 12rem;
-    color:white;
+    color: white;
   }
-
 </style>
 <script>
   import { hidingHeader } from 'hiding-header';
@@ -106,4 +106,3 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
     });
   });
 </script>
-
