@@ -79,7 +79,7 @@ const optimizedBgImage = await getImage({ src: homepage.backgroundImage.url, inf
     min-height: calc(100vh - 232px);
     display: flex;
     align-items: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), var(--urlimg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15)), var(--urlimg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -91,5 +91,13 @@ const optimizedBgImage = await getImage({ src: homepage.backgroundImage.url, inf
     display: flex;
     flex-direction: column;
     gap: 16px;
-  }
+
+  
+  
+  :global(h1){
+      color:var(--color-cream);
+      font-family:var(--font-headline);
+      text-transform:uppercase;
+      font-weight:normal;
+    }}
 </style>

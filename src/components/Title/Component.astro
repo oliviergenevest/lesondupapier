@@ -24,8 +24,8 @@ const { as: Tag = 'h1' as any, anchor, children, ...props } = Astro.props;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: rfs(32px) 0;
-    gap: rfs(16px);
+    padding: rfs(48px) 0 rfs(48px) 0;
+    gap: rfs(32px);
     text-align: center;
     text-transform: uppercase;
     &::before,
@@ -54,10 +54,10 @@ const { as: Tag = 'h1' as any, anchor, children, ...props } = Astro.props;
 
   .h2 {
     text-transform: uppercase;
-    font-family: var(--font-headline);
-    font-weight: normal;
-    font-size: rfs(28px);
-    color: var(--color-yellow);
+    font-family: var(--font-sans);
+    font-weight: bold;
+    font-size: rfs(24px);
+    //color: var(--color-yellow);
     padding-bottom: 4px;
   }
 

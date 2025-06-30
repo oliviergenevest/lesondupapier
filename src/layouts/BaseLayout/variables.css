@@ -11,7 +11,7 @@
     --page-margin: 16px;
   }
 
-  --page-width-with-margin: 1144px;
+  --page-width-with-margin: 1280px;
 
   --base-body-color: #fff;
   --extra-light-body-color: #969fb6;
@@ -35,6 +35,7 @@
   --color-red: #e94554;
   --color-green: #7aba5a;
   --color-cream: #fdf0e0;
+  --color-darkcream: #f6e0bc; /*ajouter b3 pour transparence */
   --color-white: #fff;
   --color-black: #000;
 

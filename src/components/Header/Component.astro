@@ -6,26 +6,23 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <div class="hidingHeader" id="hidingHeader">
-    <div class="header hidingHeader-in">
-        <a href="/" title="Page d'accueil">
-            <Icon class="brandlogo" width="446px" name="lesondupapier-logo" />
-        </a>
-        <Navigation />
-        
-    </div>
+  <div class="header hidingHeader-in">
+    <a href="/" title="Page d'accueil">
+      <Icon class="brandlogo" width="446px" name="lesondupapier-logo" />
+    </a>
+    <Navigation />
+  </div>
 </div>
 <NavigationMobile />
 
-  
 <style>
   [data-icon='lesondupapier-logo'] {
     font-size: 10rem;
     padding-top: 16px;
     /*  color: var(--brand-color);*/
   }
-  </style>
+</style>
 
-  
 <script>
   import { hidingHeader } from 'hiding-header';
 

@@ -15,14 +15,24 @@ const { block } = Astro.props;
 const unmaskedBlock = readFragment(ImageTextBlockFragment, block);
 ---
 
-<Wrapper as="section" class="section grid">
+<section class="image-text_wrapper grid">
   <div class="image">
     <ResponsiveImage data={unmaskedBlock.image.responsiveImage} />
   </div>
   <div set:html={unmaskedBlock.text} class="text" />
-</Wrapper>
+</section>
 
 <style>
+.image-text_wrapper {
+   
+   
+    border-radius:8px;
+  
+    padding:48px;
+    background-color:var(--color-darkcream);
+    margin-bottom:32px;
+}
+
   .grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -42,7 +52,7 @@ const unmaskedBlock = readFragment(ImageTextBlockFragment, block);
     position: relative;
     display: block;
     :global(p) {
-      color: var(--color-white);
+      color: var(--color-black);
     }
   }
   @media screen and (max-width: 890px) {
