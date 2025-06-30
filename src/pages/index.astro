@@ -92,12 +92,13 @@ const optimizedBgImage = await getImage({ src: homepage.backgroundImage.url, inf
     flex-direction: column;
     gap: 16px;
 
-  
-  
-  :global(h1){
-      color:var(--color-cream);
-      font-family:var(--font-headline);
-      text-transform:uppercase;
-      font-weight:normal;
-    }}
+    :global(h1) {
+      color: var(--color-cream);
+      font-family: var(--font-headline);
+      text-transform: uppercase;
+      font-weight: normal;
+    }
+  }
+   .homepage :global(.subtitle p) {color:var(--color-white);}
+   .homepage :global(.card_title ) {color:var(--color-white);}
 </style>
