@@ -49,7 +49,7 @@ p {
   color: white;
   margin-bottom: rfs(16px);
   @media screen and (max-width: 600px) {
-  line-height: 26px;
+    line-height: 26px;
   }
 }
 

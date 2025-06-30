@@ -7,14 +7,9 @@ import { Seo, type TitleMetaLinkTag } from '@datocms/astro';
 import { isDraftModeEnabled } from '~/lib/draftMode';
 import Footer from '~/components/Footer/Footer.astro';
 import { BaseLayout } from '../BaseLayout';
-import { Navigation } from '~/components/Navigation';
-import { Image } from 'astro:assets';
-/*import logo_png from '../../img/logo_lesondupapier.png';
-import logo_svg from '../../icons/lesondupapier-logo.svg';*/
-import { Subheader } from '~/components/Subheader';
-import Hamburger from '~/components/Hamburger.astro';
-import { NavigationMobile } from '~/components/NavigationMobile';
 import { Icon } from 'astro-icon/components';
+import { Subheader } from '~/components/Subheader';
+import { Header } from '~/components/Header';
 
 type Props = {
   additionalSeo?: TitleMetaLinkTag[];
@@ -45,19 +40,7 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
   backgroundColor={backgroundColor}
 >
   <Subheader />
-
-  <div class="hidingHeader" id="hidingHeader">
-    <div class="header hidingHeader-in">
-      <a href="/" title="Page d'accueil"
-        ><Icon class="brandlogo" width="446px" name="lesondupapier-logo" /></a
-      >
-      <Navigation />
-      <!--<Hamburger /> -->
-    </div>
-  </div>
-  <NavigationMobile />
-
-  <!-- <Navbar data={navbarData} />-->
+  <Header />
   <div transition:animate="fade" id="site">
     <Icon name="oiseau" class="background-svg" />
     <slot />
@@ -67,11 +50,7 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
 </BaseLayout>
 
 <style>
-  [data-icon='lesondupapier-logo'] {
-    font-size: 10rem;
-    padding-top:16px;
-    /*  color: var(--brand-color);*/
-  }
+
 
   .background-svg {
     position: absolute;
@@ -81,28 +60,9 @@ const result = await executeQuery(query, { includeDrafts: draftModeEnabled });
       display: none;
     }
   }
+
   [data-icon='oiseau'] {
     font-size: 12rem;
     color: white;
   }
 </style>
-<script>
-  import { hidingHeader } from 'hiding-header';
-
-  window.addEventListener('load', (event) => {
-    const container = document.querySelector('#hidingHeader') as HTMLElement;
-    hidingHeader(container);
-    document.querySelector('.hamburger')?.addEventListener('click', () => {
-      document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
-      document.querySelector('html')?.classList.toggle('menu_open');
-    });
-    document.querySelector('.overlay')?.addEventListener('click', () => {
-      document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
-      document.querySelector('html')?.classList.toggle('menu_open');
-    });
-    document.querySelector('.btn_close')?.addEventListener('click', () => {
-      document.querySelector('body')?.classList.toggle('menu_open');
-      document.querySelector('nav.mobile_nav')?.classList.toggle('expanded');
-    });
-  });
-</script>
