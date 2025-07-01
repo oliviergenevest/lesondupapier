@@ -102,6 +102,9 @@ if (events.length === 0) {
     padding: 32px;
     background-color: var(--color-darkcream);
     margin-bottom: 32px;
+     @media screen and (max-width: 768px) {
+      padding: 16px;
+    }
   }
 
   .agenda_item {
@@ -110,8 +113,9 @@ if (events.length === 0) {
     flex-wrap: nowrap;
     font-size: 18px;
     gap: 32px;
-    @media screen and (max-width: 425px) {
-      gap: 16px;
+    @media screen and (max-width: 600px) {
+      gap: 4px;
+      flex-direction: column;
     }
   }
 
@@ -122,8 +126,9 @@ if (events.length === 0) {
     flex-shrink: 0;
     color: var(--color-black);
     text-transform: uppercase;
-    @media screen and (max-width: 425px) {
-      width: 100px;
+    @media screen and (max-width: 600px) {
+      width: 100%;
+      border-bottom: 1px solid rgb(217 162 45);
     }
   }
 
