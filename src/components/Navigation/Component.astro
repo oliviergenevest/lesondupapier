@@ -31,10 +31,20 @@ if (!allNavigations) {
 // the `pathname` is sth like - "/agenda"
 const { pathname } = Astro.url;
 const pathSlug = pathname.replace(/\/$/, '').slice(1);
+console.log("lll:",pathSlug);
 ---
 
 <nav class="desktop_nav">
-  <ul>
+  <ul> <li>
+          <a
+            href='/'
+            title="Accueil"
+            class:list={'link--metis'}
+            aria-current={pathSlug === '' ? 'page' : 'false'}
+          >
+            Accueil
+          </a>
+        </li>
     {
       allNavigations.map((item) => (
         <li>

@@ -38,6 +38,16 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
 
 <nav class="mobile_nav">
   <ul>
+    <li>
+          <a
+            href='/'
+            title="Accueil"
+            class:list={'link--metis'}
+            aria-current={pathSlug === '' ? 'page' : 'false'}
+          >
+            Accueil
+          </a>
+        </li>
     {
       allNavigations.map((item) => (
         <li>
