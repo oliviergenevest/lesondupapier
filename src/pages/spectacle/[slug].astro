@@ -336,7 +336,12 @@ const optimizedBgImage = await getImage({ src: spectacle.mainImage.url, inferSiz
     :global(p) {
       font-size: rfs(16px);
       line-height: rfs(20px);
+    }    
+    :global(h2) {
+      color: var(--color-black);
+      text-decoration: none;
     }
+    
     @media (max-width: 750px) {
       padding: 16px;
     }

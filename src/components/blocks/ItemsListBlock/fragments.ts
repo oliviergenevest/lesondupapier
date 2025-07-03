@@ -31,7 +31,7 @@ export const ItemsListBlockFragment = graphql(
             alt
             responsiveImage(
               sizes: "(max-width: 720px) 100vw, 720px"
-              imgixParams: { auto: format, w: 720, ar: "16:9", fit: crop, sat:-100 }
+              imgixParams: { auto: format, w: 720, ar: "16:9", fit: crop, sat: -100 }
             ) {
               ...ResponsiveImageFragment
             }
