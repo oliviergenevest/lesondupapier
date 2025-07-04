@@ -25,7 +25,7 @@ const query = graphql(/* GraphQL */ `
       }
     }
 
-    pastEvents: allAgendas(filter: { startDate: { lt: $currentDate } }, orderBy: startDate_ASC) {
+    pastEvents: allAgendas(filter: { startDate: { lt: $currentDate } }, orderBy: startDate_DESC) {
       startDate
       endDate
       city
