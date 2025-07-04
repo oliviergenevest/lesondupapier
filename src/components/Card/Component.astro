@@ -22,10 +22,7 @@ path = data.__typename === 'SpectacleRecord' ? `/spectacle/${data.slug}/` : path
 path = data.__typename === 'AtelierRecord' ? `/atelier/${data.slug}/` : path;
 const subtitle = data.__typename === 'MemberRecord' ? data.subtitle : data.cardSubtitle;
 
-const image = data.image
-  ? data.image.responsiveImage
-  : data.cardImage.responsiveImage
-  ;
+const image = data.image ? data.image.responsiveImage : data.cardImage.responsiveImage;
 
 //console.log('badgeLabel', data.badgeLabel);
 ---
@@ -34,7 +31,13 @@ const image = data.image
   {data.__typename === 'MemberRecord' ? <a data-modal-trigger={data.slug} /> : <a href={path} />}
   {data.badgeLabel && <div class="card_badge">{data.badgeLabel}</div>}
   <div class="card_image">
-    {data.filter ? <ResponsiveImage data = { data.image.filterResponsiveImage} /> : <ResponsiveImage data={image} />  }
+    {
+      data.filter ? (
+        <ResponsiveImage data={data.image.filterResponsiveImage} />
+      ) : (
+        <ResponsiveImage data={image} />
+      )
+    }
   </div>
   <div class="content">
     <Title as="h2" class:list={['card_title', 'h2']}>{data.title}</Title>
@@ -54,17 +57,17 @@ const image = data.image
               {image && <ResponsiveImage data={data.image.responsiveImage} />}
             </div>
             <div class="modal_column">
-            <Title as="h2" class="h2 modal_title">
-              {data.title}{' '}
-            </Title>
-            <div set:html={data.subtitle} class="modal_subtitle" />
-            <div set:html={data.content} class="modal_content" />
+              <Title as="h2" class="h2 modal_title">
+                {data.title}{' '}
+              </Title>
+              <div set:html={data.subtitle} class="modal_subtitle" />
+              <div set:html={data.content} class="modal_content" />
             </div>
           </ModalBody>
-        {/*   <ModalFooter>
+          {/*   <ModalFooter>
             <Button label="Fermer" data-modal-close />
           </ModalFooter>
-          */}   
+          */}
         </Modal>
       )
     }
@@ -136,8 +139,7 @@ const image = data.image
     margin: 0 auto;
     top: 10px;
     margin-top: 10px;
-    
-   
+
     .modal_title {
       text-transform: uppercase;
       color: var(--color-turquoise);
@@ -154,52 +156,49 @@ const image = data.image
 
     .modal_image {
       padding-bottom: 16px !important;
-      
-     /* max-width:100%;*/
+
+      /* max-width:100%;*/
       flex-shrink: 0;
-      @media screen and (min-width:768px) {
-        position:sticky;
-        top:0;
-        max-width:40%;
+      @media screen and (min-width: 768px) {
+        position: sticky;
+        top: 0;
+        max-width: 40%;
       }
     }
 
     .modal_column {
-
     }
   }
 
-    button.ac-modal-close {
-      
-      right:30px!important;
-      outline: none;
-      &:hover { background-color:transparent!important;}
-   }
-
-   /* pour la modal de l'equipe todo: a afiiner */
-
-   .ac-modal-body {
-    display:flex;
-    gap:30px;
-    flex-direction:row;
-    @media screen and (max-width:768px) {
-      flex-direction:column;
-      gap:10px;
-      padding-top:0!important;
+  button.ac-modal-close {
+    right: 30px !important;
+    outline: none;
+    &:hover {
+      background-color: transparent !important;
     }
-   }
+  }
 
+  /* pour la modal de l'equipe todo: a afiiner */
 
-    dialog {
-    
-    
-      --ac-modal-width-4xl: 800px;
-
-      --ac-modal-border-radius: 8px;
-      --ac-modal-backdrop-filter: grayscale(50%);
-      --ac-modal-background-color: var(--color-cream);
-      --ac-spacing-4: 32px;
-      --ac-spacing-6: 32px;
-      --ac-font-sans: var(--font-sans);
+  .ac-modal-body {
+    display: flex;
+    gap: 30px;
+    flex-direction: row;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 0 !important;
     }
+  }
+
+  dialog {
+    --ac-modal-width-4xl: 800px;
+
+    --ac-modal-border-radius: 8px;
+    --ac-modal-backdrop-filter: grayscale(50%);
+    --ac-modal-background-color: var(--color-cream);
+    --ac-spacing-4: 32px;
+    --ac-spacing-6: 32px;
+    --ac-font-sans: var(--font-sans);
+  }
 </style>

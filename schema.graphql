@@ -2989,7 +2989,6 @@ input MemberModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  backgroundColor: ColorFilter
   content: TextFilter
   filter: BooleanFilter
   image: FileFilter
@@ -3045,7 +3044,6 @@ type MemberRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  backgroundColor: ColorField
   content(
     """Process content as markdown"""
     markdown: Boolean
