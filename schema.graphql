@@ -2991,6 +2991,7 @@ input MemberModelFilter {
   _isValid: BooleanFilter
   backgroundColor: ColorFilter
   content: TextFilter
+  filter: BooleanFilter
   image: FileFilter
   slug: SlugFilter
   subtitle: TextFilter
@@ -3018,6 +3019,8 @@ enum MemberModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  filter_ASC
+  filter_DESC
   title_ASC
   title_DESC
 }
@@ -3047,6 +3050,7 @@ type MemberRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
+  filter: BooleanType!
   id: ItemId!
   image: ImageFileField
   slug: String!
