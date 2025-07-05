@@ -25,7 +25,7 @@ export const ItemsListBlockFragment = graphql(
           subtitle
           title
           content
-        
+
           image {
             alt
             responsiveImage(
