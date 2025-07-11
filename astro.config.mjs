@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+   site: 'https://www.lesondupapier.com',
   output: 'server',
   security: {
     checkOrigin: false,
@@ -40,13 +41,17 @@ export default defineConfig({
     },
     validateSecrets: true,
   },
-  integrations: [react(), icon({
-    iconDir: 'src/icons',
-    include: {
-      // mdi: ["*"], // (Default) Loads entire Material Design Icon set
-      teenyicons: ['facebook-outline', 'youtube-outline'], // Loads only Teeny Icon's "account" SVG
-    },
-  }), sitemap()],
+  integrations: [
+    react(),
+    icon({
+      iconDir: 'src/icons',
+      include: {
+        // mdi: ["*"], // (Default) Loads entire Material Design Icon set
+        teenyicons: ['facebook-outline', 'youtube-outline'], // Loads only Teeny Icon's "account" SVG
+      },
+    }),
+    sitemap(),
+  ],
   image: {
     remotePatterns: [{ protocol: 'https' }],
   },
