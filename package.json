@@ -21,6 +21,7 @@
     "@datocms/cda-client": "^0.2.6",
     "@datocms/cma-client": "^4.0.1",
     "@iconify-json/teenyicons": "^1.2.2",
+    "@inox-tools/sitemap-ext": "^0.5.2",
     "@mux/mux-player": "^2.9.1",
     "@netlify/functions": "^4.1.9",
     "@types/react": "^18.3.3",

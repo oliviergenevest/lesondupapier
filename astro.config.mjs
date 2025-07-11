@@ -2,7 +2,9 @@ import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 import react from '@astrojs/react';
 
-import sitemap from '@astrojs/sitemap';
+// DOESNT WORK WITH SSR :
+// //import sitemap from '@astrojs/sitemap';
+import sitemap from '@inox-tools/sitemap-ext';
 
 // https://astro.build/config
 export default defineConfig({
