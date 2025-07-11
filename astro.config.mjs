@@ -3,12 +3,12 @@ import icon from 'astro-icon';
 import react from '@astrojs/react';
 
 // DOESNT WORK WITH SSR :
-// //import sitemap from '@astrojs/sitemap';
-import sitemap from '@inox-tools/sitemap-ext';
+import sitemap from '@astrojs/sitemap';
+
 
 // https://astro.build/config
 export default defineConfig({
-   site: 'https://www.lesondupapier.com',
+  site: 'https://www.lesondupapier.com',
   output: 'server',
   security: {
     checkOrigin: false,
