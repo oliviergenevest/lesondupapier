@@ -2,6 +2,8 @@ import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 import react from '@astrojs/react';
 
+import sitemap from '@astrojs/sitemap';
+
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
@@ -38,16 +40,13 @@ export default defineConfig({
     },
     validateSecrets: true,
   },
-  integrations: [
-    react(),
-    icon({
-      iconDir: 'src/icons',
-      include: {
-        // mdi: ["*"], // (Default) Loads entire Material Design Icon set
-        teenyicons: ['facebook-outline', 'youtube-outline'], // Loads only Teeny Icon's "account" SVG
-      },
-    }),
-  ],
+  integrations: [react(), icon({
+    iconDir: 'src/icons',
+    include: {
+      // mdi: ["*"], // (Default) Loads entire Material Design Icon set
+      teenyicons: ['facebook-outline', 'youtube-outline'], // Loads only Teeny Icon's "account" SVG
+    },
+  }), sitemap()],
   image: {
     remotePatterns: [{ protocol: 'https' }],
   },
