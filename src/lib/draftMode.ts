@@ -1,7 +1,10 @@
-import type { APIContext, AstroCookieSetOptions, AstroCookies } from 'astro';
+import { type AstroCookies, type APIContext, type AstroCookieSetOptions, type AstroGlobal } from 'astro';
 import { DRAFT_MODE_COOKIE_NAME } from 'astro:env/client';
 import { SIGNED_COOKIE_JWT_SECRET } from 'astro:env/server';
+import { PUBLIC_HOSTNAME } from 'astro:env/client';
+import { DRAFT_MODE_HOSTNAME } from 'astro:env/server';
 import jwt, { type JwtPayload } from 'jsonwebtoken';
+
 
 /**
  * Generates a JSON Web Token (JWT) that is used as a signed cookie for entering
@@ -68,3 +71,4 @@ export function draftModeHeaders(): HeadersInit {
     Cookie: `${DRAFT_MODE_COOKIE_NAME}=${jwtToken()};`,
   };
 }
+

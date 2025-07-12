@@ -5,7 +5,6 @@ import react from '@astrojs/react';
 // DOESNT WORK WITH SSR :
 import sitemap from '@astrojs/sitemap';
 
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.lesondupapier.com',
@@ -16,6 +15,16 @@ export default defineConfig({
 
   env: {
     schema: {
+      DRAFT_MODE_HOSTNAME: envField.string({
+        context: 'server',
+        access: 'secret',
+        default: 'localhost',
+      }),
+      PUBLIC_HOSTNAME: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+      }),
       DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN: envField.string({
         context: 'server',
         access: 'secret',
