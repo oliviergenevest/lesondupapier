@@ -13,16 +13,16 @@ export default defineConfig({
     checkOrigin: false,
   },
   vite: {
-      plugins: [
-        bundlesize({
-          limits: [{ name: '**/*', limit: '500 kB' }],
-          stats: 'summary',
-        }),
-      ],
-      build: {
-        sourcemap: 'hidden',
-      },
+    plugins: [
+      bundlesize({
+        limits: [{ name: '**/*', limit: '500 kB' }],
+        stats: 'summary',
+      }),
+    ],
+    build: {
+      sourcemap: 'hidden',
     },
+  },
   env: {
     schema: {
       DRAFT_MODE_HOSTNAME: envField.string({

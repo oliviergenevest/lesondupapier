@@ -78,7 +78,12 @@ const query = graphql(
       }
     }
   `,
-  [TagFragment, SideContentBlockFragment],
+  [TagFragment, 
+  SideContentBlockFragment, 
+  ImageGalleryBlockFragment,
+  ImageBlockFragment, 
+  VideoBlockFragment,
+ ],
 );
 
 const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
