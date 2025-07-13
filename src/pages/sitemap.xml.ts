@@ -53,7 +53,7 @@ export const fetchSitemapUrls = async (request: Request, responseHeaders: Header
       );
     } else {
       const url = astroFilePath.replace('./', '/').replace('.astro', '').replace('/index', '');
-    //  console.log("URL",url);
+      //  console.log("URL",url);
       urlsPromises.push(Promise.resolve([url]));
     }
   }
@@ -71,12 +71,13 @@ export const GET: APIRoute = async ({ request }) => {
     });
 
     for (const url of await fetchSitemapUrls(request, responseHeaders)) {
-      if (  url === '/404' ||
-            url === '/agenda-archives' ||
-            url === '/credits' ||
-            url === '/mentions-legales' ||
-            url === '/protection-des-donnees'    
-        ) {
+      if (
+        url === '/404' ||
+        url === '/agenda-archives' ||
+        url === '/credits' ||
+        url === '/mentions-legales' ||
+        url === '/protection-des-donnees'
+      ) {
         continue;
       }
 

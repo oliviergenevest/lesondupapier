@@ -3,7 +3,7 @@
 import { ResponsiveImage } from '../ResponsiveImage';
 //import { type FragmentOf, readFragment } from '~/lib/datocms/graphql';
 import { Title } from '../Title';
-import {  Modal, ModalBody } from 'free-astro-components';
+import { Modal, ModalBody } from 'free-astro-components';
 
 const { data } = Astro.props;
 //console.log(data.image)
@@ -28,7 +28,7 @@ const image = data.image ? data.image.responsiveImage : data.cardImage.responsiv
 ---
 
 <div class="card">
-  {data.__typename === 'MemberRecord' ? <a data-modal-trigger={data.slug} /> : <a href={path} />}
+  {data.__typename === 'MemberRecord' ? <a data-modal-trigger={data.slug} aria-label="En savoir plus"/> : <a href={path} aria-label="En savoir plus"/>}
   {data.badgeLabel && <div class="card_badge">{data.badgeLabel}</div>}
   <div class="card_image">
     {
