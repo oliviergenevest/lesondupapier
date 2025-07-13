@@ -1,15 +1,28 @@
 import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 import react from '@astrojs/react';
+import bundlesize from 'vite-plugin-bundlesize';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.lesondupapier.com',
   output: 'server',
+  trailingSlash: 'never',
+  base: '/',
   security: {
     checkOrigin: false,
   },
-
+  vite: {
+      plugins: [
+        bundlesize({
+          limits: [{ name: '**/*', limit: '500 kB' }],
+          stats: 'summary',
+        }),
+      ],
+      build: {
+        sourcemap: 'hidden',
+      },
+    },
   env: {
     schema: {
       DRAFT_MODE_HOSTNAME: envField.string({

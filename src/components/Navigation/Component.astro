@@ -50,7 +50,7 @@ const pathSlug = pathname.replace(/\/$/, '').slice(1);
       allNavigations.map((item) => (
         <li>
           <a
-            href={'/' + item.items.slug + '/'}
+            href={'/' + item.items.slug }
             title={item.items.title}
             class:list={'link--metis'}
             aria-current={pathSlug === item.items.slug ? 'page' : 'false'}

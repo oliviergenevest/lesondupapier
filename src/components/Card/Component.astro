@@ -18,8 +18,8 @@ const { data } = Astro.props;
 */
 }
 var path = '/';
-path = data.__typename === 'SpectacleRecord' ? `/spectacle/${data.slug}/` : path;
-path = data.__typename === 'AtelierRecord' ? `/atelier/${data.slug}/` : path;
+path = data.__typename === 'SpectacleRecord' ? `/spectacle/${data.slug}` : path;
+path = data.__typename === 'AtelierRecord' ? `/atelier/${data.slug}` : path;
 const subtitle = data.__typename === 'MemberRecord' ? data.subtitle : data.cardSubtitle;
 
 const image = data.image ? data.image.responsiveImage : data.cardImage.responsiveImage;

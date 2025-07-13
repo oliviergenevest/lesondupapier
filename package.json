@@ -42,7 +42,8 @@
     "rfs": "^10.0.0",
     "serialize-error": "^11.0.3",
     "sitemap": "^8.0.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vite-plugin-bundlesize": "^0.2.0"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.10.4",
