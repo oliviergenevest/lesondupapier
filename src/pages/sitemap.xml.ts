@@ -1,8 +1,7 @@
 import type { APIRoute } from 'astro';
 import { SitemapStream, streamToPromise } from 'sitemap';
-
-import { handleUnexpectedError } from './api/utils';
-import { PUBLIC_HOSTNAME } from 'astro:env/client';
+import { baseUrl } from '~/lib/draftMode';
+import {handleUnexpectedError} from '~/pages/api/utils'
 
 const allAstroFiles = import.meta.glob<string>('../pages/**/*.astro', {
   query: '?raw',
@@ -32,7 +31,10 @@ export const fetchSitemapUrls = async (request: Request, responseHeaders: Header
       urlsPromises.push(
         (async () => {
           const graphqlPath =
-            astroFilePath.replace('.astro', '').replace('/index', '') + '/_graphql.ts';
+           astroFilePath.replace('.astro', '').replace('/[slug]', '') + '/_graphql.ts';
+
+           // console.log("astroFilePath",astroFilePath);
+            // console.log( "replaced", astroFilePath.replace('.astro', '').replace('/[slug]', '') + '/_graphql.ts');
 
           const buildSitemapUrlsFnPromise = allBuildSitemapUrls[graphqlPath];
 
@@ -61,7 +63,7 @@ export const fetchSitemapUrls = async (request: Request, responseHeaders: Header
 
 export const GET: APIRoute = async ({ request }) => {
   try {
-    const stream = new SitemapStream({ hostname: PUBLIC_HOSTNAME });
+    const stream = new SitemapStream({ hostname: baseUrl(request) });
     const sitemapPromise = streamToPromise(stream);
 
     const responseHeaders = new Headers({

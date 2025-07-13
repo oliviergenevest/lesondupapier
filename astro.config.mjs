@@ -2,8 +2,6 @@ import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 import react from '@astrojs/react';
 
-// DOESNT WORK WITH SSR :
-import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
@@ -61,7 +59,7 @@ export default defineConfig({
         teenyicons: ['facebook-outline', 'youtube-outline'], // Loads only Teeny Icon's "account" SVG
       },
     }),
-    sitemap(),
+   
   ],
   image: {
     remotePatterns: [{ protocol: 'https' }],
