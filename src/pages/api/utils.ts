@@ -75,4 +75,3 @@ export function isRelativeUrl(path: string) {
     }
   }
 }
-

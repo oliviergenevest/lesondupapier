@@ -1,13 +1,7 @@
-
-
 import { graphql } from '~/lib/datocms/graphql';
 import type { BuildSitemapUrlsFn } from '~/pages/sitemap.xml';
-import {
-  SpectacleUrlFragment,
-  buildUrlForSpectacle,
-} from '~/lib/datocms/gqlUrlBuilder/spectacle';
+import { SpectacleUrlFragment, buildUrlForSpectacle } from '~/lib/datocms/gqlUrlBuilder/spectacle';
 import { executeQueryOutsideAstro } from '~/lib/datocms/executeQuery';
-
 
 // SITEMAP
 export const buildSitemapUrls: BuildSitemapUrlsFn = async (executeQueryOptions) => {
@@ -19,7 +13,7 @@ export const buildSitemapUrls: BuildSitemapUrlsFn = async (executeQueryOptions) 
             ...SpectacleUrlFragment
           }
         }
-      `, 
+      `,
       [SpectacleUrlFragment],
     ),
     executeQueryOptions,

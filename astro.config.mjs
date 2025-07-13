@@ -2,7 +2,6 @@ import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 import react from '@astrojs/react';
 
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.lesondupapier.com',
@@ -59,7 +58,6 @@ export default defineConfig({
         teenyicons: ['facebook-outline', 'youtube-outline'], // Loads only Teeny Icon's "account" SVG
       },
     }),
-   
   ],
   image: {
     remotePatterns: [{ protocol: 'https' }],

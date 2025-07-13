@@ -76,13 +76,11 @@ export function draftModeHeaders(): HeadersInit {
   };
 }
 
-
-
 export function baseUrl(requestOrAstro: Request | AstroGlobal) {
- /* const draftMode = isDraftModeEnabled(contextOrCookies);
+  /* const draftMode = isDraftModeEnabled(contextOrCookies);
    return DRAFT_MODE_HOSTNAME === 'localhost'
     ? 'http://localhost:4321'
     : `https://${draftMode ? DRAFT_MODE_HOSTNAME : PUBLIC_HOSTNAME}`;
     */
-   return PUBLIC_HOSTNAME;
+  return PUBLIC_HOSTNAME;
 }

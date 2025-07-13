@@ -1,4 +1,7 @@
-import {rawExecuteQueryWithAutoPagination, executeQuery as libExecuteQuery } from '@datocms/cda-client';
+import {
+  rawExecuteQueryWithAutoPagination,
+  executeQuery as libExecuteQuery,
+} from '@datocms/cda-client';
 import {
   DATOCMS_DRAFT_CONTENT_CDA_TOKEN,
   DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN,
@@ -31,7 +34,6 @@ type ExecuteQueryOptions<Variables> = {
   includeDrafts?: boolean;
 };
 
-
 export async function executeQueryOutsideAstro<Result, Variables>(
   query: TadaDocumentNode<Result, Variables>,
   options: Pick<ExecuteQueryOptions<Variables>, 'variables'> & {
@@ -52,11 +54,10 @@ export async function executeQueryOutsideAstro<Result, Variables>(
 
     const newCacheTags = datocmsGraphqlResponse.headers.get('x-cache-tags')!.split(' ');
 
-    
     return result;
   } catch (e) {
     //console.log(print(query));
-    console.log("ERROR");
+    console.log('ERROR');
     throw e;
   }
 }
