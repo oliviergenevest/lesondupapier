@@ -1,7 +1,7 @@
 import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 import react from '@astrojs/react';
-import bundlesize from 'vite-plugin-bundlesize';
+import { visualizer } from 'rollup-plugin-visualizer';
 import netlify from '@astrojs/netlify';
 // https://astro.build/config
 export default defineConfig({
@@ -12,17 +12,16 @@ export default defineConfig({
   security: {
     checkOrigin: false,
   },
-  vite: {
-    plugins: [
-      bundlesize({
-        limits: [{ name: '**/*', limit: '500 kB' }],
-        stats: 'summary',
-      }),
-    ],
-    build: {
-      sourcemap: true,
-    },
+ vite: {
+  build: {
+    sourcemap: true,
+     chunkSizeWarningLimit: 500, // en kB
   },
+  plugins: [
+    visualizer({ open: true, gzipSize: true }),
+   
+  ],
+},
   env: {
     schema: {
       DRAFT_MODE_HOSTNAME: envField.string({

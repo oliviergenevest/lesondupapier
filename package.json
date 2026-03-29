@@ -43,8 +43,7 @@
     "rfs": "^10.0.0",
     "serialize-error": "^11.0.3",
     "sitemap": "^8.0.0",
-    "typescript": "^5.5.4",
-    "vite-plugin-bundlesize": "^0.2.0"
+    "typescript": "^5.5.4"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.10.7",
@@ -55,6 +54,7 @@
     "postcss-nested": "^7.0.2",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
+    "rollup-plugin-visualizer": "^7.0.1",
     "simple-git-hooks": "^2.11.1"
   },
   "simple-git-hooks": {
