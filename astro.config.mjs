@@ -20,7 +20,7 @@ export default defineConfig({
       }),
     ],
     build: {
-      sourcemap: 'hidden',
+      sourcemap: 'true',
     },
   },
   env: {
