@@ -3,3 +3,5 @@
   command = "npx astro add netlify --yes && npm install && npm run build"
 [functions]
  node_bundler= "esbuild"
+ [build.environment]
+  NPM_FLAGS = "--legacy-peer-deps"
