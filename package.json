@@ -14,10 +14,11 @@
     "format": "npx prettier . --write"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/react": "^4.2.0",
-    "@astrojs/sitemap": "^3.4.1",
-    "@datocms/astro": "^0.6.2",
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/netlify": "^7.0.5",
+    "@astrojs/react": "^5.0.2",
+    "@astrojs/sitemap": "^3.7.2",
+    "@datocms/astro": "^0.6.12",
     "@datocms/cda-client": "^0.2.6",
     "@datocms/cma-client": "^4.0.1",
     "@iconify-json/teenyicons": "^1.2.2",
@@ -25,7 +26,7 @@
     "@netlify/functions": "^4.1.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "astro": "^5.10.0",
+    "astro": "^6.1.1",
     "astro-embed": "^0.9.0",
     "date-fns": "^4.1.0",
     "datocms-structured-text-generic-html-renderer": "^5.0.0",
@@ -46,7 +47,7 @@
     "vite-plugin-bundlesize": "^0.2.0"
   },
   "devDependencies": {
-    "@astrojs/ts-plugin": "^1.10.4",
+    "@astrojs/ts-plugin": "^1.10.7",
     "@types/jsdom": "^21.1.7",
     "@types/jsonwebtoken": "^9.0.6",
     "astro-icon": "^1.1.5",

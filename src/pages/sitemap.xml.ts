@@ -3,6 +3,7 @@ import { SitemapStream, streamToPromise } from 'sitemap';
 import { baseUrl } from '~/lib/draftMode';
 import { handleUnexpectedError } from '~/pages/api/utils';
 
+
 const allAstroFiles = import.meta.glob<string>('../pages/**/*.astro', {
   query: '?raw',
   import: 'default',
@@ -64,6 +65,7 @@ export const fetchSitemapUrls = async (request: Request, responseHeaders: Header
 export const GET: APIRoute = async ({ request }) => {
   try {
     const stream = new SitemapStream({ hostname: baseUrl(request) });
+  
     const sitemapPromise = streamToPromise(stream);
 
     const responseHeaders = new Headers({
