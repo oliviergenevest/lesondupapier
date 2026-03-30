@@ -12,16 +12,13 @@ export default defineConfig({
   security: {
     checkOrigin: false,
   },
- vite: {
-  build: {
-    sourcemap: true,
-     chunkSizeWarningLimit: 500, // en kB
+  vite: {
+    build: {
+      sourcemap: true,
+      chunkSizeWarningLimit: 500, // en kB
+    },
+    plugins: [visualizer({ open: true, gzipSize: true })],
   },
-  plugins: [
-    visualizer({ open: true, gzipSize: true }),
-   
-  ],
-},
   env: {
     schema: {
       DRAFT_MODE_HOSTNAME: envField.string({
